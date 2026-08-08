@@ -1,35 +1,583 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staniel Cay | Yacht Club & Airstrip</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; line-height: 1.6; color: #023047; background: #f8f9fa; }
-        header { background: #028090; color: white; padding: 2rem 5%; text-align: center; }
-        nav { background: #00a896; padding: 0.8rem 5%; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-        nav a { color: white; text-decoration: none; font-weight: 600; padding: 5px 10px; border-radius: 4px; }
-        nav a:hover, nav a.active { background: #023047; }
-        main { padding: 2rem 5%; max-width: 900px; margin: 0 auto; background: white; border-radius: 8px; margin-top: 1rem; }
-        footer { text-align: center; padding: 2rem; color: #6c757d; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Explore Staniel Cay | Exuma Sport Coast Service</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #073b4c;
+    background: #f2fbfc;
+    line-height: 1.65;
+}
+
+/* COMPANY BRAND */
+.company-intro {
+    background: linear-gradient(135deg, #006d77, #00a6a6);
+    color: white;
+    padding: 18px 15px;
+}
+
+.company-intro-inner {
+    max-width: 1150px;
+    margin: auto;
+    text-align: center;
+}
+
+.company-name {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 0 0 8px;
+    font-size: 28px;
+}
+
+.company-name img {
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.company-intro p {
+    max-width: 900px;
+    margin: 5px auto;
+    font-size: 14px;
+}
+
+/* NAV */
+nav {
+    background: #023047;
+    padding: 10px 4%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+nav a:hover,
+nav a.active {
+    background: #00a896;
+}
+
+/* HERO */
+.hero {
+    min-height: 480px;
+    background:
+        linear-gradient(rgba(0,65,80,.35), rgba(0,50,70,.55)),
+        url("stanielcay.jpg") center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.hero-content {
+    color: white;
+    max-width: 900px;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 7vw, 72px);
+    margin: 0;
+    text-shadow: 0 3px 10px #003b4d;
+}
+
+.hero p {
+    font-size: clamp(18px, 3vw, 25px);
+    margin: 12px 0;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: #00b4d8;
+    padding: 9px 18px;
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+/* INTRO */
+.introduction {
+    max-width: 1050px;
+    margin: 40px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.introduction h2 {
+    font-size: 34px;
+    color: #006d77;
+}
+
+.introduction p {
+    font-size: 17px;
+}
+
+/* CARDS */
+.section-title {
+    text-align: center;
+    margin: 55px 15px 25px;
+}
+
+.section-title h2 {
+    font-size: 34px;
+    color: #006d77;
+    margin-bottom: 5px;
+}
+
+.section-title p {
+    color: #52727c;
+}
+
+.cards {
+    max-width: 1150px;
+    margin: auto;
+    padding: 0 18px 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,80,100,.13);
+    transition: transform .25s, box-shadow .25s;
+}
+
+.card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 14px 32px rgba(0,80,100,.2);
+}
+
+.card-photo {
+    height: 220px;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card-body {
+    padding: 22px;
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #007c91;
+    font-size: 23px;
+}
+
+.card p {
+    color: #48636b;
+}
+
+.card-tag {
+    display: inline-block;
+    background: #caf0f8;
+    color: #006d77;
+    padding: 5px 11px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* SPECIAL CARDS */
+.pig-card {
+    border-top: 6px solid #ff9f1c;
+}
+
+.fish-card {
+    border-top: 6px solid #00b4d8;
+}
+
+.shark-card {
+    border-top: 6px solid #0077b6;
+}
+
+.grotto-card {
+    border-top: 6px solid #6a4c93;
+}
+
+.beach-card {
+    border-top: 6px solid #06d6a0;
+}
+
+/* EXPERIENCE BANNER */
+.experience {
+    margin: 45px auto;
+    max-width: 1100px;
+    padding: 45px 25px;
+    border-radius: 22px;
+    background:
+        linear-gradient(120deg, rgba(0,100,120,.88), rgba(0,180,190,.78)),
+        url("stanielcay.jpg") center/cover;
+    color: white;
+    text-align: center;
+}
+
+.experience h2 {
+    font-size: 36px;
+    margin-top: 0;
+}
+
+.experience p {
+    max-width: 800px;
+    margin: auto;
+    font-size: 17px;
+}
+
+/* TIPS */
+.tips {
+    max-width: 1050px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.tip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 18px;
+}
+
+.tip {
+    background: white;
+    padding: 22px;
+    border-radius: 15px;
+    border-left: 5px solid #00a896;
+}
+
+.tip h3 {
+    margin-top: 0;
+}
+
+/* FOOTER */
+footer {
+    background: #023047;
+    color: white;
+    text-align: center;
+    padding: 35px 20px;
+    margin-top: 60px;
+}
+
+@media(max-width:600px) {
+    .company-name {
+        font-size: 23px;
+    }
+
+    .company-name img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .hero {
+        min-height: 390px;
+    }
+
+    .introduction h2,
+    .section-title h2 {
+        font-size: 28px;
+    }
+}
+</style>
 </head>
+
 <body>
-    <header><h1>Staniel Cay</h1><p>The Central Hub of the Upper Exuma Cays</p></header>
-    <nav>
-        <a href="index.html">Exuma Overview</a>
-        <a href="majorcay.html">Major Cay</a>
-        <a href="compasscay.html">Compass Cay</a>
-        <a href="stockingisland.html">Stocking Island</a>
-        <a href="sandbars.html">Sandbars</a>
-        <a href="stanielcay.html" class="active">Staniel Cay</a>
-        <a href="seapark.html">Sea Park</a>
-        <a href="grotto.html">Thunderball Grotto</a>
-    </nav>
-    <main>
-        <img src="stanielcay.jpg" alt="Staniel Cay" style="width:100%;max-height:400px;object-fit:cover;border-radius:8px;margin-bottom:1rem;">
-        <h2>Gateway to the Cays</h2>
-        <p>Staniel Cay offers an airstrip, golf cart rentals, boutique villas, and the famous Staniel Cay Yacht Club. It serves as the primary launching pad for day trips.</p>
-    </main>
-    <footer><p>&copy; 2026 Exuma Travel Guide</p></footer>
+
+<!-- COMPANY -->
+<section class="company-intro">
+    <div class="company-intro-inner">
+
+        <h1 class="company-name">
+            <img src="images/exumalogo.jpg" alt="Exuma Sport Coast Service logo">
+            <span>Exuma Sport Coast Service</span>
+        </h1>
+
+        <p>
+            Your guide to discovering accommodation, beaches, marine life,
+            island adventures and unforgettable experiences throughout Exuma.
+        </p>
+
+    </div>
+</section>
+
+<!-- NAVIGATION -->
+<nav>
+    <a href="index.html">Exuma Overview</a>
+    <a href="majorcay.html">Major Cay</a>
+    <a href="compasscay.html">Compass Cay</a>
+    <a href="stockingisland.html">Stocking Island</a>
+    <a href="sandbars.html">Sandbars</a>
+    <a href="stanielcay.html" class="active">Staniel Cay</a>
+    <a href="seapark.html">Sea Park</a>
+    <a href="grotto.html">Thunderball Grotto</a>
+    <a href="accommodations.html">Accommodations</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <span class="hero-badge">THE HEART OF THE EXUMA CAYS</span>
+
+        <h1>Explore Staniel Cay</h1>
+
+        <p>
+            Turquoise water, white-sand beaches, colorful fish,
+            swimming pigs, hidden caves and unforgettable island adventures.
+        </p>
+    </div>
+</section>
+
+<!-- INTRODUCTION -->
+<section class="introduction">
+
+    <h2>Welcome to Staniel Cay</h2>
+
+    <p>
+        Staniel Cay is one of the most popular bases for exploring the
+        Exuma Cays. Surrounded by incredibly clear water, small islands,
+        reefs and white-sand beaches, it gives visitors easy access to
+        some of the most memorable experiences in the Exumas.
+    </p>
+
+    <p>
+        From swimming with the famous pigs of Big Major Cay to snorkeling
+        through Thunderball Grotto and visiting the nurse sharks at
+        Compass Cay, Staniel Cay is an excellent starting point for
+        discovering the surrounding islands by boat.
+    </p>
+
+</section>
+
+
+
+<!-- STANIEL CAY PHOTO EXPERIENCES -->
+
+<div class="section-title">
+    <h2>🌊 Discover Staniel Cay</h2>
+    <p>Explore the beaches, turquoise waters, islands and unforgettable scenery around Staniel Cay.</p>
+</div>
+
+<section class="cards">
+
+    <article class="card pig-card">
+        <img class="card-photo"
+             src="images/stanielcay1.jpg"
+             alt="Staniel Cay and surrounding turquoise waters">
+
+        <div class="card-body">
+            <span class="card-tag">STANIEL CAY</span>
+            <h3>🏝️ Island Paradise</h3>
+            <p>
+                Staniel Cay is surrounded by brilliant turquoise water,
+                beautiful beaches and small islands that make the area
+                one of the most memorable places to explore in the Exumas.
+            </p>
+        </div>
+    </article>
+
+
+    <article class="card beach-card">
+        <img class="card-photo"
+             src="images/stanielcay2.jpg"
+             alt="White sand beach near Staniel Cay">
+
+        <div class="card-body">
+            <span class="card-tag">BEACHES</span>
+            <h3>🏖️ White-Sand Beaches</h3>
+            <p>
+                Discover peaceful stretches of white sand where visitors
+                can relax, swim and enjoy the clear Bahamian water.
+                Many beautiful beaches around the cay are best reached
+                by boat.
+            </p>
+        </div>
+    </article>
+
+
+    <article class="card fish-card">
+        <img class="card-photo"
+             src="images/stanielcay3.jpg"
+             alt="Clear turquoise water around Staniel Cay">
+
+        <div class="card-body">
+            <span class="card-tag">TURQUOISE WATERS</span>
+            <h3>🐠 Clear Caribbean Waters</h3>
+            <p>
+                The waters surrounding Staniel Cay are famous for their
+                exceptional clarity and shades of blue and turquoise,
+                creating spectacular scenery from both the beach and a boat.
+            </p>
+        </div>
+    </article>
+
+
+    <article class="card shark-card">
+        <img class="card-photo"
+             src="images/stanielcay4.jpg"
+             alt="Island scenery around Staniel Cay">
+
+        <div class="card-body">
+            <span class="card-tag">EXUMA CAYS</span>
+            <h3>🚤 Explore Nearby Islands</h3>
+            <p>
+                Staniel Cay is an excellent base for boat trips to nearby
+                cays, beaches, sandbars and other famous Exuma attractions.
+                Island hopping makes it possible to experience several
+                destinations in one day.
+            </p>
+        </div>
+    </article>
+
+
+    <article class="card grotto-card">
+        <img class="card-photo"
+             src="images/stanielcay5.jpg"
+             alt="Staniel Cay island adventure">
+
+        <div class="card-body">
+            <span class="card-tag">ISLAND ADVENTURE</span>
+            <h3>🌴 Your Staniel Cay Experience</h3>
+            <p>
+                Whether you are relaxing beside the water, exploring
+                neighboring islands or heading out on a boat adventure,
+                Staniel Cay provides an ideal starting point for discovering
+                the Exuma Cays.
+            </p>
+        </div>
+    </article>
+
+</section>
+
+
+<!-- MARINE LIFE -->
+
+<section class="experience">
+
+    <h2>🐠 A World Beneath the Water</h2>
+
+    <p>
+        One of Staniel Cay's greatest attractions is beneath the surface.
+        The surrounding clear waters provide opportunities for snorkeling,
+        swimming and diving among tropical marine life, reefs and underwater
+        landscapes.
+    </p>
+
+</section>
+
+
+<!-- WHAT TO DO -->
+<div class="section-title">
+
+    <h2>☀️ Things To Do Around Staniel Cay</h2>
+
+    <p>
+        Build your own island adventure.
+    </p>
+
+</div>
+
+<section class="tips">
+
+    <div class="tip-grid">
+
+        <div class="tip">
+            <h3>🤿 Snorkeling</h3>
+            <p>
+                Explore shallow reefs and underwater habitats filled with
+                tropical fish and colorful marine life.
+            </p>
+        </div>
+
+        <div class="tip">
+            <h3>🐷 Pig Beach</h3>
+            <p>
+                Take a boat to Big Major Cay and see the famous swimming pigs.
+            </p>
+        </div>
+
+        <div class="tip">
+            <h3>🦈 Shark Encounter</h3>
+            <p>
+                Visit Compass Cay for the famous nurse shark experience.
+            </p>
+        </div>
+
+        <div class="tip">
+            <h3>🏝️ Beach Day</h3>
+            <p>
+                Discover quiet beaches and spend time swimming in
+                spectacular turquoise water.
+            </p>
+        </div>
+
+        <div class="tip">
+            <h3>🚤 Boat Adventure</h3>
+            <p>
+                Explore several cays and attractions during one island-hopping
+                excursion.
+            </p>
+        </div>
+
+        <div class="tip">
+            <h3>🎣 Fishing</h3>
+            <p>
+                The surrounding Exuma waters offer opportunities for fishing
+                excursions arranged with local operators.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- VISITOR MESSAGE -->
+<section class="experience">
+
+    <h2>🌴 Make Staniel Cay Your Exuma Adventure Base</h2>
+
+    <p>
+        Whether you want to photograph swimming pigs, swim through a hidden
+        cave, see tropical fish, relax on a sandbar or explore the surrounding
+        islands by boat, Staniel Cay puts many of the Exumas' most memorable
+        experiences within reach.
+    </p>
+
+</section>
+
+
+<footer>
+
+    <h3>Exuma Sport Coast Service</h3>
+
+    <p>
+        Discover accommodations and unforgettable experiences throughout
+        Exuma, Bahamas.
+    </p>
+
+    <p>&copy; 2026 Exuma Sport Coast Service</p>
+
+</footer>
+
 </body>
 </html>
