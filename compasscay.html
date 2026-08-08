@@ -12,8 +12,166 @@
         main { padding: 2rem 5%; max-width: 900px; margin: 0 auto; background: white; border-radius: 8px; margin-top: 1rem; }
         footer { text-align: center; padding: 2rem; color: #6c757d; }
     </style>
+
+<style>
+.company-intro {
+    width: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #087b89, #119ca3);
+    border-bottom: 1px solid #08727f;
+    padding: 28px 18px;
+}
+
+.company-intro-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.company-intro h1 {
+    color: #ffffff;
+    margin: 0 0 14px;
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.company-intro p {
+    color: #ffffff;
+    margin: 0 0 12px;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.company-intro p:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+    .company-intro {
+        padding: 22px 15px;
+    }
+
+    .company-intro h1 {
+    color: #ffffff;
+        font-size: 25px;
+    }
+
+    .company-intro p {
+    color: #ffffff;
+        font-size: 14px;
+        line-height: 1.65;
+    }
+}
+</style>
+
+
+<style>
+.compass-section {
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 0 18px;
+}
+
+.compass-section h2 {
+    color: #007c91;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.compass-intro {
+    max-width: 900px;
+    margin: 0 auto 30px;
+    line-height: 1.8;
+}
+
+.compass-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.compass-card {
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,.12);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.compass-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 32px rgba(0,0,0,.18);
+}
+
+.compass-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+}
+
+.compass-card-content {
+    padding: 20px;
+}
+
+.compass-card-content h3 {
+    margin: 0 0 10px;
+    color: #007c91;
+    font-size: 21px;
+}
+
+.compass-card-content p {
+    margin: 0;
+    color: #36515a;
+    line-height: 1.7;
+}
+
+.compass-highlight {
+    margin-top: 35px;
+    padding: 24px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #e0f7fa, #caf0f8);
+}
+
+@media (max-width: 600px) {
+    .compass-section {
+        padding: 0 12px;
+    }
+
+    .compass-card img {
+        height: 220px;
+    }
+}
+</style>
+
 </head>
 <body>
+
+<!-- EXUMA SPORT COAST SERVICE -->
+<section class="company-intro">
+    <div class="company-intro-inner">
+        <h1>Exuma Sport Coast Service</h1>
+
+        <p>
+            <strong>Exuma Sport Coast Service</strong> is the accommodation
+            service featured on this platform, helping visitors discover
+            comfortable places to stay while exploring the beautiful islands
+            and communities of Exuma, Bahamas. Our accommodation selection
+            covers areas including George Town, Moss Town, Staniel Cay,
+            Michelson/Roker's Point and other destinations throughout Exuma.
+        </p>
+
+        <p>
+            Whether you are visiting for a relaxing beach holiday, an island
+            adventure, water activities or a longer stay, Exuma Sport Coast
+            Service provides accommodation options designed to make your
+            Exuma experience convenient and enjoyable. Browse available
+            properties, view their living rooms, bedrooms and bathrooms, and
+            choose the accommodation that best suits your trip.
+        </p>
+    </div>
+</section>
+
+
     <header><h1>Compass Cay Marina</h1><p>Swim with docile Nurse Sharks in shallow waters</p></header>
     <nav>
         <a href="index.html">Exuma Overview</a>
@@ -25,11 +183,103 @@
         <a href="seapark.html">Sea Park</a>
         <a href="grotto.html">Thunderball Grotto</a>
     </nav>
-    <main>
-        <img src="compasscay.jpg" alt="Compass Cay" style="width:100%;max-height:400px;object-fit:cover;border-radius:8px;margin-bottom:1rem;">
-        <h2>Compass Cay Nurse Sharks</h2>
-        <p>Compass Cay is best known for its marina sanctuary where visitors can stand on the docks or swim safely alongside resident nurse sharks.</p>
-    </main>
+    
+<main>
+
+<section class="compass-section">
+
+    <h2>Discover Compass Cay</h2>
+
+    <div class="compass-intro">
+        <p>
+            Compass Cay is one of the memorable stops in the Exuma Cays,
+            known for its beautiful turquoise waters, natural surroundings,
+            marina and famous nurse sharks. Visitors can explore the island,
+            enjoy the peaceful scenery and experience the clear shallow waters
+            around the cay.
+        </p>
+
+        <p>
+            The area is especially popular with visitors arriving by boat.
+            Compass Cay can also be combined with other nearby Exuma
+            attractions during an island-hopping adventure.
+        </p>
+    </div>
+
+    <div class="compass-grid">
+
+        <article class="compass-card">
+            <img src="images/compasscay1.jpg" alt="Compass Cay">
+            <div class="compass-card-content">
+                <h3>Compass Cay</h3>
+                <p>
+                    Explore the beautiful island surroundings and enjoy the
+                    peaceful atmosphere of one of the Exuma Cays.
+                </p>
+            </div>
+        </article>
+
+        <article class="compass-card">
+            <img src="images/compasscay2.jpg" alt="Compass Cay Marina">
+            <div class="compass-card-content">
+                <h3>Compass Cay Marina</h3>
+                <p>
+                    The marina provides a convenient stopping point for
+                    visitors exploring the surrounding cays by boat.
+                </p>
+            </div>
+        </article>
+
+        <article class="compass-card">
+            <img src="images/compasscay3.jpg" alt="Nurse sharks at Compass Cay">
+            <div class="compass-card-content">
+                <h3>Nurse Sharks</h3>
+                <p>
+                    Compass Cay is famous for its resident nurse sharks,
+                    which are commonly seen around the marina and shallow
+                    waters.
+                </p>
+            </div>
+        </article>
+
+        <article class="compass-card">
+            <img src="images/compasscay4.jpg" alt="Turquoise waters at Compass Cay">
+            <div class="compass-card-content">
+                <h3>Turquoise Waters</h3>
+                <p>
+                    Enjoy the exceptionally clear blue and turquoise water
+                    surrounding Compass Cay and the nearby islands.
+                </p>
+            </div>
+        </article>
+
+        <article class="compass-card">
+            <img src="images/compasscay5.jpg" alt="Compass Cay island scenery">
+            <div class="compass-card-content">
+                <h3>Island Adventure</h3>
+                <p>
+                    Compass Cay makes an excellent stop for visitors exploring
+                    the Exuma Cays by boat and discovering multiple islands in
+                    one trip.
+                </p>
+            </div>
+        </article>
+
+    </div>
+
+    <div class="compass-highlight">
+        <h3>Plan Your Compass Cay Visit</h3>
+        <p>
+            A boat trip is one of the best ways to experience Compass Cay
+            and the surrounding Exuma Cays. Visitors can combine their stop
+            with nearby beaches, sandbars and other island attractions.
+        </p>
+    </div>
+
+</section>
+
+</main>
+
     <footer><p>&copy; 2026 Exuma Travel Guide</p></footer>
 </body>
 </html>
