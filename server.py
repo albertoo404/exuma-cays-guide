@@ -1,10 +1,12 @@
 from flask import Flask, request, redirect, send_from_directory, jsonify
+from flask_cors import CORS
 import sqlite3
 from pathlib import Path
 from datetime import datetime
 import secrets
 
 app = Flask(__name__)
+CORS(app, origins=["https://albertoo404.github.io"])
 
 BASE = Path(__file__).resolve().parent
 DB = BASE / "reservations.db"
