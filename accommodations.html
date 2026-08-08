@@ -105,44 +105,7 @@ header a {
 }
 
 /* THREE ACCOMMODATION PHOTOS */
-.gallery {
-    display: flex;
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    gap: 0;
-}
 
-.gallery-item {
-    position: relative;
-}
-
-.gallery img {
-    flex: 0 0 100%;
-    width: 100%;
-    height: 240px;
-    object-fit: cover;
-    display: block;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    cursor: pointer;
-}
-
-.gallery-label {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0,0,0,0.65);
-    color: white;
-    text-align: center;
-    font-size: 11px;
-    padding: 5px 2px;
-}
 
 .info {
     padding: 14px 15px 5px;
@@ -201,10 +164,251 @@ footer {
     display: none;
 }
 
+
+/* One-photo-at-a-time accommodation gallery */
+.gallery {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0;
+}
+
+.gallery::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-item {
+    flex: 0 0 100%;
+    width: 100%;
+    position: relative;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+}
+
+.gallery img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+}
+
 </style>
+
+<style>
+.company-intro {
+    width: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #087b89, #119ca3);
+    border-bottom: 1px solid #08727f;
+    padding: 28px 18px;
+}
+
+.company-intro-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.company-intro h1 {
+    color: #ffffff;
+    margin: 0 0 14px;
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.company-intro p {
+    color: #ffffff;
+    margin: 0 0 12px;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.company-intro p:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+    .company-intro {
+        padding: 22px 15px;
+    }
+
+    .company-intro h1 {
+    color: #ffffff;
+        font-size: 25px;
+    }
+
+    .company-intro p {
+    color: #ffffff;
+        font-size: 14px;
+        line-height: 1.65;
+    }
+}
+</style>
+
+
+<style id="accommodation-description-style">
+.accommodation-description {
+    margin: 10px 0 15px;
+    padding: 0;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.6;
+}
+</style>
+
+
+<style>
+.company-endnote {
+    width: 100%;
+    box-sizing: border-box;
+    background: #023047;
+    color: #ffffff;
+    padding: 40px 20px;
+    margin-top: 50px;
+}
+
+.company-endnote-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.company-endnote h2 {
+    margin: 0 0 15px;
+    color: #ffffff;
+    font-size: 27px;
+}
+
+.company-endnote p {
+    margin: 10px auto;
+    max-width: 800px;
+    line-height: 1.7;
+}
+
+.company-endnote a {
+    color: #90e0ef;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.company-endnote a:hover {
+    text-decoration: underline;
+}
+
+.company-endnote .copyright {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.25);
+    font-size: 14px;
+    color: #d8eef2;
+}
+</style>
+
+
+<style>
+.company-footnote {
+    background: #023047;
+    color: #d8eef2;
+    text-align: center;
+    padding: 14px 10px;
+    margin-top: 30px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.company-footnote p {
+    margin: 3px 0;
+}
+
+.company-footnote strong {
+    color: #ffffff;
+}
+
+.company-footnote a {
+    color: #90e0ef;
+    text-decoration: none;
+}
+
+.company-footnote a:hover {
+    text-decoration: underline;
+}
+</style>
+
+
+<style>
+html:has(.company-footnote),
+body:has(.company-footnote) {
+    background: #000000 !important;
+}
+
+.company-footnote {
+    background: #000000 !important;
+    color: #d8d8d8 !important;
+    text-align: center;
+    padding: 14px 10px;
+    margin-top: 30px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.company-footnote p {
+    margin: 3px 0;
+}
+
+.company-footnote strong {
+    color: #ffffff;
+}
+
+.company-footnote a {
+    color: #90e0ef;
+    text-decoration: none;
+}
+
+.company-footnote a:hover {
+    text-decoration: underline;
+}
+
+.company-footnote + footer,
+.company-footnote ~ footer {
+    background: #000000 !important;
+    color: #d8d8d8 !important;
+}
+</style>
+
 </head>
 
 <body>
+
+<!-- EXUMA SPORT COAST SERVICE -->
+<section class="company-intro">
+    <div class="company-intro-inner">
+        <h1>Exuma Sport Coast Service</h1>
+
+        <p>
+            <strong>Exuma Sport Coast Service</strong> is the accommodation
+            service featured on this platform, helping visitors discover
+            comfortable places to stay while exploring the beautiful islands
+            and communities of Exuma, Bahamas. Our accommodation selection
+            covers areas including George Town, Moss Town, Staniel Cay,
+            Michelson/Roker's Point and other destinations throughout Exuma.
+        </p>
+
+        <p>
+            Whether you are visiting for a relaxing beach holiday, an island
+            adventure, water activities or a longer stay, Exuma Sport Coast
+            Service provides accommodation options designed to make your
+            Exuma experience convenient and enjoyable. Browse available
+            properties, view their living rooms, bedrooms and bathrooms, and
+            choose the accommodation that best suits your trip.
+        </p>
+    </div>
+</section>
+
+
 
 <header>
     <nav>
@@ -228,162 +432,78 @@ footer {
 <section class="region" id="george-town">
 
 <div class="region-title">
-    <h2>George Town</h2>
-    <p>Comfortable stays in and around George Town, Great Exuma.</p>
+<h2>George Town</h2>
+<p>Comfortable accommodation options in George Town, Great Exuma.</p>
 </div>
 
 <div class="grid">
 
-<!-- GEORGE TOWN 1 -->
+<script>
+const georgePrices = [155, 180, 220, 275, 305, 322];
+
+const georgeNames = [
+    "2 Bedroom George Town Retreat",
+    "2 Bedroom George Town Premium Retreat",
+    "3 Bedroom George Town Villa",
+    "4 Bedroom George Town Executive Villa",
+    "5 Bedroom George Town Grand Villa",
+    "6 Bedroom George Town Estate"
+];
+
+const georgeDescriptions = [
+    "A comfortable two-bedroom retreat in George Town, ideal for couples or small families looking for an affordable and convenient Great Exuma stay.",
+    "A premium two-bedroom retreat offering additional comfort and stylish spaces for guests seeking a more elevated George Town experience.",
+    "A spacious three-bedroom villa providing extra room for families and groups while keeping guests close to George Town's attractions.",
+    "A generous four-bedroom executive villa designed for larger families and groups seeking comfortable accommodation in George Town.",
+    "A substantial five-bedroom grand villa offering plenty of space for larger families and groups enjoying an extended Great Exuma stay.",
+    "A six-bedroom estate providing maximum accommodation capacity for large families and groups seeking space, comfort and privacy in George Town."
+];
+
+for (let i = 1; i <= 6; i++) {
+
+document.write(`
 <div class="card">
-<h3>George Town Accommodation 1</h3>
+
+<h3>${georgeNames[i-1]}</h3>
+
 <div class="card-location">George Town, Great Exuma</div>
 
+<div class="accommodation-description">
+${georgeDescriptions[i-1]}
+</div>
+
 <div class="gallery">
+
 <div class="gallery-item">
-<img data-src="images/accommodations/goergetownlivingrom1.jpg" alt="George Town accommodation 1 living room">
+<img src="images/accommodations/${i === 1 ? "goergetownlivingrom1.jpg" : `goergetownlivingroom${i}.jpg`}"
+alt="George Town accommodation ${i} living room">
 <div class="gallery-label">Living Room</div>
 </div>
+
 <div class="gallery-item">
-<img data-src="images/accommodations/goergetownbedroom1.jpg" alt="George Town accommodation 1 bedroom">
+<img src="images/accommodations/goergetownbedroom${i}.jpg"
+alt="George Town accommodation ${i} bedroom">
 <div class="gallery-label">Bedroom</div>
 </div>
+
 <div class="gallery-item">
-<img data-src="images/accommodations/goergetownbathroom1.jpg" alt="George Town accommodation 1 bathroom">
+<img src="images/accommodations/goergetownbathroom${i}.jpg"
+alt="George Town accommodation ${i} bathroom">
 <div class="gallery-label">Bathroom</div>
 </div>
+
 </div>
 
 <div class="info">
-<div class="price">From $150 / night</div>
+<div class="price"><strong>From $${georgePrices[i-1]} / night</strong></div>
 </div>
+
 <a class="reserve-btn" href="#">Reserve Accommodation</a>
-</div>
 
-
-<!-- GEORGE TOWN 2 -->
-<div class="card">
-<h3>George Town Accommodation 2</h3>
-<div class="card-location">George Town, Great Exuma</div>
-
-<div class="gallery">
-<div class="gallery-item">
-<img data-src="images/accommodations/goergetownlivingroom2.jpg" alt="George Town accommodation 2 living room">
-<div class="gallery-label">Living Room</div>
 </div>
-<div class="gallery-item">
-<img data-src="images/accommodations/goergetownbedroom2.jpg" alt="George Town accommodation 2 bedroom">
-<div class="gallery-label">Bedroom</div>
-</div>
-<div class="gallery-item">
-<img data-src="images/accommodations/goergetownbathroom2.jpg" alt="George Town accommodation 2 bathroom">
-<div class="gallery-label">Bathroom</div>
-</div>
-</div>
-
-<div class="info"><div class="price">From $165 / night</div></div>
-<a class="reserve-btn" href="#">Reserve Accommodation</a>
-</div>
-
-
-<!-- GEORGE TOWN 3 -->
-<div class="card">
-<h3>George Town Accommodation 3</h3>
-<div class="card-location">George Town, Great Exuma</div>
-
-<div class="gallery">
-<div class="gallery-item">
-<img data-src="images/accommodations/goergetownlivingroom3.jpg" alt="George Town accommodation 3 living room">
-<div class="gallery-label">Living Room</div>
-</div>
-<div class="gallery-item">
-<img data-src="images/accommodations/goergetownbedroom3.jpg" alt="George Town accommodation 3 bedroom">
-<div class="gallery-label">Bedroom</div>
-</div>
-<div class="gallery-item">
-<img data-src="images/accommodations/goergetownbathroom3.jpg" alt="George Town accommodation 3 bathroom">
-<div class="gallery-label">Bathroom</div>
-</div>
-</div>
-
-<div class="info"><div class="price">From $180 / night</div></div>
-<a class="reserve-btn" href="#">Reserve Accommodation</a>
-</div>
-
-
-<!-- GEORGE TOWN 4 -->
-<div class="card">
-<h3>George Town Accommodation 4</h3>
-<div class="card-location">George Town, Great Exuma</div>
-
-<div class="gallery">
-<div class="gallery-item">
-<img data-src="images/accommodations/goergetownlivingroom4.jpg" alt="George Town accommodation 4 living room">
-<div class="gallery-label">Living Room</div>
-</div>
-<div class="gallery-item">
-<img data-src="images/accommodations/goergetownbedroom4.jpg" alt="George Town accommodation 4 bedroom">
-<div class="gallery-label">Bedroom</div>
-</div>
-<div class="gallery-item">
-<img data-src="images/accommodations/goergetownbathroom4.jpg" alt="George Town accommodation 4 bathroom">
-<div class="gallery-label">Bathroom</div>
-</div>
-</div>
-
-<div class="info"><div class="price">From $195 / night</div></div>
-<a class="reserve-btn" href="#">Reserve Accommodation</a>
-</div>
-
-
-<!-- GEORGE TOWN 5 -->
-<div class="card">
-<h3>George Town Accommodation 5</h3>
-<div class="card-location">George Town, Great Exuma</div>
-
-<div class="gallery">
-<div class="gallery-item">
-<img data-src="images/accommodations/goergetownlivingroom5.jpg" alt="George Town accommodation 5 living room">
-<div class="gallery-label">Living Room</div>
-</div>
-<div class="gallery-item">
-<img data-src="images/accommodations/goergetownbedroom5.jpg" alt="George Town accommodation 5 bedroom">
-<div class="gallery-label">Bedroom</div>
-</div>
-<div class="gallery-item">
-<img data-src="images/accommodations/goergetownbathroom5.jpg" alt="George Town accommodation 5 bathroom">
-<div class="gallery-label">Bathroom</div>
-</div>
-</div>
-
-<div class="info"><div class="price">From $210 / night</div></div>
-<a class="reserve-btn" href="#">Reserve Accommodation</a>
-</div>
-
-
-<!-- GEORGE TOWN 6 -->
-<div class="card">
-<h3>George Town Accommodation 6</h3>
-<div class="card-location">George Town, Great Exuma</div>
-
-<div class="gallery">
-<div class="gallery-item">
-<img data-src="images/accommodations/goergetownlivingroom6.jpg" alt="George Town accommodation 6 living room">
-<div class="gallery-label">Living Room</div>
-</div>
-<div class="gallery-item">
-<img data-src="images/accommodations/goergetownbedroom6.jpg" alt="George Town accommodation 6 bedroom">
-<div class="gallery-label">Bedroom</div>
-</div>
-<div class="gallery-item">
-<img data-src="images/accommodations/goergetownbathroom6.jpg" alt="George Town accommodation 6 bathroom">
-<div class="gallery-label">Bathroom</div>
-</div>
-</div>
-
-<div class="info"><div class="price">From $225 / night</div></div>
-<a class="reserve-btn" href="#">Reserve Accommodation</a>
-</div>
+`);
+}
+</script>
 
 </div>
 </section>
@@ -403,32 +523,59 @@ footer {
 <div class="grid">
 
 <script>
-const luxuryPrices = [300,325,350,375,400,450];
+const luxuryPrices = [155, 180, 220, 275, 305, 322];
+
+const luxuryNames = [
+    "2 Bedroom Luxury Retreat",
+    "2 Bedroom Premium Luxury Retreat",
+    "3 Bedroom Luxury Villa",
+    "4 Bedroom Executive Villa",
+    "5 Bedroom Grand Luxury Villa",
+    "6 Bedroom Luxury Estate"
+];
+
+const luxuryDescriptions = [
+    "A refined two-bedroom retreat combining modern comfort and island style, ideal for couples or small families seeking an upscale Exuma stay.",
+    
+    "A premium two-bedroom retreat offering enhanced comfort, stylish living spaces and additional amenities for guests seeking a more exclusive island experience.",
+    
+    "A spacious three-bedroom luxury villa providing extra room for families and groups while maintaining a relaxing upscale island atmosphere.",
+    
+    "A generous four-bedroom executive villa designed for larger families and groups seeking comfortable accommodation and a premium Exuma vacation setting.",
+    
+    "A substantial five-bedroom grand villa offering extensive space, comfortable shared areas and plenty of room for larger families and groups.",
+    
+    "A six-bedroom luxury estate providing the greatest accommodation capacity in the collection, ideal for large families and groups seeking maximum space, privacy and comfort."
+];
 
 for (let i = 1; i <= 6; i++) {
 
 document.write(`
 <div class="card">
 
-<h3>Luxury Accommodation ${i}</h3>
+<h3>${luxuryNames[i-1]}</h3>
 <div class="card-location">Exuma, Bahamas</div>
+<div class="accommodation-description">
+${luxuryDescriptions[i-1]}
+</div>
+
 
 <div class="gallery">
 
 <div class="gallery-item">
-<img data-src="images/accommodations/luxurylivingroom${i}.jpg"
+<img src="images/accommodations/luxurylivingroom${i}.jpg"
 alt="Luxury accommodation ${i} living room">
 <div class="gallery-label">Living Room</div>
 </div>
 
 <div class="gallery-item">
-<img data-src="images/accommodations/luxurybedroom${i}.jpg"
+<img src="images/accommodations/luxurybedroom${i}.jpg"
 alt="Luxury accommodation ${i} bedroom">
 <div class="gallery-label">Bedroom</div>
 </div>
 
 <div class="gallery-item">
-<img data-src="images/accommodations/luxurybathroom${i}.jpg"
+<img src="images/accommodations/luxurybathroom${i}.jpg"
 alt="Luxury accommodation ${i} bathroom">
 <div class="gallery-label">Bathroom</div>
 </div>
@@ -464,37 +611,41 @@ alt="Luxury accommodation ${i} bathroom">
 <div class="grid">
 
 <script>
-const michelsonPrices = [175,190,205,220,235,250];
+const michelsonPrices = [155, 180, 220, 275, 305, 322];
+
+
+const michelsonPricesTitles = ['2 Bedroom Coastal Retreat', '2 Bedroom Premium Coastal Retreat', '3 Bedroom Coastal Villa', '4 Bedroom Ocean Villa', '5 Bedroom Grand Ocean Villa', '6 Bedroom Coastal Estate'];
+
+const michelsonPricesDescriptions = ["A welcoming two-bedroom coastal retreat around Michelson and Roker's Point, suitable for couples or small families seeking an affordable coastal stay.", 'A premium two-bedroom coastal retreat offering enhanced comfort and additional space for guests looking for a more exclusive stay.', 'A comfortable three-bedroom coastal villa offering additional room for families and groups while keeping the relaxed coastal atmosphere.', 'A spacious four-bedroom ocean villa designed for larger families and groups seeking generous accommodation near the coast.', 'A large five-bedroom grand ocean villa offering extensive space for families and groups seeking a memorable coastal getaway.', 'A six-bedroom coastal estate providing maximum accommodation capacity, privacy and comfort for larger families and groups.'];
 
 for (let i = 1; i <= 6; i++) {
-
-let bathroomPhoto =
-i === 3
-? "michelsonbatroom3.jpg"
-: `michelsonbathroom${i}.jpg`;
 
 document.write(`
 <div class="card">
 
-<h3>Michelson Accommodation ${i}</h3>
+<h3>${michelsonPricesTitles[i-1]}</h3>
 <div class="card-location">Michelson, Exuma</div>
+<div class="accommodation-description">
+${michelsonPricesDescriptions[i-1]}
+</div>
+
 
 <div class="gallery">
 
 <div class="gallery-item">
-<img data-src="images/accommodations/michelsonlivingroom${i}.jpg"
+<img src="images/accommodations/michelsonlivingroom${i}.jpg"
 alt="Michelson accommodation ${i} living room">
 <div class="gallery-label">Living Room</div>
 </div>
 
 <div class="gallery-item">
-<img data-src="images/accommodations/michelsonbedroom${i}.jpg"
+<img src="images/accommodations/michelsonbedroom${i}.jpg"
 alt="Michelson accommodation ${i} bedroom">
 <div class="gallery-label">Bedroom</div>
 </div>
 
 <div class="gallery-item">
-<img data-src="images/accommodations/${bathroomPhoto}"
+<img src="images/accommodations/michelsonbathroom${i}.jpg"
 alt="Michelson accommodation ${i} bathroom">
 <div class="gallery-label">Bathroom</div>
 </div>
@@ -524,38 +675,61 @@ alt="Michelson accommodation ${i} bathroom">
 
 <div class="region-title">
 <h2>Moss Town</h2>
-<p>Enjoy a comfortable stay around Moss Town, Great Exuma.</p>
+<p>Comfortable accommodation options in Moss Town, Great Exuma.</p>
 </div>
 
 <div class="grid">
 
 <script>
-const mossPrices = [160,175,190,205,220,235];
+const mossPrices = [155, 180, 220, 275, 305, 322];
+
+const mossNames = [
+    "2 Bedroom Moss Town Retreat",
+    "2 Bedroom Moss Town Premium Retreat",
+    "3 Bedroom Moss Town Villa",
+    "4 Bedroom Moss Town Executive Villa",
+    "5 Bedroom Moss Town Grand Villa",
+    "6 Bedroom Moss Town Estate"
+];
+
+const mossDescriptions = [
+    "A comfortable two-bedroom retreat in Moss Town, ideal for couples or small families looking for an affordable Great Exuma stay.",
+    "A premium two-bedroom retreat offering enhanced comfort and additional space for guests seeking a more refined Moss Town experience.",
+    "A welcoming three-bedroom villa providing extra room for families and groups while maintaining a relaxed island atmosphere.",
+    "A spacious four-bedroom executive villa designed for larger families and groups seeking comfortable accommodation in Moss Town.",
+    "A large five-bedroom grand villa offering generous living space for families and groups planning a memorable Great Exuma holiday.",
+    "A six-bedroom estate providing maximum sleeping capacity and spacious accommodation for larger groups seeking comfort and privacy."
+];
 
 for (let i = 1; i <= 6; i++) {
 
 document.write(`
 <div class="card">
 
-<h3>Moss Town Accommodation ${i}</h3>
+<h3>${mossNames[i-1]}</h3>
+
 <div class="card-location">Moss Town, Great Exuma</div>
+
+<div class="accommodation-description">
+${mossDescriptions[i-1]}
+</div>
 
 <div class="gallery">
 
 <div class="gallery-item">
-<img data-src="images/accommodations/mosslivingroom${i}.jpg"
+<img src="images/accommodations/mosslivingroom${i}.jpg"
 alt="Moss Town accommodation ${i} living room">
 <div class="gallery-label">Living Room</div>
 </div>
 
 <div class="gallery-item">
-<img data-src="images/accommodations/mossbedroom${i}.jpg"
+<img src="images/accommodations/mossbedroom${i}.jpg"
 alt="Moss Town accommodation ${i} bedroom">
 <div class="gallery-label">Bedroom</div>
 </div>
 
 <div class="gallery-item">
-<img data-src="images/accommodations/mossbathroom${i}.jpg"
+<img src="images/accommodations/mossbathroom${i}.jpg"
 alt="Moss Town accommodation ${i} bathroom">
 <div class="gallery-label">Bathroom</div>
 </div>
@@ -575,12 +749,6 @@ alt="Moss Town accommodation ${i} bathroom">
 
 </div>
 </section>
-
-
-<!-- =====================================================
-     STANIEL CAY
-===================================================== -->
-
 <section class="region" id="staniel-cay-exuma-cays">
 
 <div class="region-title">
@@ -591,32 +759,41 @@ alt="Moss Town accommodation ${i} bathroom">
 <div class="grid">
 
 <script>
-const stanielPrices = [250,275,300,325,350,375];
+const stanielPrices = [155, 180, 220, 275, 305, 322];
+
+
+const stanielPricesTitles = ['2 Bedroom Staniel Cay Retreat', '2 Bedroom Staniel Cay Premium Retreat', '3 Bedroom Staniel Cay Villa', '4 Bedroom Staniel Cay Island Villa', '5 Bedroom Staniel Cay Grand Villa', '6 Bedroom Staniel Cay Estate'];
+
+const stanielPricesDescriptions = ['A cozy two-bedroom accommodation for couples or small families wanting to experience the beauty and relaxed atmosphere of Staniel Cay.', 'A premium two-bedroom retreat offering additional comfort and space for guests seeking an elevated Staniel Cay experience.', 'A comfortable three-bedroom villa offering more room for families and groups exploring the Exuma Cays.', 'A spacious four-bedroom island villa suited to groups wanting comfortable accommodation while enjoying the attractions and waters around Staniel Cay.', 'A large five-bedroom grand villa designed for families and groups seeking plenty of space during their Exuma Cays adventure.', 'A six-bedroom estate offering maximum accommodation capacity for larger families and groups seeking comfort, privacy and an unforgettable Staniel Cay stay.'];
 
 for (let i = 1; i <= 6; i++) {
 
 document.write(`
 <div class="card">
 
-<h3>Staniel Cay Accommodation ${i}</h3>
+<h3>${stanielPricesTitles[i-1]}</h3>
 <div class="card-location">Staniel Cay, Exuma Cays</div>
+<div class="accommodation-description">
+${stanielPricesDescriptions[i-1]}
+</div>
+
 
 <div class="gallery">
 
 <div class="gallery-item">
-<img data-src="images/accommodations/staniellivingroom${i}.jpg"
+<img src="images/accommodations/staniellivingroom${i}.jpg"
 alt="Staniel Cay accommodation ${i} living room">
 <div class="gallery-label">Living Room</div>
 </div>
 
 <div class="gallery-item">
-<img data-src="images/accommodations/stanielbedroom${i}.jpg"
+<img src="images/accommodations/stanielbedroom${i}.jpg"
 alt="Staniel Cay accommodation ${i} bedroom">
 <div class="gallery-label">Bedroom</div>
 </div>
 
 <div class="gallery-item">
-<img data-src="images/accommodations/stanielbathroom${i}.jpg"
+<img src="images/accommodations/stanielbathroom${i}.jpg"
 alt="Staniel Cay accommodation ${i} bathroom">
 <div class="gallery-label">Bathroom</div>
 </div>
@@ -639,9 +816,551 @@ alt="Staniel Cay accommodation ${i} bathroom">
 
 </main>
 
+
+
+
+
+<!-- SMALL EXUMA SPORT COAST FOOTNOTE -->
+<section class="company-footnote">
+    <p>
+        <strong>Exuma Sport Coast Service</strong> · Exuma, Bahamas,
+        opposite the airport ·
+        <a href="mailto:exumaaccomodations@gmail.com">
+            exumaaccomodations@gmail.com
+        </a>
+    </p>
+    <p>© 2026 Exuma Sport Coast Service · All rights reserved.</p>
+</section>
+
+
+<!-- EXUMA RESERVATION SYSTEM -->
+<section id="reservation-system" class="reservation-system">
+
+    <div class="reservation-box">
+
+        <h2>Reserve Your Accommodation</h2>
+        <p class="reservation-subtitle">
+            Select your destination and accommodation details below.
+        </p>
+
+        <div class="reservation-grid">
+
+            <div class="reservation-field">
+                <label for="booking-region">Region</label>
+                <select id="booking-region">
+                    <option value="">Select region</option>
+                    <option>George Town</option>
+                    <option>Moss Town</option>
+                    <option>Staniel Cay</option>
+                    <option>Roker's Point</option>
+                    <option>Other Exuma</option>
+                </select>
+            </div>
+
+            <div class="reservation-field">
+                <label for="booking-house">Type of House</label>
+                <select id="booking-house">
+                    <option value="">Select accommodation</option>
+                    <option value="Apartment">Apartment</option>
+                    <option value="Studio">Studio</option>
+                    <option value="1 Bedroom House">1 Bedroom House</option>
+                    <option value="2 Bedroom House">2 Bedroom House</option>
+                    <option value="3 Bedroom House">3 Bedroom House</option>
+                    <option value="Luxury Villa">Luxury Villa</option>
+                </select>
+            </div>
+
+            <div class="reservation-field">
+                <label for="booking-adults">Adults</label>
+                <input id="booking-adults" type="number" min="1" value="1">
+            </div>
+
+            <div class="reservation-field">
+                <label for="booking-children">Children</label>
+                <input id="booking-children" type="number" min="0" value="0">
+            </div>
+
+            <div class="reservation-field reservation-price">
+                <label for="booking-price">Price</label>
+                <input id="booking-price" type="number" min="0" step="0.01"
+                       placeholder="Enter price">
+            </div>
+
+        </div>
+
+        <button type="button" id="reserve-button" class="reserve-button">
+            Reserve
+        </button>
+
+    </div>
+
+</section>
+
+<!-- RECEIPT -->
+<div id="receipt-modal" class="receipt-modal">
+
+    <div class="receipt">
+
+        <button type="button" id="close-receipt" class="close-receipt">
+            ×
+        </button>
+
+        <div class="receipt-header">
+
+            <img src="images/exumalogo.jpg"
+                 alt="Exuma Sport Coast Service">
+
+            <h2>Exuma Sport Coast Service</h2>
+
+            <p>Accommodation Reservation Receipt</p>
+
+        </div>
+
+        <div class="receipt-reference">
+            Reservation No:
+            <strong id="receipt-number"></strong>
+        </div>
+
+        <div class="receipt-details">
+
+            <div>
+                <span>Region</span>
+                <strong id="receipt-region"></strong>
+            </div>
+
+            <div>
+                <span>Adults</span>
+                <strong id="receipt-adults"></strong>
+            </div>
+
+            <div>
+                <span>Children</span>
+                <strong id="receipt-children"></strong>
+            </div>
+
+            <div>
+                <span>Total Clients</span>
+                <strong id="receipt-clients"></strong>
+            </div>
+
+            <div>
+                <span>Accommodation</span>
+                <strong id="receipt-house"></strong>
+            </div>
+
+            <div>
+                <span>Price</span>
+                <strong id="receipt-price"></strong>
+            </div>
+
+            <div>
+                <span>Reservation Date</span>
+                <strong id="receipt-date"></strong>
+            </div>
+
+        </div>
+
+        <div class="receipt-note">
+            Please keep this receipt for your reservation records.
+            For assistance contact
+            <strong>exumaaccomodations@gmail.com</strong>.
+        </div>
+
+        <div class="receipt-actions">
+            <button type="button" onclick="window.print()">
+                Print / Save PDF
+            </button>
+        </div>
+
+        <div class="receipt-footer">
+            © 2026 Exuma Sport Coast Service · Exuma, Bahamas
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+(function () {
+
+    const region = document.getElementById("booking-region");
+    const house = document.getElementById("booking-house");
+    const adults = document.getElementById("booking-adults");
+    const children = document.getElementById("booking-children");
+    const price = document.getElementById("booking-price");
+    const reserve = document.getElementById("reserve-button");
+    const modal = document.getElementById("receipt-modal");
+    const closeReceipt = document.getElementById("close-receipt");
+
+    /* Restore previous customer selections */
+    try {
+        const saved = JSON.parse(
+            localStorage.getItem("exumaReservation")
+        );
+
+        if (saved) {
+            if (saved.region) region.value = saved.region;
+            if (saved.house) house.value = saved.house;
+            if (saved.adults) adults.value = saved.adults;
+            if (saved.children !== undefined)
+                children.value = saved.children;
+            if (saved.price) price.value = saved.price;
+        }
+    } catch (error) {
+        console.log("No previous reservation found.");
+    }
+
+    /* Remember changes automatically */
+    function rememberReservation() {
+
+        const data = {
+            region: region.value,
+            house: house.value,
+            adults: adults.value,
+            children: children.value,
+            price: price.value
+        };
+
+        localStorage.setItem(
+            "exumaReservation",
+            JSON.stringify(data)
+        );
+    }
+
+    [region, house, adults, children, price].forEach(function (element) {
+        element.addEventListener("change", rememberReservation);
+        element.addEventListener("input", rememberReservation);
+    });
+
+    /* Generate reservation number */
+    function generateReservationNumber() {
+
+        const now = new Date();
+
+        const date =
+            now.getFullYear().toString() +
+            String(now.getMonth() + 1).padStart(2, "0") +
+            String(now.getDate()).padStart(2, "0");
+
+        const random =
+            Math.floor(1000 + Math.random() * 9000);
+
+        return "EXM-" + date + "-" + random;
+    }
+
+    /* Reserve */
+    reserve.addEventListener("click", function () {
+
+        if (!region.value) {
+            alert("Please select a region.");
+            return;
+        }
+
+        if (!house.value) {
+            alert("Please select the type of house.");
+            return;
+        }
+
+        const adultCount = Math.max(
+            1,
+            parseInt(adults.value || 1, 10)
+        );
+
+        const childCount = Math.max(
+            0,
+            parseInt(children.value || 0, 10)
+        );
+
+        const totalClients =
+            adultCount + childCount;
+
+        const priceValue =
+            parseFloat(price.value || 0);
+
+        const now = new Date();
+
+        const reservation = {
+            region: region.value,
+            house: house.value,
+            adults: adultCount,
+            children: childCount,
+            totalClients: totalClients,
+            price: priceValue,
+            reservationNumber: generateReservationNumber(),
+            date: now.toLocaleString()
+        };
+
+        localStorage.setItem(
+            "exumaReservation",
+            JSON.stringify(reservation)
+        );
+
+        document.getElementById("receipt-number").textContent =
+            reservation.reservationNumber;
+
+        document.getElementById("receipt-region").textContent =
+            reservation.region;
+
+        document.getElementById("receipt-adults").textContent =
+            reservation.adults;
+
+        document.getElementById("receipt-children").textContent =
+            reservation.children;
+
+        document.getElementById("receipt-clients").textContent =
+            reservation.totalClients;
+
+        document.getElementById("receipt-house").textContent =
+            reservation.house;
+
+        document.getElementById("receipt-price").textContent =
+            "USD " + reservation.price.toFixed(2);
+
+        document.getElementById("receipt-date").textContent =
+            reservation.date;
+
+        modal.classList.add("show");
+
+    });
+
+    closeReceipt.addEventListener("click", function () {
+        modal.classList.remove("show");
+    });
+
+    modal.addEventListener("click", function (event) {
+
+        if (event.target === modal) {
+            modal.classList.remove("show");
+        }
+
+    });
+
+})();
+</script>
+
+<style>
+.reservation-system {
+    max-width: 1050px;
+    margin: 45px auto;
+    padding: 0 20px;
+}
+
+.reservation-box {
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.12);
+}
+
+.reservation-box h2 {
+    text-align: center;
+    margin: 0 0 5px;
+    color: #006d77;
+}
+
+.reservation-subtitle {
+    text-align: center;
+    color: #607d86;
+}
+
+.reservation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 18px;
+    margin-top: 25px;
+}
+
+.reservation-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.reservation-field select,
+.reservation-field input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbdfe3;
+    border-radius: 8px;
+    font-size: 15px;
+    background: white;
+}
+
+.reserve-button {
+    display: block;
+    margin: 25px auto 0;
+    padding: 13px 40px;
+    border: 0;
+    border-radius: 25px;
+    background: #00a896;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.reserve-button:hover {
+    background: #007f73;
+}
+
+/* RECEIPT MODAL */
+
+.receipt-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    inset: 0;
+    background: rgba(0,0,0,.75);
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.receipt-modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.receipt {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    color: #173b43;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 15px 50px rgba(0,0,0,.35);
+}
+
+.close-receipt {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    border: 0;
+    background: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.receipt-header {
+    text-align: center;
+    border-bottom: 2px solid #023047;
+    padding-bottom: 15px;
+}
+
+.receipt-header img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.receipt-header h2 {
+    margin: 8px 0 2px;
+    color: #006d77;
+}
+
+.receipt-header p {
+    margin: 0;
+    font-size: 13px;
+}
+
+.receipt-reference {
+    margin: 20px 0;
+    padding: 10px;
+    background: #eef9fa;
+    text-align: center;
+}
+
+.receipt-details {
+    border-top: 1px solid #ddd;
+}
+
+.receipt-details > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.receipt-details span {
+    color: #607d86;
+}
+
+.receipt-details strong {
+    text-align: right;
+}
+
+.receipt-note {
+    margin-top: 20px;
+    padding: 12px;
+    background: #f5f5f5;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.receipt-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.receipt-actions button {
+    padding: 10px 25px;
+    border: 0;
+    border-radius: 20px;
+    background: #023047;
+    color: white;
+    cursor: pointer;
+}
+
+.receipt-footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid #ddd;
+    font-size: 11px;
+    color: #777;
+}
+
+@media print {
+
+    body * {
+        visibility: hidden !important;
+    }
+
+    .receipt-modal,
+    .receipt-modal * {
+        visibility: visible !important;
+    }
+
+    .receipt-modal {
+        position: static;
+        display: block !important;
+        background: white;
+        padding: 0;
+    }
+
+    .receipt {
+        max-width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .close-receipt,
+    .receipt-actions {
+        display: none !important;
+    }
+}
+</style>
+<!-- END EXUMA RESERVATION SYSTEM -->
+
 <footer>
 <p>Explore Exuma • Beaches • Islands • Accommodation • Adventures</p>
 </footer>
+
+
+
 
 
 
@@ -651,7 +1370,8 @@ alt="Staniel Cay accommodation ${i} bathroom">
 (function () {
 
     const params = new URLSearchParams(window.location.search);
-    const selectedRegion = (params.get("region") || "").trim().toLowerCase();
+    const selectedRegion =
+        (params.get("region") || "").trim().toLowerCase();
 
     const regionMap = {
         "george-town": "george-town",
@@ -675,23 +1395,16 @@ alt="Staniel Cay accommodation ${i} bathroom">
     const targetId = regionMap[selectedRegion];
     const regions = document.querySelectorAll(".region");
 
-    if (targetId) {
+    regions.forEach(function(region) {
 
-        regions.forEach(function (region) {
-            if (region.id === targetId) {
-                region.style.display = "";
-            } else {
-                region.style.display = "none";
-            }
-        });
-
-    } else {
-
-        regions.forEach(function (region) {
+        if (targetId) {
+            region.style.display =
+                region.id === targetId ? "" : "none";
+        } else {
             region.style.display = "";
-        });
+        }
 
-    }
+    });
 
 })();
 </script>
