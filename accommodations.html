@@ -309,62 +309,45 @@ footer {
 </style>
 
 
-<style>
-.company-footnote {
-    background: #023047;
-    color: #d8eef2;
-    text-align: center;
-    padding: 14px 10px;
-    margin-top: 30px;
-    font-size: 12px;
-    line-height: 1.5;
-}
 
-.company-footnote p {
-    margin: 3px 0;
-}
 
-.company-footnote strong {
-    color: #ffffff;
-}
 
-.company-footnote a {
-    color: #90e0ef;
-    text-decoration: none;
-}
 
-.company-footnote a:hover {
-    text-decoration: underline;
-}
-</style>
 
 
 <style>
-html:has(.company-footnote),
-body:has(.company-footnote) {
-    background: #000000 !important;
+html, body {
+    background: #ffffff !important;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .company-footnote {
-    background: #000000 !important;
-    color: #d8d8d8 !important;
+    width: 100%;
+    background: #ffffff !important;
+    color: #666666 !important;
     text-align: center;
-    padding: 14px 10px;
-    margin-top: 30px;
-    font-size: 12px;
-    line-height: 1.5;
+    padding: 12px 10px 8px;
+    margin-top: auto;
+    border-top: 1px solid #eeeeee;
+    font-size: 11px;
+    line-height: 1.45;
 }
 
 .company-footnote p {
-    margin: 3px 0;
+    margin: 2px 0;
 }
 
 .company-footnote strong {
-    color: #ffffff;
+    color: #444444;
 }
 
 .company-footnote a {
-    color: #90e0ef;
+    color: #007c91;
     text-decoration: none;
 }
 
@@ -374,8 +357,11 @@ body:has(.company-footnote) {
 
 .company-footnote + footer,
 .company-footnote ~ footer {
-    background: #000000 !important;
-    color: #d8d8d8 !important;
+    background: #ffffff !important;
+    color: #666666 !important;
+    padding: 8px 10px;
+    margin-top: 0;
+    font-size: 11px;
 }
 </style>
 
@@ -833,312 +819,180 @@ alt="Staniel Cay accommodation ${i} bathroom">
 </section>
 
 
-<!-- EXUMA RESERVATION SYSTEM -->
-<section id="reservation-system" class="reservation-system">
+
+
+
+<!-- EXUMA RESERVATION FORM -->
+<section class="reservation-system">
 
     <div class="reservation-box">
 
         <h2>Reserve Your Accommodation</h2>
+
         <p class="reservation-subtitle">
-            Select your destination and accommodation details below.
+            Select your stay details and continue to your reservation receipt.
         </p>
 
-        <div class="reservation-grid">
+        <form id="exuma-reservation-form"
+              action="http://127.0.0.1:5000/reserve"
+              method="POST">
+
+            <div class="reservation-grid">
 
             <div class="reservation-field">
-                <label for="booking-region">Region</label>
-                <select id="booking-region">
-                    <option value="">Select region</option>
-                    <option>George Town</option>
-                    <option>Moss Town</option>
-                    <option>Staniel Cay</option>
-                    <option>Roker's Point</option>
-                    <option>Other Exuma</option>
-                </select>
+                <label for="booking-check-in">Check-in</label>
+                <input id="booking-check-in" type="date" required>
             </div>
 
             <div class="reservation-field">
-                <label for="booking-house">Type of House</label>
-                <select id="booking-house">
-                    <option value="">Select accommodation</option>
-                    <option value="Apartment">Apartment</option>
-                    <option value="Studio">Studio</option>
-                    <option value="1 Bedroom House">1 Bedroom House</option>
-                    <option value="2 Bedroom House">2 Bedroom House</option>
-                    <option value="3 Bedroom House">3 Bedroom House</option>
-                    <option value="Luxury Villa">Luxury Villa</option>
-                </select>
+                <label for="booking-check-out">Check-out</label>
+                <input id="booking-check-out" type="date" required>
             </div>
 
-            <div class="reservation-field">
-                <label for="booking-adults">Adults</label>
-                <input id="booking-adults" type="number" min="1" value="1">
+                <div class="reservation-field">
+                    <label for="booking-region">Region</label>
+
+                    <select id="booking-region" name="region" required>
+                        <option value="">Select region</option>
+                        <option value="George Town">George Town</option>
+                        <option value="Moss Town">Moss Town</option>
+                        <option value="Staniel Cay">Staniel Cay</option>
+                        <option value="Roker's Point">Roker's Point</option>
+                        <option value="Other Exuma">Other Exuma</option>
+                    </select>
+                </div>
+
+
+                <div class="reservation-field">
+                    <label for="booking-checkin">Check-in</label>
+
+                    <input
+                        id="booking-checkin"
+                        name="check_in"
+                        type="date"
+                        required>
+                </div>
+
+
+                <div class="reservation-field">
+                    <label for="booking-checkout">Check-out</label>
+
+                    <input
+                        id="booking-checkout"
+                        name="check_out"
+                        type="date"
+                        required>
+                </div>
+
+
+                <div class="reservation-field">
+                    <label for="booking-adults">Adults</label>
+
+                    <input
+                        id="booking-adults"
+                        name="adults"
+                        type="number"
+                        min="1"
+                        value="1"
+                        required>
+                </div>
+
+
+                <div class="reservation-field">
+                    <label for="booking-children">Children</label>
+
+                    <input
+                        id="booking-children"
+                        name="children"
+                        type="number"
+                        min="0"
+                        value="0"
+                        required>
+                </div>
+
+
+                <div class="reservation-field">
+                    <label for="booking-house">Accommodation</label>
+
+                    <select
+                        id="booking-house"
+                        name="accommodation"
+                        required>
+
+                        <option value="">Select accommodation</option>
+
+<option value="2 Bedroom House"
+        data-price="155">
+    2 Bedroom House — $155/night
+</option>
+
+<option value="2 Bedroom Premium House"
+        data-price="180">
+    2 Bedroom Premium House — $180/night
+</option>
+
+<option value="3 Bedroom House"
+        data-price="220">
+    3 Bedroom House — $220/night
+</option>
+
+<option value="4 Bedroom House"
+        data-price="275">
+    4 Bedroom House — $275/night
+</option>
+
+<option value="5 Bedroom House"
+        data-price="305">
+    5 Bedroom House — $305/night
+</option>
+
+<option value="6 Bedroom House"
+        data-price="322">
+    6 Bedroom House — $322/night
+</option>
+
+                    </select>
+                </div>
+
+
+                <div class="reservation-field">
+                    <label for="booking-price">
+                        Price (USD)
+                    </label>
+
+                    <input
+                        id="booking-price"
+                        name="price"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value="0"
+                        readonly
+                        required>
+
+                    <small>
+                        Price is automatically set by the accommodation.
+                    </small>
+                </div>
+
             </div>
 
-            <div class="reservation-field">
-                <label for="booking-children">Children</label>
-                <input id="booking-children" type="number" min="0" value="0">
-            </div>
 
-            <div class="reservation-field reservation-price">
-                <label for="booking-price">Price</label>
-                <input id="booking-price" type="number" min="0" step="0.01"
-                       placeholder="Enter price">
-            </div>
+            <button
+                type="submit"
+                class="reserve-button">
+                Reserve
+            </button>
 
-        </div>
-
-        <button type="button" id="reserve-button" class="reserve-button">
-            Reserve
-        </button>
+        </form>
 
     </div>
 
 </section>
 
-<!-- RECEIPT -->
-<div id="receipt-modal" class="receipt-modal">
-
-    <div class="receipt">
-
-        <button type="button" id="close-receipt" class="close-receipt">
-            ×
-        </button>
-
-        <div class="receipt-header">
-
-            <img src="images/exumalogo.jpg"
-                 alt="Exuma Sport Coast Service">
-
-            <h2>Exuma Sport Coast Service</h2>
-
-            <p>Accommodation Reservation Receipt</p>
-
-        </div>
-
-        <div class="receipt-reference">
-            Reservation No:
-            <strong id="receipt-number"></strong>
-        </div>
-
-        <div class="receipt-details">
-
-            <div>
-                <span>Region</span>
-                <strong id="receipt-region"></strong>
-            </div>
-
-            <div>
-                <span>Adults</span>
-                <strong id="receipt-adults"></strong>
-            </div>
-
-            <div>
-                <span>Children</span>
-                <strong id="receipt-children"></strong>
-            </div>
-
-            <div>
-                <span>Total Clients</span>
-                <strong id="receipt-clients"></strong>
-            </div>
-
-            <div>
-                <span>Accommodation</span>
-                <strong id="receipt-house"></strong>
-            </div>
-
-            <div>
-                <span>Price</span>
-                <strong id="receipt-price"></strong>
-            </div>
-
-            <div>
-                <span>Reservation Date</span>
-                <strong id="receipt-date"></strong>
-            </div>
-
-        </div>
-
-        <div class="receipt-note">
-            Please keep this receipt for your reservation records.
-            For assistance contact
-            <strong>exumaaccomodations@gmail.com</strong>.
-        </div>
-
-        <div class="receipt-actions">
-            <button type="button" onclick="window.print()">
-                Print / Save PDF
-            </button>
-        </div>
-
-        <div class="receipt-footer">
-            © 2026 Exuma Sport Coast Service · Exuma, Bahamas
-        </div>
-
-    </div>
-
-</div>
-
-<script>
-(function () {
-
-    const region = document.getElementById("booking-region");
-    const house = document.getElementById("booking-house");
-    const adults = document.getElementById("booking-adults");
-    const children = document.getElementById("booking-children");
-    const price = document.getElementById("booking-price");
-    const reserve = document.getElementById("reserve-button");
-    const modal = document.getElementById("receipt-modal");
-    const closeReceipt = document.getElementById("close-receipt");
-
-    /* Restore previous customer selections */
-    try {
-        const saved = JSON.parse(
-            localStorage.getItem("exumaReservation")
-        );
-
-        if (saved) {
-            if (saved.region) region.value = saved.region;
-            if (saved.house) house.value = saved.house;
-            if (saved.adults) adults.value = saved.adults;
-            if (saved.children !== undefined)
-                children.value = saved.children;
-            if (saved.price) price.value = saved.price;
-        }
-    } catch (error) {
-        console.log("No previous reservation found.");
-    }
-
-    /* Remember changes automatically */
-    function rememberReservation() {
-
-        const data = {
-            region: region.value,
-            house: house.value,
-            adults: adults.value,
-            children: children.value,
-            price: price.value
-        };
-
-        localStorage.setItem(
-            "exumaReservation",
-            JSON.stringify(data)
-        );
-    }
-
-    [region, house, adults, children, price].forEach(function (element) {
-        element.addEventListener("change", rememberReservation);
-        element.addEventListener("input", rememberReservation);
-    });
-
-    /* Generate reservation number */
-    function generateReservationNumber() {
-
-        const now = new Date();
-
-        const date =
-            now.getFullYear().toString() +
-            String(now.getMonth() + 1).padStart(2, "0") +
-            String(now.getDate()).padStart(2, "0");
-
-        const random =
-            Math.floor(1000 + Math.random() * 9000);
-
-        return "EXM-" + date + "-" + random;
-    }
-
-    /* Reserve */
-    reserve.addEventListener("click", function () {
-
-        if (!region.value) {
-            alert("Please select a region.");
-            return;
-        }
-
-        if (!house.value) {
-            alert("Please select the type of house.");
-            return;
-        }
-
-        const adultCount = Math.max(
-            1,
-            parseInt(adults.value || 1, 10)
-        );
-
-        const childCount = Math.max(
-            0,
-            parseInt(children.value || 0, 10)
-        );
-
-        const totalClients =
-            adultCount + childCount;
-
-        const priceValue =
-            parseFloat(price.value || 0);
-
-        const now = new Date();
-
-        const reservation = {
-            region: region.value,
-            house: house.value,
-            adults: adultCount,
-            children: childCount,
-            totalClients: totalClients,
-            price: priceValue,
-            reservationNumber: generateReservationNumber(),
-            date: now.toLocaleString()
-        };
-
-        localStorage.setItem(
-            "exumaReservation",
-            JSON.stringify(reservation)
-        );
-
-        document.getElementById("receipt-number").textContent =
-            reservation.reservationNumber;
-
-        document.getElementById("receipt-region").textContent =
-            reservation.region;
-
-        document.getElementById("receipt-adults").textContent =
-            reservation.adults;
-
-        document.getElementById("receipt-children").textContent =
-            reservation.children;
-
-        document.getElementById("receipt-clients").textContent =
-            reservation.totalClients;
-
-        document.getElementById("receipt-house").textContent =
-            reservation.house;
-
-        document.getElementById("receipt-price").textContent =
-            "USD " + reservation.price.toFixed(2);
-
-        document.getElementById("receipt-date").textContent =
-            reservation.date;
-
-        modal.classList.add("show");
-
-    });
-
-    closeReceipt.addEventListener("click", function () {
-        modal.classList.remove("show");
-    });
-
-    modal.addEventListener("click", function (event) {
-
-        if (event.target === modal) {
-            modal.classList.remove("show");
-        }
-
-    });
-
-})();
-</script>
 
 <style>
+
 .reservation-system {
     max-width: 1050px;
     margin: 45px auto;
@@ -1165,7 +1019,9 @@ alt="Staniel Cay accommodation ${i} bathroom">
 
 .reservation-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    grid-template-columns:
+        repeat(auto-fit, minmax(210px, 1fr));
+
     gap: 18px;
     margin-top: 25px;
 }
@@ -1176,14 +1032,21 @@ alt="Staniel Cay accommodation ${i} bathroom">
     margin-bottom: 6px;
 }
 
-.reservation-field select,
-.reservation-field input {
+.reservation-field input,
+.reservation-field select {
     width: 100%;
     padding: 12px;
     border: 1px solid #cbdfe3;
     border-radius: 8px;
     font-size: 15px;
     background: white;
+}
+
+.reservation-field small {
+    display: block;
+    margin-top: 5px;
+    color: #71848a;
+    font-size: 11px;
 }
 
 .reserve-button {
@@ -1203,157 +1066,138 @@ alt="Staniel Cay accommodation ${i} bathroom">
     background: #007f73;
 }
 
-/* RECEIPT MODAL */
-
-.receipt-modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    inset: 0;
-    background: rgba(0,0,0,.75);
-    padding: 20px;
-    overflow-y: auto;
-}
-
-.receipt-modal.show {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.receipt {
-    position: relative;
-    width: 100%;
-    max-width: 600px;
-    background: white;
-    color: #173b43;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 15px 50px rgba(0,0,0,.35);
-}
-
-.close-receipt {
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    border: 0;
-    background: none;
-    font-size: 28px;
-    cursor: pointer;
-}
-
-.receipt-header {
-    text-align: center;
-    border-bottom: 2px solid #023047;
-    padding-bottom: 15px;
-}
-
-.receipt-header img {
-    width: 65px;
-    height: 65px;
-    object-fit: contain;
-    border-radius: 8px;
-}
-
-.receipt-header h2 {
-    margin: 8px 0 2px;
-    color: #006d77;
-}
-
-.receipt-header p {
-    margin: 0;
-    font-size: 13px;
-}
-
-.receipt-reference {
-    margin: 20px 0;
-    padding: 10px;
-    background: #eef9fa;
-    text-align: center;
-}
-
-.receipt-details {
-    border-top: 1px solid #ddd;
-}
-
-.receipt-details > div {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.receipt-details span {
-    color: #607d86;
-}
-
-.receipt-details strong {
-    text-align: right;
-}
-
-.receipt-note {
-    margin-top: 20px;
-    padding: 12px;
-    background: #f5f5f5;
-    font-size: 12px;
-    line-height: 1.6;
-}
-
-.receipt-actions {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.receipt-actions button {
-    padding: 10px 25px;
-    border: 0;
-    border-radius: 20px;
-    background: #023047;
-    color: white;
-    cursor: pointer;
-}
-
-.receipt-footer {
-    text-align: center;
-    margin-top: 20px;
-    padding-top: 12px;
-    border-top: 1px solid #ddd;
-    font-size: 11px;
-    color: #777;
-}
-
-@media print {
-
-    body * {
-        visibility: hidden !important;
-    }
-
-    .receipt-modal,
-    .receipt-modal * {
-        visibility: visible !important;
-    }
-
-    .receipt-modal {
-        position: static;
-        display: block !important;
-        background: white;
-        padding: 0;
-    }
-
-    .receipt {
-        max-width: 100%;
-        box-shadow: none;
-        border-radius: 0;
-    }
-
-    .close-receipt,
-    .receipt-actions {
-        display: none !important;
-    }
-}
 </style>
-<!-- END EXUMA RESERVATION SYSTEM -->
+
+
+<script>
+(function () {
+
+    const form =
+        document.getElementById("exuma-reservation-form");
+
+    const house =
+        document.getElementById("booking-house");
+
+    const price =
+        document.getElementById("booking-price");
+
+    const checkIn =
+        document.getElementById("booking-checkin");
+
+    const checkOut =
+        document.getElementById("booking-checkout");
+
+
+    /*
+     * IMPORTANT:
+     * Replace the 0 values below with your
+     * actual accommodation prices.
+     */
+
+    const prices = {
+        "1 Bedroom House": 0,
+        "2 Bedroom House": 0,
+        "3 Bedroom House": 0,
+        "Studio": 0,
+        "Apartment": 0,
+        "Luxury Villa": 0
+    };
+
+
+    function updatePrice() {
+
+        const accommodation =
+            house.value;
+
+        if (
+            accommodation &&
+            prices[accommodation] !== undefined
+        ) {
+            price.value =
+                prices[accommodation].toFixed(2);
+        } else {
+            price.value = "0.00";
+        }
+    }
+
+
+    house.addEventListener(
+        "change",
+        updatePrice
+    );
+
+
+    /*
+     * Prevent checkout date from being
+     * earlier than check-in.
+     */
+
+    checkIn.addEventListener(
+        "change",
+        function () {
+
+            checkOut.min =
+                checkIn.value;
+
+            if (
+                checkOut.value &&
+                checkOut.value < checkIn.value
+            ) {
+                checkOut.value = "";
+            }
+        }
+    );
+
+
+    /*
+     * Save selections locally so the
+     * form can remember them while browsing.
+     */
+
+    const fields = form.querySelectorAll(
+        "input, select"
+    );
+
+    fields.forEach(function (field) {
+
+        const key =
+            "exuma_" + field.name;
+
+        const saved =
+            localStorage.getItem(key);
+
+        if (saved !== null) {
+            field.value = saved;
+        }
+
+        field.addEventListener(
+            "change",
+            function () {
+                localStorage.setItem(
+                    key,
+                    field.value
+                );
+            }
+        );
+
+        field.addEventListener(
+            "input",
+            function () {
+                localStorage.setItem(
+                    key,
+                    field.value
+                );
+            }
+        );
+
+    });
+
+
+    updatePrice();
+
+})();
+</script>
+<!-- END EXUMA RESERVATION FORM -->
 
 <footer>
 <p>Explore Exuma • Beaches • Islands • Accommodation • Adventures</p>
