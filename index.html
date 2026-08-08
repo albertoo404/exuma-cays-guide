@@ -79,9 +79,6 @@
             margin-top: 0; 
             color: var(--deep-ocean); 
             font-size: 1.9rem; 
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .accommodations-banner p { 
@@ -269,10 +266,10 @@
             <h2>🌊 We Are Giving Out Accommodations Across Exuma</h2>
             <p>Step onto white sand beaches and immerse yourself in crystal-clear waters. We provide handpicked oceanfront villas, beachfront bungalows, and secluded cay cottages tailored for your ultimate island escape.</p>
             
-            <form class="booking-form" onsubmit="event.preventDefault(); alert('Searching tropical stays...');">
+            <form class="booking-form" action="results.html" method="GET">
                 <div class="form-group">
                     <label>Destination</label>
-                    <select required>
+                    <select name="region" required>
                         <option value="">Select Region</option>
                         <option value="george-town">George Town</option>
                         <option value="moss-town">Moss Town</option>
@@ -284,22 +281,22 @@
 
                 <div class="form-group">
                     <label>Check-in</label>
-                    <input type="date" required>
+                    <input type="date" name="checkin" required>
                 </div>
 
                 <div class="form-group">
                     <label>Check-out</label>
-                    <input type="date" required>
+                    <input type="date" name="checkout" required>
                 </div>
 
                 <div class="form-group">
                     <label>Adults (13+)</label>
-                    <input type="number" min="1" max="20" value="2" required placeholder="Adults">
+                    <input type="number" name="adults" min="1" max="20" value="2" required placeholder="Adults">
                 </div>
 
                 <div class="form-group">
                     <label>Children (0-12)</label>
-                    <input type="number" min="0" max="10" value="0" required placeholder="Children">
+                    <input type="number" name="children" min="0" max="10" value="0" required placeholder="Children">
                 </div>
 
                 <button type="submit">Find Beach Stays</button>

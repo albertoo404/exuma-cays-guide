@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Accommodations - Exuma Coastal</title>
+    <style>
+        :root {
+            --deep-ocean: #005f73;
+            --turquoise-wave: #0a9396;
+            --caribbean-blue: #94d2bd;
+            --sand-light: #fdf6e3;
+            --coral-accent: #ee9b00;
+            --sunburst-orange: #ca6702;
+            --dark-navy: #001219;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            line-height: 1.6; 
+            color: var(--dark-navy); 
+            background: linear-gradient(180deg, #e0f4f7 0%, var(--sand-light) 100%);
+            min-height: 100vh;
+        }
+
+        header { 
+            background: linear-gradient(135deg, var(--deep-ocean), var(--turquoise-wave)); 
+            color: #ffffff; 
+            padding: 2.5rem 5% 2rem; 
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 95, 115, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        main { 
+            padding: 2rem 5%; 
+            max-width: 1000px; 
+            margin: -1.5rem auto 2rem; 
+            background: rgba(255, 255, 255, 0.95); 
+            border-radius: 12px; 
+            box-shadow: 0 8px 24px rgba(0, 95, 115, 0.12); 
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--caribbean-blue);
+            padding-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, var(--turquoise-wave), var(--deep-ocean));
+            color: white;
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .search-summary {
+            font-size: 0.95rem;
+            color: #004d40;
+            background: #e0f7fa;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+        }
+
+        .accommodations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .acc-card {
+            background: #ffffff;
+            border: 1px solid var(--caribbean-blue);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 95, 115, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .acc-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .acc-card-body {
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .acc-card-title {
+            font-size: 1.2rem;
+            color: var(--deep-ocean);
+            margin: 0 0 0.4rem 0;
+        }
+
+        .acc-card-desc {
+            font-size: 0.9rem;
+            color: #003049;
+            margin-bottom: 0.8rem;
+        }
+
+        .acc-card-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--sunburst-orange);
+            margin-bottom: 1rem;
+        }
+
+        .btn-book-now {
+            display: block;
+            text-align: center;
+            background: linear-gradient(135deg, var(--coral-accent), var(--sunburst-orange));
+            color: #ffffff;
+            padding: 0.6rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer { 
+            text-align: center; 
+            padding: 2rem; 
+            color: var(--deep-ocean); 
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="pageHeading">Available Accommodations</h1>
+    </header>
+
+    <main>
+        <div class="top-bar">
+            <a href="index.html" class="back-btn">← Back to Search</a>
+            <div id="searchDetails" class="search-summary">Searching all accommodations</div>
+        </div>
+
+        <div id="accommodationsGrid" class="accommodations-grid"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Exuma Oceanfront Accommodations & Rentals</p>
+    </footer>
+
+    <script>
+        const accommodationsData = {
+            "george-town": [
+                { name: "Peace & Plenty Resort Townhouse", desc: "Harbor-front retreat within walking distance of central George Town dining.", price: "$320 / night", img: "exuma.jpg" },
+                { name: "Elizabeth Harbour Ocean Villa", desc: "Private dock access overlooking the calm harbor waters.", price: "$450 / night", img: "stockingisland.jpg" },
+                { name: "George Town Historic Inn", desc: "Charming island colonial design steps from water taxi departures.", price: "$280 / night", img: "exuma.jpg" },
+                { name: "Regatta Point Beach Suites", desc: "Panoramic ocean views surrounded by turquoise sea channels.", price: "$390 / night", img: "sandbars.jpg" },
+                { name: "Palm Bay Beachfront Cottage", desc: "Cozy beach cottage with direct sandy shoreline entrance.", price: "$310 / night", img: "exuma.jpg" },
+                { name: "Hoopers Bay Turtle Villa", desc: "Lush tropical property located right on sea turtle nesting grounds.", price: "$480 / night", img: "seapark.jpg" }
+            ],
+            "moss-town": [
+                { name: "Airport Proximity Beach House", desc: "Located 5 minutes from GGT airport with private beach walkway.", price: "$260 / night", img: "exuma.jpg" },
+                { name: "Moss Town Coastal Bungalow", desc: "Quiet neighborhood escape featuring open-air wrap-around deck.", price: "$230 / night", img: "sandbars.jpg" },
+                { name: "Bonefish Bay Sanctuary Cottage", desc: "Perfect location for shallow fly-fishing and kayaking.", price: "$290 / night", img: "seapark.jpg" },
+                { name: "Coral Breeze Oceanfront Home", desc: "Spacious multi-bedroom layout ideal for family retreats.", price: "$350 / night", img: "exuma.jpg" },
+                { name: "Sunset Horizon Moss Town Suite", desc: "Elevated sea views offering stunning evening sunsets.", price: "$270 / night", img: "compasscay.jpg" },
+                { name: "Pelican Beach Hideaway", desc: "Secluded beachfront access with private outdoor showers.", price: "$310 / night", img: "stockingisland.jpg" }
+            ],
+            "michelson-rokers-point": [
+                { name: "Emerald Bay Seaside Estate", desc: "Golf course adjacent luxury accommodation on pristine white sand.", price: "$520 / night", img: "exuma.jpg" },
+                { name: "Rokers Point Marina Residence", desc: "Direct slip access for deep sea boats and private yachts.", price: "$460 / night", img: "stanielcay.jpg" },
+                { name: "Michelson Heights Villa", desc: "Panoramic view across the north coast of Great Exuma.", price: "$410 / night", img: "sandbars.jpg" },
+                { name: "Sandals View Coastal Suite", desc: "Modern amenities with access to calm snorkeling bays.", price: "$380 / night", img: "exuma.jpg" },
+                { name: "Blue Water Rokers Cove", desc: "Private infinity splash pool overlooking clear offshore reefs.", price: "$490 / night", img: "compasscay.jpg" },
+                { name: "Ocean Breeze Point House", desc: "Spacious patio tailored for outdoor barbecue sunset dining.", price: "$430 / night", img: "grotto.jpg" }
+            ],
+            "staniel-cay-exuma-cays": [
+                { name: "Staniel Cay Yacht Club Cottage", desc: "Classic overwater style bungalow near the main harbor.", price: "$550 / night", img: "stanielcay.jpg" },
+                { name: "Pig Beach View Cottage", desc: "Minutes away from Big Major Cay and the swimming pigs.", price: "$580 / night", img: "majorcay.jpg" },
+                { name: "Thunderball Grotto Suite", desc: "Prime central positioning for daily snorkeling and diving runs.", price: "$490 / night", img: "grotto.jpg" },
+                { name: "Compass Cay Shark Cove House", desc: "Island cottage close to docile nurse shark interaction marinas.", price: "$520 / night", img: "compasscay.jpg" },
+                { name: "Pipe Creek Sandbar Villa", desc: "Breathtaking views of low-tide white sand spit islands.", price: "$610 / night", img: "sandbars.jpg" },
+                { name: "Exuma Cays Land & Sea Chalet", desc: "Eco-friendly sanctuary nestled in protected marine waters.", price: "$540 / night", img: "seapark.jpg" }
+            ],
+            "luxury-villas": [
+                { name: "The Exuma Grand Palace Villa", desc: "6-bedroom private estate with personal chef and infinity pool.", price: "$1,800 / night", img: "exuma.jpg" },
+                { name: "Royal Island Private Resort Villa", desc: "Helipad access, private boat, and dedicated concierge.", price: "$2,400 / night", img: "stanielcay.jpg" },
+                { name: "Overwater Turquoise Palace", desc: "Glass-bottom floor lounge over crystal lagoon waters.", price: "$2,100 / night", img: "compasscay.jpg" },
+                { name: "Serenity Cay Private Sanctuary", desc: "Isolated private island villa with 360-degree ocean views.", price: "$2,900 / night", img: "sandbars.jpg" },
+                { name: "Ocean Cliffside Luxury Mansion", desc: "High cliffside location offering private beach stair access.", price: "$1,950 / night", img: "stockingisland.jpg" },
+                { name: "Emerald Cay VIP Estate", desc: "Gated luxury property with private yacht berth and spa.", price: "$2,250 / night", img: "grotto.jpg" }
+            ]
+        };
+
+        const regionNames = {
+            "george-town": "George Town",
+            "moss-town": "Moss Town",
+            "michelson-rokers-point": "Michelson / Rokers Point",
+            "staniel-cay-exuma-cays": "Staniel Cay / Exuma Cays",
+            "luxury-villas": "Luxury Villas"
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedRegion = urlParams.get('region');
+        const checkin = urlParams.get('checkin');
+        const checkout = urlParams.get('checkout');
+        const adults = urlParams.get('adults') || 1;
+        const children = urlParams.get('children') || 0;
+
+        const heading = document.getElementById('pageHeading');
+        const searchDetails = document.getElementById('searchDetails');
+        const grid = document.getElementById('accommodationsGrid');
+
+        if (selectedRegion && accommodationsData[selectedRegion]) {
+            const regionName = regionNames[selectedRegion];
+            heading.textContent = `Accommodations in ${regionName}`;
+            
+            let detailsText = `Showing 6 stays in ${regionName}`;
+            if (checkin && checkout) {
+                detailsText += ` (${checkin} to ${checkout} • ${adults} Adults, ${children} Children)`;
+            }
+            searchDetails.textContent = detailsText;
+
+            accommodationsData[selectedRegion].forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'acc-card';
+                card.innerHTML = `
+                    <img src="${item.img}" alt="${item.name}">
+                    <div class="acc-card-body">
+                        <div>
+                            <h4 class="acc-card-title">${item.name}</h4>
+                            <p class="acc-card-desc">${item.desc}</p>
+                        </div>
+                        <div>
+                            <div class="acc-card-price">${item.price}</div>
+                            <a href="#" class="btn-book-now" onclick="alert('Booking requested for ${item.name}!'); return false;">Reserve Accommodation</a>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        } else {
+            heading.textContent = "No Region Selected";
+            grid.innerHTML = "<p>Please return to the home page and select a region to search for available accommodations.</p>";
+        }
+    </script>
+</body>
+</html>
