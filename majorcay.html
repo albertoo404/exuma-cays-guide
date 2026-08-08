@@ -12,8 +12,128 @@
         main { padding: 2rem 5%; max-width: 900px; margin: 0 auto; background: white; border-radius: 8px; margin-top: 1rem; }
         footer { text-align: center; padding: 2rem; color: #6c757d; }
     </style>
+
+<style>
+.company-intro {
+    width: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #087b89, #119ca3);
+    border-bottom: 1px solid #08727f;
+    padding: 28px 18px;
+}
+
+.company-intro-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.company-intro h1 {
+    color: #ffffff;
+    margin: 0 0 14px;
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.company-intro p {
+    color: #ffffff;
+    margin: 0 0 12px;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.company-intro p:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+    .company-intro {
+        padding: 22px 15px;
+    }
+
+    .company-intro h1 {
+    color: #ffffff;
+        font-size: 25px;
+    }
+
+    .company-intro p {
+    color: #ffffff;
+        font-size: 14px;
+        line-height: 1.65;
+    }
+}
+</style>
+
+
+<style>
+.major-photo-section {
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 0 18px;
+}
+
+.major-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.major-photo-card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,.12);
+}
+
+.major-photo-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+.major-photo-card h3 {
+    margin: 0;
+    padding: 16px 18px 6px;
+    color: #007c91;
+}
+
+.major-photo-card p {
+    margin: 0;
+    padding: 0 18px 20px;
+    color: #36515a;
+    line-height: 1.7;
+}
+</style>
+
 </head>
 <body>
+
+<!-- EXUMA SPORT COAST SERVICE -->
+<section class="company-intro">
+    <div class="company-intro-inner">
+        <h1>Exuma Sport Coast Service</h1>
+
+        <p>
+            <strong>Exuma Sport Coast Service</strong> is the accommodation
+            service featured on this platform, helping visitors discover
+            comfortable places to stay while exploring the beautiful islands
+            and communities of Exuma, Bahamas. Our accommodation selection
+            covers areas including George Town, Moss Town, Staniel Cay,
+            Michelson/Roker's Point and other destinations throughout Exuma.
+        </p>
+
+        <p>
+            Whether you are visiting for a relaxing beach holiday, an island
+            adventure, water activities or a longer stay, Exuma Sport Coast
+            Service provides accommodation options designed to make your
+            Exuma experience convenient and enjoyable. Browse available
+            properties, view their living rooms, bedrooms and bathrooms, and
+            choose the accommodation that best suits your trip.
+        </p>
+    </div>
+</section>
+
+
     <header><h1>Big Major Cay</h1><p>Home of the World-Famous Swimming Pigs</p></header>
     <nav>
         <a href="index.html">Exuma Overview</a>
@@ -25,11 +145,61 @@
         <a href="seapark.html">Sea Park</a>
         <a href="grotto.html">Thunderball Grotto</a>
     </nav>
-    <main>
-        <img src="majorcay.jpg" alt="Major Cay" style="width:100%;max-height:400px;object-fit:cover;border-radius:8px;margin-bottom:1rem;">
-        <h2>Pig Beach at Major Cay</h2>
-        <p>Big Major Cay is uninhabited by humans, but famous worldwide for the colony of friendly swimming pigs that swim out to greet visiting boats.</p>
-    </main>
+    
+<main>
+    <h2>Big Major Cay — Pig Beach</h2>
+
+    <p>
+        Big Major Cay is one of the most recognizable destinations in the
+        Exuma Cays. The island is best known for its famous swimming pigs,
+        which have become one of the most memorable attractions for visitors
+        exploring the turquoise waters of Exuma.
+    </p>
+
+    <p>
+        Visitors normally arrive by boat and can spend time around the
+        shoreline, enjoy the clear water, take photographs and observe the
+        pigs as they move along the beach and into the shallow sea.
+    </p>
+
+    <p>
+        The surrounding waters are also ideal for enjoying the natural beauty
+        of the Exuma Cays. A visit to Big Major Cay is commonly combined with
+        other nearby attractions such as Staniel Cay, sandbars and other
+        beautiful islands.
+    </p>
+
+    <section class="major-photo-section">
+        <div class="major-photo-grid">
+
+            <article class="major-photo-card">
+                <img src="images/majorcay1.jpg" alt="Big Major Cay">
+                <h3>Big Major Cay</h3>
+                <p>Discover the beautiful island and its famous shoreline surrounded by clear Exuma water.</p>
+            </article>
+
+            <article class="major-photo-card">
+                <img src="images/majorcay2.jpg" alt="Swimming pigs at Big Major Cay">
+                <h3>Swimming Pigs</h3>
+                <p>See the famous pigs that have made Big Major Cay one of Exuma's most popular attractions.</p>
+            </article>
+
+            <article class="major-photo-card">
+                <img src="images/majorcay3.jpg" alt="Big Major Cay beach">
+                <h3>Pig Beach</h3>
+                <p>Enjoy the white sandy shoreline and shallow turquoise water surrounding the island.</p>
+            </article>
+
+            <article class="major-photo-card">
+                <img src="images/majorcay4.jpg" alt="Big Major Cay turquoise waters">
+                <h3>Exuma Waters</h3>
+                <p>Experience the brilliant turquoise water and peaceful island scenery around Big Major Cay.</p>
+            </article>
+
+        </div>
+    </section>
+</main>
+
     <footer><p>&copy; 2026 Exuma Travel Guide</p></footer>
 </body>
 </html>
