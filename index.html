@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exuma Oceanside Accommodations & Coastal Stays</title>
+    <title>Exuma Coastal Accommodations & Destinations</title>
     <style>
         :root {
             --deep-ocean: #005f73;
@@ -30,7 +30,6 @@
             padding: 3rem 5% 2.5rem; 
             text-align: center;
             box-shadow: 0 4px 15px rgba(0, 95, 115, 0.2);
-            position: relative;
         }
 
         header h1 {
@@ -49,7 +48,7 @@
 
         main { 
             padding: 2rem 5%; 
-            max-width: 980px; 
+            max-width: 1000px; 
             margin: -2rem auto 2rem; 
             background: rgba(255, 255, 255, 0.95); 
             border-radius: 12px; 
@@ -93,19 +92,35 @@
 
         .booking-form { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
             gap: 12px; 
             margin-top: 1rem; 
         }
 
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--deep-ocean);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .booking-form input, .booking-form select { 
-            padding: 0.8rem; 
+            padding: 0.75rem; 
             border: 1px solid var(--caribbean-blue); 
             border-radius: 6px; 
             font-size: 0.95rem; 
             outline: none;
             background: #ffffff;
             color: var(--dark-navy);
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .booking-form button { 
@@ -115,10 +130,11 @@
             font-weight: 700; 
             cursor: pointer; 
             border-radius: 6px;
-            padding: 0.8rem;
+            padding: 0.75rem;
             font-size: 0.95rem;
             transition: transform 0.2s, box-shadow 0.2s; 
             box-shadow: 0 4px 10px rgba(238, 155, 0, 0.3);
+            align-self: flex-end;
         }
 
         .booking-form button:hover { 
@@ -163,7 +179,7 @@
 
         .destinations-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
             gap: 1.8rem; 
         }
 
@@ -174,7 +190,7 @@
             overflow: hidden; 
             display: flex; 
             flex-direction: column; 
-            align-items: center; 
+            justify-content: space-between;
             box-shadow: 0 4px 12px rgba(0, 95, 115, 0.08); 
             transition: transform 0.25s, box-shadow 0.25s; 
         }
@@ -186,16 +202,30 @@
 
         .destination-card img { 
             width: 100%; 
-            height: 160px; 
+            height: 180px; 
             object-fit: cover; 
         }
 
         .destination-card-body { 
             padding: 1.2rem; 
-            width: 100%; 
-            text-align: center; 
-            box-sizing: border-box; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
             background: linear-gradient(180deg, #ffffff 0%, var(--sand-light) 100%);
+        }
+
+        .destination-card-body h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--deep-ocean);
+            font-size: 1.25rem;
+        }
+
+        .destination-card-body p {
+            font-size: 0.92rem;
+            color: #003049;
+            margin-bottom: 1rem;
+            line-height: 1.5;
         }
 
         .btn-destination { 
@@ -210,6 +240,7 @@
             text-align: center; 
             transition: background 0.2s, box-shadow 0.2s; 
             box-shadow: 0 3px 8px rgba(10, 147, 150, 0.2);
+            box-sizing: border-box;
         }
 
         .btn-destination:hover { 
@@ -239,14 +270,36 @@
             <p>Step onto white sand beaches and immerse yourself in crystal-clear waters. We provide handpicked oceanfront villas, beachfront bungalows, and secluded cay cottages tailored for your ultimate island escape.</p>
             
             <form class="booking-form" onsubmit="event.preventDefault(); alert('Searching tropical stays...');">
-                <select required>
-                    <option value="">Select Destination</option>
-                    <option value="george-town">George Town</option>
-                    <option value="staniel-cay">Staniel Cay</option>
-                    <option value="little-exuma">Little Exuma</option>
-                </select>
-                <input type="date" required placeholder="Check-in">
-                <input type="date" required placeholder="Check-out">
+                <div class="form-group">
+                    <label>Destination</label>
+                    <select required>
+                        <option value="">Select Region</option>
+                        <option value="george-town">George Town</option>
+                        <option value="staniel-cay">Staniel Cay</option>
+                        <option value="little-exuma">Little Exuma</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Check-in</label>
+                    <input type="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Check-out</label>
+                    <input type="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Adults (13+)</label>
+                    <input type="number" min="1" max="20" value="2" required placeholder="Adults">
+                </div>
+
+                <div class="form-group">
+                    <label>Children (0-12)</label>
+                    <input type="number" min="0" max="10" value="0" required placeholder="Children">
+                </div>
+
                 <button type="submit">Find Beach Stays</button>
             </form>
         </section>
@@ -267,6 +320,10 @@
             <div class="destination-card">
                 <img src="majorcay.jpg" alt="Major Cay">
                 <div class="destination-card-body">
+                    <div>
+                        <h4>Big Major Cay</h4>
+                        <p><strong>Major Epic: Swimming Pigs Beach.</strong> World-renowned uninhabited cay where famous swimming pigs paddle out to greet incoming boats along crystal-clear tropical shores.</p>
+                    </div>
                     <a href="majorcay.html" class="btn-destination">Explore Major Cay</a>
                 </div>
             </div>
@@ -274,6 +331,10 @@
             <div class="destination-card">
                 <img src="compasscay.jpg" alt="Compass Cay">
                 <div class="destination-card-body">
+                    <div>
+                        <h4>Compass Cay</h4>
+                        <p><strong>Major Epic: Nurse Shark Sanctuary.</strong> Famous for its protected harbor marina where visitors can swim, wade, and interact closely with docile, friendly nurse sharks in shallow turquoise water.</p>
+                    </div>
                     <a href="compasscay.html" class="btn-destination">Explore Compass Cay</a>
                 </div>
             </div>
@@ -281,6 +342,10 @@
             <div class="destination-card">
                 <img src="stockingisland.jpg" alt="Stocking Island">
                 <div class="destination-card-body">
+                    <div>
+                        <h4>Stocking Island</h4>
+                        <p><strong>Major Epic: Chat 'N' Chill & Stingrays.</strong> Located off George Town, featuring high sand dunes, beachside conch bars, ocean hiking trails, and tame stingrays gliding along the shoreline.</p>
+                    </div>
                     <a href="stockingisland.html" class="btn-destination">Explore Stocking Island</a>
                 </div>
             </div>
@@ -288,6 +353,10 @@
             <div class="destination-card">
                 <img src="sandbars.jpg" alt="Sandbars">
                 <div class="destination-card-body">
+                    <div>
+                        <h4>Pipe Creek Sandbars</h4>
+                        <p><strong>Major Epic: Low-Tide Desert Islands.</strong> Pure white sandbars rising out of shallow turquoise waters at low tide, providing miles of isolated sandbars surrounded by endless sea.</p>
+                    </div>
                     <a href="sandbars.html" class="btn-destination">Explore Sandbars</a>
                 </div>
             </div>
@@ -295,6 +364,10 @@
             <div class="destination-card">
                 <img src="stanielcay.jpg" alt="Staniel Cay">
                 <div class="destination-card-body">
+                    <div>
+                        <h4>Staniel Cay</h4>
+                        <p><strong>Major Epic: Central Island Hub.</strong> The heart of the northern Exumas with an airstrip, yacht club, local dining, and easy boat charter access to all nearby cays.</p>
+                    </div>
                     <a href="stanielcay.html" class="btn-destination">Explore Staniel Cay</a>
                 </div>
             </div>
@@ -302,6 +375,10 @@
             <div class="destination-card">
                 <img src="seapark.jpg" alt="Sea Park">
                 <div class="destination-card-body">
+                    <div>
+                        <h4>Exuma Cays Land & Sea Park</h4>
+                        <p><strong>Major Epic: Protected Marine Reserve.</strong> The world's first land and sea conservation park, spanning 176 square miles of untouched coral reefs, sea turtle sanctuaries, and marine life.</p>
+                    </div>
                     <a href="seapark.html" class="btn-destination">Explore Sea Park</a>
                 </div>
             </div>
@@ -309,6 +386,10 @@
             <div class="destination-card">
                 <img src="grotto.jpg" alt="Thunderball Grotto">
                 <div class="destination-card-body">
+                    <div>
+                        <h4>Thunderball Grotto</h4>
+                        <p><strong>Major Epic: James Bond Underwater Cave.</strong> Iconic underwater cave system featured in classic films, renowned for snorkeling through colorful coral formations and schools of tropical fish.</p>
+                    </div>
                     <a href="grotto.html" class="btn-destination">Explore Grotto</a>
                 </div>
             </div>
