@@ -3,78 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exuma Accommodations & Island Destinations</title>
+    <title>Exuma Oceanside Accommodations & Coastal Stays</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; line-height: 1.6; color: #023047; background: #f8f9fa; }
-        header { background: #028090; color: white; padding: 2.5rem 5%; text-align: center; }
-        
-        main { padding: 2rem 5%; max-width: 950px; margin: 1rem auto; background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .main-hero-img { width: 100%; max-height: 420px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem; }
+        :root {
+            --deep-ocean: #005f73;
+            --turquoise-wave: #0a9396;
+            --caribbean-blue: #94d2bd;
+            --sand-light: #fdf6e3;
+            --coral-accent: #ee9b00;
+            --sunburst-orange: #ca6702;
+            --dark-navy: #001219;
+        }
 
-        .accommodations-banner { background: #e0f2f1; padding: 1.8rem; border-radius: 8px; border-left: 5px solid #00a896; margin-bottom: 2rem; }
-        .accommodations-banner h2 { margin-top: 0; color: #028090; font-size: 1.8rem; }
-        .accommodations-banner p { font-size: 1.05rem; margin-bottom: 1rem; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            line-height: 1.6; 
+            color: var(--dark-navy); 
+            background: linear-gradient(180deg, #e0f4f7 0%, var(--sand-light) 100%);
+            min-height: 100vh;
+        }
 
-        .booking-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-top: 1rem; }
-        .booking-form input, .booking-form select, .booking-form button { padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; }
-        .booking-form button { background: #028090; color: white; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .booking-form button:hover { background: #023047; }
+        header { 
+            background: linear-gradient(135deg, var(--deep-ocean), var(--turquoise-wave)); 
+            color: #ffffff; 
+            padding: 3rem 5% 2.5rem; 
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 95, 115, 0.2);
+            position: relative;
+        }
 
-        .accommodations-info { margin: 2rem 0 3rem; }
-        .accommodations-info h3 { font-size: 1.4rem; color: #028090; margin-bottom: 0.8rem; }
-        .accommodations-info ul { margin-left: 1.5rem; margin-top: 0.5rem; }
-        .accommodations-info li { margin-bottom: 0.5rem; }
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0 0 0.5rem 0;
+            letter-spacing: 1px;
+            text-shadow: 1px 2px 4px rgba(0,0,0,0.2);
+        }
 
-        .destinations-title { text-align: center; margin-bottom: 1.5rem; font-size: 1.6rem; color: #028090; border-top: 2px solid #eee; padding-top: 2rem; }
-        .destinations-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
-        .destination-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform 0.2s; }
-        .destination-card:hover { transform: translateY(-4px); }
-        .destination-card img { width: 100%; height: 150px; object-fit: cover; }
-        .destination-card-body { padding: 1rem; width: 100%; text-align: center; box-sizing: border-box; }
-        .btn-destination { display: block; width: 100%; padding: 0.75rem 0; background: #00a896; color: white; text-decoration: none; font-weight: 600; border-radius: 4px; text-align: center; transition: background 0.2s; }
-        .btn-destination:hover { background: #023047; }
+        header p {
+            font-size: 1.15rem;
+            margin: 0;
+            color: var(--caribbean-blue);
+            font-weight: 300;
+        }
 
-        footer { text-align: center; padding: 2rem; color: #6c757d; }
+        main { 
+            padding: 2rem 5%; 
+            max-width: 980px; 
+            margin: -2rem auto 2rem; 
+            background: rgba(255, 255, 255, 0.95); 
+            border-radius: 12px; 
+            box-shadow: 0 8px 24px rgba(0, 95, 115, 0.12); 
+            backdrop-filter: blur(5px);
+        }
+
+        .main-hero-img { 
+            width: 100%; 
+            max-height: 420px; 
+            object-fit: cover; 
+            border-radius: 10px; 
+            margin-bottom: 2rem; 
+            border: 3px solid #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .accommodations-banner { 
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); 
+            padding: 2rem; 
+            border-radius: 10px; 
+            border-left: 6px solid var(--turquoise-wave); 
+            margin-bottom: 2.5rem; 
+            box-shadow: 0 2px 8px rgba(10, 147, 150, 0.08);
+        }
+
+        .accommodations-banner h2 { 
+            margin-top: 0; 
+            color: var(--deep-ocean); 
+            font-size: 1.9rem; 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .accommodations-banner p { 
+            font-size: 1.1rem; 
+            color: #004d40;
+            margin-bottom: 1.2rem; 
+        }
+
+        .booking-form { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
+            gap: 12px; 
+            margin-top: 1rem; 
+        }
+
+        .booking-form input, .booking-form select { 
+            padding: 0.8rem; 
+            border: 1px solid var(--caribbean-blue); 
+            border-radius: 6px; 
+            font-size: 0.95rem; 
+            outline: none;
+            background: #ffffff;
+            color: var(--dark-navy);
+        }
+
+        .booking-form button { 
+            background: linear-gradient(135deg, var(--coral-accent), var(--sunburst-orange)); 
+            color: #ffffff; 
+            border: none; 
+            font-weight: 700; 
+            cursor: pointer; 
+            border-radius: 6px;
+            padding: 0.8rem;
+            font-size: 0.95rem;
+            transition: transform 0.2s, box-shadow 0.2s; 
+            box-shadow: 0 4px 10px rgba(238, 155, 0, 0.3);
+        }
+
+        .booking-form button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(238, 155, 0, 0.4);
+        }
+
+        .accommodations-info { 
+            margin: 2.5rem 0; 
+            padding: 0 0.5rem;
+        }
+
+        .accommodations-info h3 { 
+            font-size: 1.5rem; 
+            color: var(--deep-ocean); 
+            margin-bottom: 0.8rem; 
+            border-bottom: 2px solid var(--caribbean-blue);
+            padding-bottom: 0.4rem;
+            display: inline-block;
+        }
+
+        .accommodations-info ul { 
+            margin-left: 1.2rem; 
+            margin-top: 0.8rem; 
+            list-style-type: '🏖️ ';
+        }
+
+        .accommodations-info li { 
+            margin-bottom: 0.8rem; 
+            padding-left: 0.3rem;
+            color: #003049;
+        }
+
+        .destinations-title { 
+            text-align: center; 
+            margin-bottom: 2rem; 
+            font-size: 1.7rem; 
+            color: var(--deep-ocean); 
+            border-top: 2px dashed var(--caribbean-blue); 
+            padding-top: 2.5rem; 
+        }
+
+        .destinations-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); 
+            gap: 1.8rem; 
+        }
+
+        .destination-card { 
+            background: #ffffff; 
+            border: 1px solid #e0f2f1; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            box-shadow: 0 4px 12px rgba(0, 95, 115, 0.08); 
+            transition: transform 0.25s, box-shadow 0.25s; 
+        }
+
+        .destination-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 8px 20px rgba(0, 95, 115, 0.18);
+        }
+
+        .destination-card img { 
+            width: 100%; 
+            height: 160px; 
+            object-fit: cover; 
+        }
+
+        .destination-card-body { 
+            padding: 1.2rem; 
+            width: 100%; 
+            text-align: center; 
+            box-sizing: border-box; 
+            background: linear-gradient(180deg, #ffffff 0%, var(--sand-light) 100%);
+        }
+
+        .btn-destination { 
+            display: block; 
+            width: 100%; 
+            padding: 0.75rem 0; 
+            background: linear-gradient(135deg, var(--turquoise-wave), var(--deep-ocean)); 
+            color: #ffffff; 
+            text-decoration: none; 
+            font-weight: 600; 
+            border-radius: 6px; 
+            text-align: center; 
+            transition: background 0.2s, box-shadow 0.2s; 
+            box-shadow: 0 3px 8px rgba(10, 147, 150, 0.2);
+        }
+
+        .btn-destination:hover { 
+            background: linear-gradient(135deg, var(--deep-ocean), var(--dark-navy)); 
+            box-shadow: 0 4px 12px rgba(0, 18, 25, 0.3);
+        }
+
+        footer { 
+            text-align: center; 
+            padding: 2.5rem; 
+            color: var(--deep-ocean); 
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Exuma Accommodations & Travel Portal</h1>
-        <p>Your Gateway to Luxury Rentals across the 365 Cays of the Bahamas</p>
+        <h1>Exuma Coastal Accommodations</h1>
+        <p>Wake Up to Turquoise Waters & Sandy Shorelines</p>
     </header>
 
     <main>
-        <img src="exuma.jpg" alt="Exuma" class="main-hero-img">
+        <img src="exuma.jpg" alt="Exuma Waters" class="main-hero-img">
 
         <section class="accommodations-banner">
-            <h2>We Are Giving Out Accommodations Across Exuma</h2>
-            <p>Welcome to our official booking portal! We offer handpicked vacation accommodations ranging from beachfront luxury villas and secluded private island stays to cozy, budget-friendly cottages located throughout the Exuma Cays.</p>
+            <h2>🌊 We Are Giving Out Accommodations Across Exuma</h2>
+            <p>Step onto white sand beaches and immerse yourself in crystal-clear waters. We provide handpicked oceanfront villas, beachfront bungalows, and secluded cay cottages tailored for your ultimate island escape.</p>
             
-            <form class="booking-form" onsubmit="event.preventDefault(); alert('Searching available accommodations...');">
+            <form class="booking-form" onsubmit="event.preventDefault(); alert('Searching tropical stays...');">
                 <select required>
-                    <option value="">Select Region</option>
+                    <option value="">Select Destination</option>
                     <option value="george-town">George Town</option>
                     <option value="staniel-cay">Staniel Cay</option>
                     <option value="little-exuma">Little Exuma</option>
                 </select>
                 <input type="date" required placeholder="Check-in">
                 <input type="date" required placeholder="Check-out">
-                <button type="submit">Search Stays</button>
+                <button type="submit">Find Beach Stays</button>
             </form>
         </section>
 
         <section class="accommodations-info">
-            <h3>About Our Accommodation Offerings</h3>
-            <p>Every stay booked through our platform comes fully equipped to give you an authentic, comfortable island experience. Our properties feature:</p>
+            <h3>Your Island Sanctuary Awaits</h3>
+            <p>Every accommodation is curated to provide seamless beach living and direct ocean exposure:</p>
             <ul>
-                <li><strong>Oceanfront Views & Private Docks:</strong> Wake up directly on the turquoise water with seamless boat access.</li>
-                <li><strong>Fully Furnished Villas & Cottages:</strong> Complete with air conditioning, high-speed Wi-Fi, fully stocked kitchens, and outdoor deck space.</li>
-                <li><strong>Flexible Stay Lengths:</strong> Available for nightly rentals, weekly vacation stays, or extended seasonal visits.</li>
-                <li><strong>Prime Island Access:</strong> Located near major cays, local airstrips, water taxis, and premier excursions like the swimming pigs and nurse shark sanctuaries.</li>
+                <li><strong>Oceanfront & Overwater Access:</strong> Step directly from your patio onto soft sand or step onto your private boat dock.</li>
+                <li><strong>Tropical Comforts:</strong> Enjoy air-conditioned interiors, full open-air kitchens, wrap-around verandas, and seaside hammocks.</li>
+                <li><strong>Prime Watersport Locations:</strong> Situated steps away from world-class snorkeling, paddleboarding, and boat charters.</li>
             </ul>
         </section>
 
-        <h3 class="destinations-title">Explore Destinational Accommodations & Islands</h3>
+        <h3 class="destinations-title">Explore Island Destinations</h3>
         <div class="destinations-grid">
 
             <div class="destination-card">
@@ -130,7 +317,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Exuma Travel & Accommodations Platform</p>
+        <p>&copy; 2026 Exuma Oceanfront Accommodations & Rentals</p>
     </footer>
 </body>
 </html>
