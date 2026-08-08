@@ -211,7 +211,7 @@ footer {
      GEORGE TOWN
 ===================================================== -->
 
-<section class="region">
+<section class="region" id="george-town">
 
 <div class="region-title">
     <h2>George Town</h2>
@@ -379,7 +379,7 @@ footer {
      LUXURY
 ===================================================== -->
 
-<section class="region">
+<section class="region" id="luxury-villas">
 
 <div class="region-title">
 <h2>Luxury Accommodations</h2>
@@ -440,7 +440,7 @@ alt="Luxury accommodation ${i} bathroom">
      MICHELSON
 ===================================================== -->
 
-<section class="region">
+<section class="region" id="michelson-rokers-point">
 
 <div class="region-title">
 <h2>Michelson</h2>
@@ -506,7 +506,7 @@ alt="Michelson accommodation ${i} bathroom">
      MOSS TOWN
 ===================================================== -->
 
-<section class="region">
+<section class="region" id="moss-town">
 
 <div class="region-title">
 <h2>Moss Town</h2>
@@ -567,7 +567,7 @@ alt="Moss Town accommodation ${i} bathroom">
      STANIEL CAY
 ===================================================== -->
 
-<section class="region">
+<section class="region" id="staniel-cay-exuma-cays">
 
 <div class="region-title">
 <h2>Staniel Cay</h2>
@@ -628,6 +628,21 @@ alt="Staniel Cay accommodation ${i} bathroom">
 <footer>
 <p>Explore Exuma • Beaches • Islands • Accommodation • Adventures</p>
 </footer>
+
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const selectedRegion = params.get("region");
+
+const regions = document.querySelectorAll(".region");
+
+if (selectedRegion) {
+    regions.forEach(region => {
+        region.style.display =
+            region.id === selectedRegion ? "block" : "none";
+    });
+}
+</script>
 
 </body>
 </html>
