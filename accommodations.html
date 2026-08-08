@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Exuma Accommodations</title>
 
 <style>
@@ -103,11 +104,17 @@ header a {
     font-size: 14px;
 }
 
+/* THREE ACCOMMODATION PHOTOS */
 .gallery {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 3px;
-    padding: 3px;
+    gap: 4px;
+    padding: 4px;
+    background: #eee;
+}
+
+.gallery-item {
+    position: relative;
 }
 
 .gallery img {
@@ -118,8 +125,20 @@ header a {
     cursor: pointer;
 }
 
+.gallery-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.65);
+    color: white;
+    text-align: center;
+    font-size: 11px;
+    padding: 5px 2px;
+}
+
 .info {
-    padding: 12px 15px;
+    padding: 14px 15px 5px;
 }
 
 .price {
@@ -128,11 +147,11 @@ header a {
     color: #007ea7;
 }
 
-.btn {
+.reserve-btn {
     display: block;
     text-align: center;
     margin: 12px 15px 18px;
-    padding: 11px;
+    padding: 12px;
     background: #007ea7;
     color: white;
     text-decoration: none;
@@ -140,17 +159,8 @@ header a {
     font-weight: bold;
 }
 
-.btn:hover {
+.reserve-btn:hover {
     background: #005b7a;
-}
-
-.photo-labels {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    text-align: center;
-    font-size: 11px;
-    color: #666;
-    padding: 0 3px;
 }
 
 footer {
@@ -162,13 +172,19 @@ footer {
 }
 
 @media (max-width: 600px) {
+
     header nav {
         flex-direction: column;
         align-items: flex-start;
     }
 
     .gallery img {
-        height: 110px;
+        height: 105px;
+    }
+
+    .gallery-label {
+        font-size: 9px;
+        padding: 4px 1px;
     }
 }
 </style>
@@ -187,11 +203,13 @@ footer {
 
 <div class="page-title">
     <h1>Available Accommodations</h1>
-    <p>Explore accommodation options across beautiful Exuma.</p>
+    <p>Explore comfortable stays across beautiful Exuma.</p>
 </div>
 
 
-<!-- ================= GEORGE TOWN ================= -->
+<!-- =====================================================
+     GEORGE TOWN
+===================================================== -->
 
 <section class="region">
 
@@ -202,121 +220,213 @@ footer {
 
 <div class="grid">
 
-<!-- George Town 1 -->
+<!-- GEORGE TOWN 1 -->
 <div class="card">
 <h3>George Town Accommodation 1</h3>
 <div class="card-location">George Town, Great Exuma</div>
+
 <div class="gallery">
+<div class="gallery-item">
 <img src="images/accommodations/goergetownlivingrom1.jpg" alt="George Town accommodation 1 living room">
-<img src="images/accommodations/goergetownbedroom1.jpg" alt="George Town accommodation 1 bedroom">
-<img src="images/accommodations/goergetownbathroom1.jpg" alt="George Town accommodation 1 bathroom">
+<div class="gallery-label">Living Room</div>
 </div>
-<div class="photo-labels"><span>Living Room</span><span>Bedroom</span><span>Bathroom</span></div>
-<div class="info"><div class="price">From $150 / night</div></div>
-<a class="btn" href="#">View Details</a>
+<div class="gallery-item">
+<img src="images/accommodations/goergetownbedroom1.jpg" alt="George Town accommodation 1 bedroom">
+<div class="gallery-label">Bedroom</div>
+</div>
+<div class="gallery-item">
+<img src="images/accommodations/goergetownbathroom1.jpg" alt="George Town accommodation 1 bathroom">
+<div class="gallery-label">Bathroom</div>
+</div>
 </div>
 
-<!-- George Town 2 -->
+<div class="info">
+<div class="price">From $150 / night</div>
+</div>
+<a class="reserve-btn" href="#">Reserve Accommodation</a>
+</div>
+
+
+<!-- GEORGE TOWN 2 -->
 <div class="card">
 <h3>George Town Accommodation 2</h3>
 <div class="card-location">George Town, Great Exuma</div>
+
 <div class="gallery">
+<div class="gallery-item">
 <img src="images/accommodations/goergetownlivingroom2.jpg" alt="George Town accommodation 2 living room">
-<img src="images/accommodations/goergetownbedroom2.jpg" alt="George Town accommodation 2 bedroom">
-<img src="images/accommodations/goergetownbathroom2.jpg" alt="George Town accommodation 2 bathroom">
+<div class="gallery-label">Living Room</div>
 </div>
-<div class="photo-labels"><span>Living Room</span><span>Bedroom</span><span>Bathroom</span></div>
-<div class="info"><div class="price">From $165 / night</div></div>
-<a class="btn" href="#">View Details</a>
+<div class="gallery-item">
+<img src="images/accommodations/goergetownbedroom2.jpg" alt="George Town accommodation 2 bedroom">
+<div class="gallery-label">Bedroom</div>
+</div>
+<div class="gallery-item">
+<img src="images/accommodations/goergetownbathroom2.jpg" alt="George Town accommodation 2 bathroom">
+<div class="gallery-label">Bathroom</div>
+</div>
 </div>
 
-<!-- George Town 3 -->
+<div class="info"><div class="price">From $165 / night</div></div>
+<a class="reserve-btn" href="#">Reserve Accommodation</a>
+</div>
+
+
+<!-- GEORGE TOWN 3 -->
 <div class="card">
 <h3>George Town Accommodation 3</h3>
 <div class="card-location">George Town, Great Exuma</div>
+
 <div class="gallery">
+<div class="gallery-item">
 <img src="images/accommodations/goergetownlivingroom3.jpg" alt="George Town accommodation 3 living room">
-<img src="images/accommodations/goergetownbedroom3.jpg" alt="George Town accommodation 3 bedroom">
-<img src="images/accommodations/goergetownbathroom3.jpg" alt="George Town accommodation 3 bathroom">
+<div class="gallery-label">Living Room</div>
 </div>
-<div class="photo-labels"><span>Living Room</span><span>Bedroom</span><span>Bathroom</span></div>
-<div class="info"><div class="price">From $180 / night</div></div>
-<a class="btn" href="#">View Details</a>
+<div class="gallery-item">
+<img src="images/accommodations/goergetownbedroom3.jpg" alt="George Town accommodation 3 bedroom">
+<div class="gallery-label">Bedroom</div>
+</div>
+<div class="gallery-item">
+<img src="images/accommodations/goergetownbathroom3.jpg" alt="George Town accommodation 3 bathroom">
+<div class="gallery-label">Bathroom</div>
+</div>
 </div>
 
-<!-- George Town 4 -->
+<div class="info"><div class="price">From $180 / night</div></div>
+<a class="reserve-btn" href="#">Reserve Accommodation</a>
+</div>
+
+
+<!-- GEORGE TOWN 4 -->
 <div class="card">
 <h3>George Town Accommodation 4</h3>
 <div class="card-location">George Town, Great Exuma</div>
+
 <div class="gallery">
+<div class="gallery-item">
 <img src="images/accommodations/goergetownlivingroom4.jpg" alt="George Town accommodation 4 living room">
-<img src="images/accommodations/goergetownbedroom4.jpg" alt="George Town accommodation 4 bedroom">
-<img src="images/accommodations/goergetownbathroom4.jpg" alt="George Town accommodation 4 bathroom">
+<div class="gallery-label">Living Room</div>
 </div>
-<div class="photo-labels"><span>Living Room</span><span>Bedroom</span><span>Bathroom</span></div>
-<div class="info"><div class="price">From $195 / night</div></div>
-<a class="btn" href="#">View Details</a>
+<div class="gallery-item">
+<img src="images/accommodations/goergetownbedroom4.jpg" alt="George Town accommodation 4 bedroom">
+<div class="gallery-label">Bedroom</div>
+</div>
+<div class="gallery-item">
+<img src="images/accommodations/goergetownbathroom4.jpg" alt="George Town accommodation 4 bathroom">
+<div class="gallery-label">Bathroom</div>
+</div>
 </div>
 
-<!-- George Town 5 -->
+<div class="info"><div class="price">From $195 / night</div></div>
+<a class="reserve-btn" href="#">Reserve Accommodation</a>
+</div>
+
+
+<!-- GEORGE TOWN 5 -->
 <div class="card">
 <h3>George Town Accommodation 5</h3>
 <div class="card-location">George Town, Great Exuma</div>
+
 <div class="gallery">
+<div class="gallery-item">
 <img src="images/accommodations/goergetownlivingroom5.jpg" alt="George Town accommodation 5 living room">
-<img src="images/accommodations/goergetownbedroom5.jpg" alt="George Town accommodation 5 bedroom">
-<img src="images/accommodations/goergetownbathroom5.jpg" alt="George Town accommodation 5 bathroom">
+<div class="gallery-label">Living Room</div>
 </div>
-<div class="photo-labels"><span>Living Room</span><span>Bedroom</span><span>Bathroom</span></div>
-<div class="info"><div class="price">From $210 / night</div></div>
-<a class="btn" href="#">View Details</a>
+<div class="gallery-item">
+<img src="images/accommodations/goergetownbedroom5.jpg" alt="George Town accommodation 5 bedroom">
+<div class="gallery-label">Bedroom</div>
+</div>
+<div class="gallery-item">
+<img src="images/accommodations/goergetownbathroom5.jpg" alt="George Town accommodation 5 bathroom">
+<div class="gallery-label">Bathroom</div>
+</div>
 </div>
 
-<!-- George Town 6 -->
+<div class="info"><div class="price">From $210 / night</div></div>
+<a class="reserve-btn" href="#">Reserve Accommodation</a>
+</div>
+
+
+<!-- GEORGE TOWN 6 -->
 <div class="card">
 <h3>George Town Accommodation 6</h3>
 <div class="card-location">George Town, Great Exuma</div>
+
 <div class="gallery">
+<div class="gallery-item">
 <img src="images/accommodations/goergetownlivingroom6.jpg" alt="George Town accommodation 6 living room">
-<img src="images/accommodations/goergetownbedroom6.jpg" alt="George Town accommodation 6 bedroom">
-<img src="images/accommodations/goergetownbathroom6.jpg" alt="George Town accommodation 6 bathroom">
+<div class="gallery-label">Living Room</div>
 </div>
-<div class="photo-labels"><span>Living Room</span><span>Bedroom</span><span>Bathroom</span></div>
+<div class="gallery-item">
+<img src="images/accommodations/goergetownbedroom6.jpg" alt="George Town accommodation 6 bedroom">
+<div class="gallery-label">Bedroom</div>
+</div>
+<div class="gallery-item">
+<img src="images/accommodations/goergetownbathroom6.jpg" alt="George Town accommodation 6 bathroom">
+<div class="gallery-label">Bathroom</div>
+</div>
+</div>
+
 <div class="info"><div class="price">From $225 / night</div></div>
-<a class="btn" href="#">View Details</a>
+<a class="reserve-btn" href="#">Reserve Accommodation</a>
 </div>
 
 </div>
 </section>
 
 
-<!-- ================= LUXURY ================= -->
+<!-- =====================================================
+     LUXURY
+===================================================== -->
 
 <section class="region">
 
 <div class="region-title">
-    <h2>Luxury Accommodations</h2>
-    <p>Premium accommodation options for an unforgettable Exuma stay.</p>
+<h2>Luxury Accommodations</h2>
+<p>Premium accommodation options for an unforgettable Exuma stay.</p>
 </div>
 
 <div class="grid">
 
 <script>
-const luxuryPrices = [300, 325, 350, 375, 400, 450];
+const luxuryPrices = [300,325,350,375,400,450];
 
 for (let i = 1; i <= 6; i++) {
+
 document.write(`
 <div class="card">
+
 <h3>Luxury Accommodation ${i}</h3>
 <div class="card-location">Exuma, Bahamas</div>
+
 <div class="gallery">
-<img src="images/accommodations/luxurylivingroom${i}.jpg" alt="Luxury accommodation ${i} living room">
-<img src="images/accommodations/luxurybedroom${i}.jpg" alt="Luxury accommodation ${i} bedroom">
-<img src="images/accommodations/luxurybathroom${i}.jpg" alt="Luxury accommodation ${i} bathroom">
+
+<div class="gallery-item">
+<img src="images/accommodations/luxurylivingroom${i}.jpg"
+alt="Luxury accommodation ${i} living room">
+<div class="gallery-label">Living Room</div>
 </div>
-<div class="photo-labels"><span>Living Room</span><span>Bedroom</span><span>Bathroom</span></div>
-<div class="info"><div class="price">From $${luxuryPrices[i-1]} / night</div></div>
-<a class="btn" href="#">View Details</a>
+
+<div class="gallery-item">
+<img src="images/accommodations/luxurybedroom${i}.jpg"
+alt="Luxury accommodation ${i} bedroom">
+<div class="gallery-label">Bedroom</div>
+</div>
+
+<div class="gallery-item">
+<img src="images/accommodations/luxurybathroom${i}.jpg"
+alt="Luxury accommodation ${i} bathroom">
+<div class="gallery-label">Bathroom</div>
+</div>
+
+</div>
+
+<div class="info">
+<div class="price">From $${luxuryPrices[i-1]} / night</div>
+</div>
+
+<a class="reserve-btn" href="#">Reserve Accommodation</a>
+
 </div>
 `);
 }
@@ -326,38 +436,63 @@ document.write(`
 </section>
 
 
-<!-- ================= MICHELSON ================= -->
+<!-- =====================================================
+     MICHELSON
+===================================================== -->
 
 <section class="region">
 
 <div class="region-title">
-    <h2>Michelson</h2>
-    <p>Relaxing accommodation options in the Michelson area.</p>
+<h2>Michelson</h2>
+<p>Relaxing accommodation options in the Michelson area.</p>
 </div>
 
 <div class="grid">
 
 <script>
-const michelsonPrices = [175, 190, 205, 220, 235, 250];
+const michelsonPrices = [175,190,205,220,235,250];
 
 for (let i = 1; i <= 6; i++) {
 
-let bathroomPhoto = i === 3
-    ? "michelsonbatroom3.jpg"
-    : `michelsonbathroom${i}.jpg`;
+let bathroomPhoto =
+i === 3
+? "michelsonbatroom3.jpg"
+: `michelsonbathroom${i}.jpg`;
 
 document.write(`
 <div class="card">
+
 <h3>Michelson Accommodation ${i}</h3>
 <div class="card-location">Michelson, Exuma</div>
+
 <div class="gallery">
-<img src="images/accommodations/michelsonlivingroom${i}.jpg" alt="Michelson accommodation ${i} living room">
-<img src="images/accommodations/michelsonbedroom${i}.jpg" alt="Michelson accommodation ${i} bedroom">
-<img src="images/accommodations/${bathroomPhoto}" alt="Michelson accommodation ${i} bathroom">
+
+<div class="gallery-item">
+<img src="images/accommodations/michelsonlivingroom${i}.jpg"
+alt="Michelson accommodation ${i} living room">
+<div class="gallery-label">Living Room</div>
 </div>
-<div class="photo-labels"><span>Living Room</span><span>Bedroom</span><span>Bathroom</span></div>
-<div class="info"><div class="price">From $${michelsonPrices[i-1]} / night</div></div>
-<a class="btn" href="#">View Details</a>
+
+<div class="gallery-item">
+<img src="images/accommodations/michelsonbedroom${i}.jpg"
+alt="Michelson accommodation ${i} bedroom">
+<div class="gallery-label">Bedroom</div>
+</div>
+
+<div class="gallery-item">
+<img src="images/accommodations/${bathroomPhoto}"
+alt="Michelson accommodation ${i} bathroom">
+<div class="gallery-label">Bathroom</div>
+</div>
+
+</div>
+
+<div class="info">
+<div class="price">From $${michelsonPrices[i-1]} / night</div>
+</div>
+
+<a class="reserve-btn" href="#">Reserve Accommodation</a>
+
 </div>
 `);
 }
@@ -367,33 +502,58 @@ document.write(`
 </section>
 
 
-<!-- ================= MOSS TOWN ================= -->
+<!-- =====================================================
+     MOSS TOWN
+===================================================== -->
 
 <section class="region">
 
 <div class="region-title">
-    <h2>Moss Town</h2>
-    <p>Enjoy a comfortable stay around Moss Town, Great Exuma.</p>
+<h2>Moss Town</h2>
+<p>Enjoy a comfortable stay around Moss Town, Great Exuma.</p>
 </div>
 
 <div class="grid">
 
 <script>
-const mossPrices = [160, 175, 190, 205, 220, 235];
+const mossPrices = [160,175,190,205,220,235];
 
 for (let i = 1; i <= 6; i++) {
+
 document.write(`
 <div class="card">
+
 <h3>Moss Town Accommodation ${i}</h3>
 <div class="card-location">Moss Town, Great Exuma</div>
+
 <div class="gallery">
-<img src="images/accommodations/mosslivingroom${i}.jpg" alt="Moss Town accommodation ${i} living room">
-<img src="images/accommodations/mossbedroom${i}.jpg" alt="Moss Town accommodation ${i} bedroom">
-<img src="images/accommodations/mossbathroom${i}.jpg" alt="Moss Town accommodation ${i} bathroom">
+
+<div class="gallery-item">
+<img src="images/accommodations/mosslivingroom${i}.jpg"
+alt="Moss Town accommodation ${i} living room">
+<div class="gallery-label">Living Room</div>
 </div>
-<div class="photo-labels"><span>Living Room</span><span>Bedroom</span><span>Bathroom</span></div>
-<div class="info"><div class="price">From $${mossPrices[i-1]} / night</div></div>
-<a class="btn" href="#">View Details</a>
+
+<div class="gallery-item">
+<img src="images/accommodations/mossbedroom${i}.jpg"
+alt="Moss Town accommodation ${i} bedroom">
+<div class="gallery-label">Bedroom</div>
+</div>
+
+<div class="gallery-item">
+<img src="images/accommodations/mossbathroom${i}.jpg"
+alt="Moss Town accommodation ${i} bathroom">
+<div class="gallery-label">Bathroom</div>
+</div>
+
+</div>
+
+<div class="info">
+<div class="price">From $${mossPrices[i-1]} / night</div>
+</div>
+
+<a class="reserve-btn" href="#">Reserve Accommodation</a>
+
 </div>
 `);
 }
@@ -403,33 +563,58 @@ document.write(`
 </section>
 
 
-<!-- ================= STANIEL CAY ================= -->
+<!-- =====================================================
+     STANIEL CAY
+===================================================== -->
 
 <section class="region">
 
 <div class="region-title">
-    <h2>Staniel Cay</h2>
-    <p>Stay near one of the most beautiful areas of the Exuma Cays.</p>
+<h2>Staniel Cay</h2>
+<p>Stay near one of the most beautiful areas of the Exuma Cays.</p>
 </div>
 
 <div class="grid">
 
 <script>
-const stanielPrices = [250, 275, 300, 325, 350, 375];
+const stanielPrices = [250,275,300,325,350,375];
 
 for (let i = 1; i <= 6; i++) {
+
 document.write(`
 <div class="card">
+
 <h3>Staniel Cay Accommodation ${i}</h3>
 <div class="card-location">Staniel Cay, Exuma Cays</div>
+
 <div class="gallery">
-<img src="images/accommodations/staniellivingroom${i}.jpg" alt="Staniel Cay accommodation ${i} living room">
-<img src="images/accommodations/stanielbedroom${i}.jpg" alt="Staniel Cay accommodation ${i} bedroom">
-<img src="images/accommodations/stanielbathroom${i}.jpg" alt="Staniel Cay accommodation ${i} bathroom">
+
+<div class="gallery-item">
+<img src="images/accommodations/staniellivingroom${i}.jpg"
+alt="Staniel Cay accommodation ${i} living room">
+<div class="gallery-label">Living Room</div>
 </div>
-<div class="photo-labels"><span>Living Room</span><span>Bedroom</span><span>Bathroom</span></div>
-<div class="info"><div class="price">From $${stanielPrices[i-1]} / night</div></div>
-<a class="btn" href="#">View Details</a>
+
+<div class="gallery-item">
+<img src="images/accommodations/stanielbedroom${i}.jpg"
+alt="Staniel Cay accommodation ${i} bedroom">
+<div class="gallery-label">Bedroom</div>
+</div>
+
+<div class="gallery-item">
+<img src="images/accommodations/stanielbathroom${i}.jpg"
+alt="Staniel Cay accommodation ${i} bathroom">
+<div class="gallery-label">Bathroom</div>
+</div>
+
+</div>
+
+<div class="info">
+<div class="price">From $${stanielPrices[i-1]} / night</div>
+</div>
+
+<a class="reserve-btn" href="#">Reserve Accommodation</a>
+
 </div>
 `);
 }
@@ -441,7 +626,7 @@ document.write(`
 </main>
 
 <footer>
-    <p>Explore Exuma • Beaches • Islands • Accommodation • Adventures</p>
+<p>Explore Exuma • Beaches • Islands • Accommodation • Adventures</p>
 </footer>
 
 </body>
