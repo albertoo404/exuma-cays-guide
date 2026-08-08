@@ -1,0 +1,212 @@
+[
+  {
+    "id": 1,
+    "title": "Accommodation Unit 1",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 2,
+    "title": "Accommodation Unit 2",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 3,
+    "title": "Accommodation Unit 3",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 4,
+    "title": "Accommodation Unit 4",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 5,
+    "title": "Accommodation Unit 5",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 6,
+    "title": "Accommodation Unit 6",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 7,
+    "title": "Accommodation Unit 7",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 8,
+    "title": "Accommodation Unit 8",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 9,
+    "title": "Accommodation Unit 9",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 10,
+    "title": "Accommodation Unit 10",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 11,
+    "title": "Accommodation Unit 11",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 12,
+    "title": "Accommodation Unit 12",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 13,
+    "title": "Accommodation Unit 13",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 14,
+    "title": "Accommodation Unit 14",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 15,
+    "title": "Accommodation Unit 15",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 16,
+    "title": "Accommodation Unit 16",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 17,
+    "title": "Accommodation Unit 17",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 18,
+    "title": "Accommodation Unit 18",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 19,
+    "title": "Accommodation Unit 19",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 20,
+    "title": "Accommodation Unit 20",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 21,
+    "title": "Accommodation Unit 21",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 22,
+    "title": "Accommodation Unit 22",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 23,
+    "title": "Accommodation Unit 23",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 24,
+    "title": "Accommodation Unit 24",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 25,
+    "title": "Accommodation Unit 25",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 26,
+    "title": "Accommodation Unit 26",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 27,
+    "title": "Accommodation Unit 27",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 28,
+    "title": "Accommodation Unit 28",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 29,
+    "title": "Accommodation Unit 29",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  },
+  {
+    "id": 30,
+    "title": "Accommodation Unit 30",
+    "location": "Kakamega",
+    "price": "$150 / month",
+    "image": "https://via.placeholder.com/300x200"
+  }
+]
