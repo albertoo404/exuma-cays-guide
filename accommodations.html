@@ -107,12 +107,14 @@ header a {
 /* THREE ACCOMMODATION PHOTOS */
 .gallery {
     display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 0;
-    padding: 0;
     width: 100%;
-    scrollbar-width: thin;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0;
 }
 
 .gallery-item {
@@ -126,6 +128,7 @@ header a {
     object-fit: cover;
     display: block;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
     cursor: pointer;
 }
 
@@ -194,6 +197,10 @@ footer {
 .photo-labels span {
     flex: 0 0 33.333%;
 }
+.gallery::-webkit-scrollbar {
+    display: none;
+}
+
 </style>
 </head>
 
