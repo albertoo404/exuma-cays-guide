@@ -1,66 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exuma Bahamas | Official Guide & Accommodation Booking</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exuma Accommodations & Island Destinations</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; line-height: 1.6; color: #023047; background: #f8f9fa; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; line-height: 1.6; color: #023047; background: #f8f9fa; }
         header { background: #028090; color: white; padding: 2.5rem 5%; text-align: center; }
-        nav { background: #00a896; padding: 0.8rem 5%; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-        nav a { color: white; text-decoration: none; font-weight: 600; padding: 5px 10px; border-radius: 4px; }
-        nav a:hover, nav a.active { background: #023047; }
-        main { padding: 2rem 5%; max-width: 900px; margin: 0 auto; background: white; border-radius: 8px; margin-top: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .hero-img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem; }
         
-        /* Booking Platform Section */
-        .booking-section { background: #e0f2f1; padding: 1.5rem; border-radius: 8px; border-left: 5px solid #00a896; margin: 2rem 0; }
-        .booking-section h3 { margin-top: 0; color: #028090; }
-        .booking-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 1rem; }
-        .booking-form input, .booking-form select, .booking-form button { padding: 0.7rem; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; }
+        main { padding: 2rem 5%; max-width: 950px; margin: 1rem auto; background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .main-hero-img { width: 100%; max-height: 420px; object-fit: cover; border-radius: 8px; margin-bottom: 1.5rem; }
+
+        .accommodations-banner { background: #e0f2f1; padding: 1.8rem; border-radius: 8px; border-left: 5px solid #00a896; margin-bottom: 2rem; }
+        .accommodations-banner h2 { margin-top: 0; color: #028090; font-size: 1.8rem; }
+        .accommodations-banner p { font-size: 1.05rem; margin-bottom: 1rem; }
+
+        .booking-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-top: 1rem; }
+        .booking-form input, .booking-form select, .booking-form button { padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; }
         .booking-form button { background: #028090; color: white; border: none; font-weight: 600; cursor: pointer; transition: 0.2s; }
         .booking-form button:hover { background: #023047; }
+
+        .accommodations-info { margin: 2rem 0 3rem; }
+        .accommodations-info h3 { font-size: 1.4rem; color: #028090; margin-bottom: 0.8rem; }
+        .accommodations-info ul { margin-left: 1.5rem; margin-top: 0.5rem; }
+        .accommodations-info li { margin-bottom: 0.5rem; }
+
+        .destinations-title { text-align: center; margin-bottom: 1.5rem; font-size: 1.6rem; color: #028090; border-top: 2px solid #eee; padding-top: 2rem; }
+        .destinations-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .destination-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform 0.2s; }
+        .destination-card:hover { transform: translateY(-4px); }
+        .destination-card img { width: 100%; height: 150px; object-fit: cover; }
+        .destination-card-body { padding: 1rem; width: 100%; text-align: center; box-sizing: border-box; }
+        .btn-destination { display: block; width: 100%; padding: 0.75rem 0; background: #00a896; color: white; text-decoration: none; font-weight: 600; border-radius: 4px; text-align: center; transition: background 0.2s; }
+        .btn-destination:hover { background: #023047; }
 
         footer { text-align: center; padding: 2rem; color: #6c757d; }
     </style>
 </head>
 <body>
     <header>
-        <h1>Discover The Exuma Cays</h1>
-        <p>365 Islands of Crystal Blue Water & Unforgettable Stays</p>
+        <h1>Exuma Accommodations & Travel Portal</h1>
+        <p>Your Gateway to Luxury Rentals across the 365 Cays of the Bahamas</p>
     </header>
-    <nav>
-        <a href="index.html" class="active">Exuma Overview</a>
-        <a href="majorcay.html">Major Cay</a>
-        <a href="compasscay.html">Compass Cay</a>
-        <a href="stockingisland.html">Stocking Island</a>
-        <a href="sandbars.html">Sandbars</a>
-        <a href="stanielcay.html">Staniel Cay</a>
-        <a href="seapark.html">Sea Park</a>
-        <a href="grotto.html">Thunderball Grotto</a>
-    </nav>
-    <main>
-        <img src="exuma.jpg" alt="Exuma" class="hero-img">
-        <h2>Welcome to Exuma</h2>
-        <p>The Exumas are an archipelago of 365 cays and islands in the Bahamas. Divided into Great Exuma, Little Exuma, and the Exuma Cays, this tropical destination is world-famous for sapphire waters, swimming pigs, and private island retreats.</p>
 
-        <!-- Booking Platform Introduction -->
-        <section class="booking-section">
-            <h3>Book Your Stay in Paradise</h3>
-            <p>Welcome to our official booking platform! Whether you're looking for luxury oceanfront villas in George Town, cozy beach cottages near Staniel Cay, or private island retreats, we make reserving your accommodation seamless and secure.</p>
+    <main>
+        <img src="exuma.jpg" alt="Exuma" class="main-hero-img">
+
+        <section class="accommodations-banner">
+            <h2>We Are Giving Out Accommodations Across Exuma</h2>
+            <p>Welcome to our official booking portal! We offer handpicked vacation accommodations ranging from beachfront luxury villas and secluded private island stays to cozy, budget-friendly cottages located throughout the Exuma Cays.</p>
             
-            <form class="booking-form" onsubmit="event.preventDefault(); alert('Searching accommodations...');">
+            <form class="booking-form" onsubmit="event.preventDefault(); alert('Searching available accommodations...');">
                 <select required>
-                    <option value="">Select Destination</option>
+                    <option value="">Select Region</option>
                     <option value="george-town">George Town</option>
                     <option value="staniel-cay">Staniel Cay</option>
                     <option value="little-exuma">Little Exuma</option>
                 </select>
                 <input type="date" required placeholder="Check-in">
                 <input type="date" required placeholder="Check-out">
-                <button type="submit">Search Rentals</button>
+                <button type="submit">Search Stays</button>
             </form>
         </section>
+
+        <section class="accommodations-info">
+            <h3>About Our Accommodation Offerings</h3>
+            <p>Every stay booked through our platform comes fully equipped to give you an authentic, comfortable island experience. Our properties feature:</p>
+            <ul>
+                <li><strong>Oceanfront Views & Private Docks:</strong> Wake up directly on the turquoise water with seamless boat access.</li>
+                <li><strong>Fully Furnished Villas & Cottages:</strong> Complete with air conditioning, high-speed Wi-Fi, fully stocked kitchens, and outdoor deck space.</li>
+                <li><strong>Flexible Stay Lengths:</strong> Available for nightly rentals, weekly vacation stays, or extended seasonal visits.</li>
+                <li><strong>Prime Island Access:</strong> Located near major cays, local airstrips, water taxis, and premier excursions like the swimming pigs and nurse shark sanctuaries.</li>
+            </ul>
+        </section>
+
+        <h3 class="destinations-title">Explore Destinational Accommodations & Islands</h3>
+        <div class="destinations-grid">
+
+            <div class="destination-card">
+                <img src="majorcay.jpg" alt="Major Cay">
+                <div class="destination-card-body">
+                    <a href="majorcay.html" class="btn-destination">Explore Major Cay</a>
+                </div>
+            </div>
+
+            <div class="destination-card">
+                <img src="compasscay.jpg" alt="Compass Cay">
+                <div class="destination-card-body">
+                    <a href="compasscay.html" class="btn-destination">Explore Compass Cay</a>
+                </div>
+            </div>
+
+            <div class="destination-card">
+                <img src="stockingisland.jpg" alt="Stocking Island">
+                <div class="destination-card-body">
+                    <a href="stockingisland.html" class="btn-destination">Explore Stocking Island</a>
+                </div>
+            </div>
+
+            <div class="destination-card">
+                <img src="sandbars.jpg" alt="Sandbars">
+                <div class="destination-card-body">
+                    <a href="sandbars.html" class="btn-destination">Explore Sandbars</a>
+                </div>
+            </div>
+
+            <div class="destination-card">
+                <img src="stanielcay.jpg" alt="Staniel Cay">
+                <div class="destination-card-body">
+                    <a href="stanielcay.html" class="btn-destination">Explore Staniel Cay</a>
+                </div>
+            </div>
+
+            <div class="destination-card">
+                <img src="seapark.jpg" alt="Sea Park">
+                <div class="destination-card-body">
+                    <a href="seapark.html" class="btn-destination">Explore Sea Park</a>
+                </div>
+            </div>
+
+            <div class="destination-card">
+                <img src="grotto.jpg" alt="Thunderball Grotto">
+                <div class="destination-card-body">
+                    <a href="grotto.html" class="btn-destination">Explore Grotto</a>
+                </div>
+            </div>
+
+        </div>
     </main>
-    <footer><p>&copy; 2026 Exuma Travel Guide & Accommodations</p></footer>
+
+    <footer>
+        <p>&copy; 2026 Exuma Travel & Accommodations Platform</p>
+    </footer>
 </body>
 </html>
