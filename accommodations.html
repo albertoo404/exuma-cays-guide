@@ -1109,11 +1109,141 @@ alt="Staniel Cay accommodation ${i} bathroom">
     const house = document.getElementById("booking-house");
     const price = document.getElementById("booking-price");
 
+
+
+
     if (!form || !region || !checkIn || !checkOut ||
         !adults || !children || !house || !price) {
         console.error("Reservation form elements not found.");
         return;
     }
+
+    /*
+     * IMPORT CUSTOMER SEARCH DATA FROM index.html
+     *
+     * The customer has already entered these details
+     * on the main search form:
+     *
+     * Region
+     * Check-in
+     * Check-out
+     * Adults
+     * Children
+     *
+     * They should NOT have to enter them again.
+     */
+    function importSearchDetails() {
+
+        const savedRegion =
+            localStorage.getItem("exuma_region");
+
+        const savedCheckIn =
+            localStorage.getItem("exuma_search_checkin");
+
+        const savedCheckOut =
+            localStorage.getItem("exuma_search_checkout");
+
+        const savedAdults =
+            localStorage.getItem("exuma_search_adults");
+
+        const savedChildren =
+            localStorage.getItem("exuma_search_children");
+
+        /*
+         * Convert the region values used by index.html
+         * into the region names used by the reservation form.
+         */
+        const regionMap = {
+            "george-town": "George Town",
+            "moss-town": "Moss Town",
+            "michelson-rokers-point": "Roker's Point",
+            "staniel-cay-exuma-cays": "Staniel Cay",
+            "luxury-villas": "Luxury Villas"
+        };
+
+        if (savedRegion) {
+
+            const reservationRegion =
+                regionMap[savedRegion] || savedRegion;
+
+            const option =
+                Array.from(region.options).find(function (item) {
+                    return item.value === reservationRegion;
+                });
+
+            if (option) {
+                region.value = reservationRegion;
+            } else {
+                const newOption =
+                    new Option(
+                        reservationRegion,
+                        reservationRegion
+                    );
+
+                region.add(newOption);
+                region.value = reservationRegion;
+            }
+        }
+
+        /*
+         * Copy the dates directly from the search form.
+         */
+        if (savedCheckIn) {
+            checkIn.value = savedCheckIn;
+        }
+
+        if (savedCheckOut) {
+            checkOut.value = savedCheckOut;
+        }
+
+        /*
+         * Copy guest numbers directly from the search form.
+         */
+        if (savedAdults !== null) {
+            adults.value = savedAdults;
+        }
+
+        if (savedChildren !== null) {
+            children.value = savedChildren;
+        }
+
+        /*
+         * Prevent checkout from being before check-in.
+         */
+        if (checkIn.value) {
+            checkOut.min = checkIn.value;
+        }
+
+        /*
+         * Also save these values under the reservation
+         * storage keys used by the existing system.
+         */
+        localStorage.setItem(
+            "exuma_check_in",
+            checkIn.value
+        );
+
+        localStorage.setItem(
+            "exuma_check_out",
+            checkOut.value
+        );
+
+        localStorage.setItem(
+            "exuma_adults",
+            adults.value
+        );
+
+        localStorage.setItem(
+            "exuma_children",
+            children.value
+        );
+    }
+
+    /*
+     * Import the customer's search details immediately.
+     */
+    importSearchDetails();
+
 
     /*
      * ACCOMMODATION PRICE
