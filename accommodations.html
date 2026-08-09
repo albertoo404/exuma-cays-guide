@@ -1071,27 +1071,11 @@ alt="Staniel Cay accommodation ${i} bathroom">
 <script>
 (function () {
 
-    const form =
-        document.getElementById("exuma-reservation-form");
-
-    const house =
-        document.getElementById("booking-house");
-
-    const price =
-        document.getElementById("booking-price");
-
-    const checkIn =
-        document.getElementById("booking-checkin");
-
-    const checkOut =
-        document.getElementById("booking-checkout");
-
-
-    /*
-     * IMPORTANT:
-     * Replace the 0 values below with your
-     * actual accommodation prices.
-     */
+    const form = document.getElementById("exuma-reservation-form");
+    const house = document.getElementById("booking-house");
+    const price = document.getElementById("booking-price");
+    const checkIn = document.getElementById("booking-checkin");
+    const checkOut = document.getElementById("booking-checkout");
 
     function updatePrice() {
         const selected = house.options[house.selectedIndex];
@@ -1103,78 +1087,55 @@ alt="Staniel Cay accommodation ${i} bathroom">
         }
     }
 
+    house.addEventListener("change", updatePrice);
 
-    house.addEventListener(
-        "change",
-        updatePrice
-    );
+    checkIn.addEventListener("change", function () {
+        checkOut.min = checkIn.value;
 
-
-    /*
-     * Prevent checkout date from being
-     * earlier than check-in.
-     */
-
-    checkIn.addEventListener(
-        "change",
-        function () {
-
-            checkOut.min =
-                checkIn.value;
-
-            if (
-                checkOut.value &&
-                checkOut.value < checkIn.value
-            ) {
-                checkOut.value = "";
-            }
+        if (checkOut.value && checkOut.value < checkIn.value) {
+            checkOut.value = "";
         }
-    );
+    });
 
+    form.querySelectorAll("input, select").forEach(function (field) {
 
-    /*
-     * Save selections locally so the
-     * form can remember them while browsing.
-     */
+        if (!field.name) return;
 
-    const fields = form.querySelectorAll(
-        "input, select"
-    );
-
-    fields.forEach(function (field) {
-
-        const key =
-            "exuma_" + field.name;
-
-        const saved =
-            localStorage.getItem(key);
+        const key = "exuma_" + field.name;
+        const saved = localStorage.getItem(key);
 
         if (saved !== null) {
             field.value = saved;
         }
 
-        field.addEventListener(
-            "change",
-            function () {
-                localStorage.setItem(
-                    key,
-                    field.value
-                );
-            }
-        );
+        field.addEventListener("change", function () {
+            localStorage.setItem(key, field.value);
+        });
 
-        field.addEventListener(
-            "input",
-            function () {
-                localStorage.setItem(
-                    key,
-                    field.value
-                );
-            }
-        );
+        field.addEventListener("input", function () {
+            localStorage.setItem(key, field.value);
+        });
 
     });
 
+    form.addEventListener("submit", function (event) {
+
+        updatePrice();
+
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            form.reportValidity();
+            return;
+        }
+
+        const button = form.querySelector(".reserve-button");
+
+        if (button) {
+            button.disabled = true;
+            button.textContent = "Processing...";
+        }
+
+    });
 
     updatePrice();
 
