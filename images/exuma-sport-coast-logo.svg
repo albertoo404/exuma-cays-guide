@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <circle cx="250" cy="250" r="225" fill="#087f8c"/>
+  <circle cx="250" cy="250" r="205" fill="none" stroke="#ffffff" stroke-width="7"/>
+
+  <!-- Star -->
+  <polygon
+    points="250,65 270,125 333,125 282,162
+            301,222 250,186 199,222 218,162
+            167,125 230,125"
+    fill="#ffffff"/>
+
+  <!-- Company name -->
+  <text x="250" y="275"
+        text-anchor="middle"
+        fill="#ffffff"
+        font-family="Arial, sans-serif"
+        font-size="39"
+        font-weight="700">
+    Exuma Sport
+  </text>
+
+  <text x="250" y="322"
+        text-anchor="middle"
+        fill="#ffffff"
+        font-family="Arial, sans-serif"
+        font-size="39"
+        font-weight="700">
+    Coast Service
+  </text>
+
+  <text x="250" y="365"
+        text-anchor="middle"
+        fill="#ffffff"
+        font-family="Arial, sans-serif"
+        font-size="18"
+        letter-spacing="3">
+    EXUMA • BAHAMAS
+  </text>
+</svg>

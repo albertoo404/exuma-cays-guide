@@ -1,35 +1,478 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exuma Sandbars | White Sand at Low Tide</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; line-height: 1.6; color: #023047; background: #f8f9fa; }
-        header { background: #028090; color: white; padding: 2rem 5%; text-align: center; }
-        nav { background: #00a896; padding: 0.8rem 5%; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-        nav a { color: white; text-decoration: none; font-weight: 600; padding: 5px 10px; border-radius: 4px; }
-        nav a:hover, nav a.active { background: #023047; }
-        main { padding: 2rem 5%; max-width: 900px; margin: 0 auto; background: white; border-radius: 8px; margin-top: 1rem; }
-        footer { text-align: center; padding: 2rem; color: #6c757d; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exuma Sandbars | White Sand & Turquoise Waters</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    line-height:1.6;
+    color:#023047;
+    background:#eefcff;
+}
+
+.company-intro{
+    width:100%;
+    background:linear-gradient(135deg,#087b89,#119ca3);
+    padding:18px 15px;
+    text-align:center;
+}
+
+.company-intro-inner{
+    max-width:1100px;
+    margin:auto;
+}
+
+.company-intro h1{
+    color:white;
+    margin:0 0 8px;
+    font-size:28px;
+}
+
+.company-intro p{
+    color:white;
+    margin:5px 0;
+    font-size:14px;
+}
+
+header{
+    background:linear-gradient(135deg,#028090,#00a896);
+    color:white;
+    padding:35px 5%;
+    text-align:center;
+}
+
+header h1{
+    margin:0;
+    font-size:38px;
+}
+
+nav{
+    background:#023047;
+    padding:12px 5%;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    justify-content:center;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+    padding:7px 12px;
+    border-radius:5px;
+}
+
+nav a:hover,
+nav a.active{
+    background:#00a896;
+}
+
+.hero{
+    max-width:1200px;
+    margin:20px auto;
+    padding:0 15px;
+}
+
+.hero img{
+    width:100%;
+    height:420px;
+    object-fit:cover;
+    border-radius:15px;
+    display:block;
+}
+
+.intro{
+    max-width:1100px;
+    margin:25px auto;
+    padding:0 20px;
+    text-align:center;
+}
+
+.intro h2{
+    color:#007c91;
+    font-size:30px;
+}
+
+.cards{
+    max-width:1200px;
+    margin:30px auto;
+    padding:0 15px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 5px 18px rgba(0,0,0,.12);
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    display:block;
+}
+
+.card-content{
+    padding:18px;
+}
+
+.card h3{
+    margin-top:0;
+    color:#007c91;
+    font-size:22px;
+}
+
+.card p{
+    color:#425466;
+}
+
+.tag{
+    display:inline-block;
+    background:#d8f8f5;
+    color:#006d77;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    margin-top:40px;
+    background:#023047;
+    color:white;
+}
+
+@media(max-width:600px){
+    header h1{font-size:30px}
+    .hero img{height:280px}
+    .company-intro h1{font-size:24px}
+}
+</style>
+
+<style>
+.sandbar-section {
+    max-width: 1200px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+.sandbar-section h2 {
+    text-align: center;
+    color: #007c91;
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.intro-text {
+    max-width: 900px;
+    margin: 0 auto 30px;
+    text-align: center;
+    color: #36515a;
+    line-height: 1.8;
+}
+
+.sandbar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.sandbar-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,.12);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.sandbar-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 32px rgba(0,0,0,.20);
+}
+
+.sandbar-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+}
+
+.sandbar-card-content {
+    padding: 20px;
+}
+
+.sandbar-card-content h3 {
+    margin: 0 0 10px;
+    color: #008c9e;
+    font-size: 21px;
+}
+
+.sandbar-card-content p {
+    margin: 0;
+    color: #36515a;
+    line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+    .sandbar-section {
+        padding: 0 12px;
+    }
+
+    .sandbar-section h2 {
+        font-size: 25px;
+    }
+
+    .sandbar-card img {
+        height: 220px;
+    }
+}
+</style>
+
+
+<style>
+.company-endnote {
+    width: 100%;
+    box-sizing: border-box;
+    background: #023047;
+    color: #ffffff;
+    padding: 40px 20px;
+    margin-top: 50px;
+}
+
+.company-endnote-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.company-endnote h2 {
+    margin: 0 0 15px;
+    color: #ffffff;
+    font-size: 27px;
+}
+
+.company-endnote p {
+    margin: 10px auto;
+    max-width: 800px;
+    line-height: 1.7;
+}
+
+.company-endnote a {
+    color: #90e0ef;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.company-endnote a:hover {
+    text-decoration: underline;
+}
+
+.company-endnote .copyright {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.25);
+    font-size: 14px;
+    color: #d8eef2;
+}
+</style>
+
+
+
+
+
+
+
+
+<style>
+html, body {
+    background: #ffffff !important;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.company-footnote {
+    width: 100%;
+    background: #ffffff !important;
+    color: #666666 !important;
+    text-align: center;
+    padding: 12px 10px 8px;
+    margin-top: auto;
+    border-top: 1px solid #eeeeee;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+.company-footnote p {
+    margin: 2px 0;
+}
+
+.company-footnote strong {
+    color: #444444;
+}
+
+.company-footnote a {
+    color: #007c91;
+    text-decoration: none;
+}
+
+.company-footnote a:hover {
+    text-decoration: underline;
+}
+
+.company-footnote + footer,
+.company-footnote ~ footer {
+    background: #ffffff !important;
+    color: #666666 !important;
+    padding: 8px 10px;
+    margin-top: 0;
+    font-size: 11px;
+}
+</style>
+
 </head>
+
 <body>
-    <header><h1>Exuma Sandbars</h1><p>Miles of Unspoiled White Sand Banks</p></header>
-    <nav>
-        <a href="index.html">Exuma Overview</a>
-        <a href="majorcay.html">Major Cay</a>
-        <a href="compasscay.html">Compass Cay</a>
-        <a href="stockingisland.html">Stocking Island</a>
-        <a href="sandbars.html" class="active">Sandbars</a>
-        <a href="stanielcay.html">Staniel Cay</a>
-        <a href="seapark.html">Sea Park</a>
-        <a href="grotto.html">Thunderball Grotto</a>
-    </nav>
-    <main>
-        <img src="sandbars.jpg" alt="Sandbars" style="width:100%;max-height:400px;object-fit:cover;border-radius:8px;margin-bottom:1rem;">
-        <h2>Pipe Creek & Musha Cay Sandbars</h2>
-        <p>At low tide, vast white sandbars emerge from the turquoise ocean across Pipe Creek and Copper Jack Cay, creating temporary island paradises ideal for picnics.</p>
-    </main>
-    <footer><p>&copy; 2026 Exuma Travel Guide</p></footer>
+
+<section class="company-intro">
+<div class="company-intro-inner">
+<h1>Exuma Sport Coast Service</h1>
+<p><strong>Exuma Sport Coast Service</strong> — Discover comfortable stays, beautiful beaches and unforgettable adventures throughout Exuma.</p>
+<p>Explore the islands, sandbars, cays and turquoise waters of the Bahamas with us.</p>
+</div>
+</section>
+
+<header>
+<h1>Exuma Sandbars</h1>
+<p>White Sand • Turquoise Water • Low-Tide Adventures</p>
+</header>
+
+<nav>
+<a href="index.html">Exuma Overview</a>
+<a href="majorcay.html">Major Cay</a>
+<a href="compasscay.html">Compass Cay</a>
+<a href="stockingisland.html">Stocking Island</a>
+<a href="sandbars.html" class="active">Sandbars</a>
+<a href="stanielcay.html">Staniel Cay</a>
+<a href="seapark.html">Sea Park</a>
+<a href="grotto.html">Thunderball Grotto</a>
+</nav>
+
+<section class="sandbar-section">
+    <h2>Explore the Beautiful Exuma Sandbars</h2>
+    <p class="intro-text">
+        Exuma is famous for its brilliant white sandbars, shallow turquoise
+        water and peaceful island scenery. These temporary beaches appear
+        as the tide falls and create some of the most beautiful places to
+        swim, walk and take photographs.
+    </p>
+
+    <div class="sandbar-grid">
+
+        <article class="sandbar-card">
+            <img src="images/sandbars1.jpg" alt="Pipe Creek Sandbar">
+            <div class="sandbar-card-content">
+                <h3>Pipe Creek Sandbar</h3>
+                <p>
+                    Enjoy soft white sand surrounded by clear turquoise water.
+                    Pipe Creek is a beautiful place to stop during a boat
+                    excursion, swim and enjoy the peaceful Exuma scenery.
+                </p>
+            </div>
+        </article>
+
+        <article class="sandbar-card">
+            <img src="images/sandbars2.jpg" alt="Copper Jack Cay Sandbar">
+            <div class="sandbar-card-content">
+                <h3>Copper Jack Cay Sandbar</h3>
+                <p>
+                    Step into shallow crystal-clear water and explore the
+                    bright white sand. This type of sandbar is ideal for
+                    relaxing, taking photographs and enjoying the Caribbean sun.
+                </p>
+            </div>
+        </article>
+
+        <article class="sandbar-card">
+            <img src="images/sandbars3.jpg" alt="Exuma Shallow Sand Banks">
+            <div class="sandbar-card-content">
+                <h3>Exuma Shallow Sand Banks</h3>
+                <p>
+                    Wide stretches of white sand emerge from the sea at low
+                    tide. The surrounding turquoise water creates an incredible
+                    natural swimming and photography experience.
+                </p>
+            </div>
+        </article>
+
+        <article class="sandbar-card">
+            <img src="images/sandbars4.jpg" alt="Hidden Exuma Sandbar">
+            <div class="sandbar-card-content">
+                <h3>Hidden Sandbar Escape</h3>
+                <p>
+                    Escape to a quieter part of the Exuma waters. Boat tours
+                    can stop at secluded sandbars where visitors can swim,
+                    relax and enjoy the scenery away from busy beaches.
+                </p>
+            </div>
+        </article>
+
+        <article class="sandbar-card">
+            <img src="images/sandbars5.jpg" alt="Exuma Private Sandbar">
+            <div class="sandbar-card-content">
+                <h3>Exuma Sandbar Paradise</h3>
+                <p>
+                    Experience the famous combination of white sand and
+                    turquoise Caribbean water. It is a wonderful stop for
+                    couples, families and groups exploring the Exuma Cays.
+                </p>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+
+
+
+
+<!-- SMALL EXUMA SPORT COAST FOOTNOTE -->
+<section class="company-footnote">
+    <p>
+        <strong>Exuma Sport Coast Service</strong> · Exuma, Bahamas,
+        opposite the airport ·
+        <a href="mailto:exumaaccomodations@gmail.com">
+            exumaaccomodations@gmail.com
+        </a>
+    </p>
+    <p>© 2026 Exuma Sport Coast Service · All rights reserved.</p>
+</section>
+
+<footer>
+<p>&copy; 2026 Exuma Sport Coast Service</p>
+<p>Explore Exuma • Discover the Cays • Enjoy the Bahamas</p>
+</footer>
+
 </body>
 </html>

@@ -1,35 +1,633 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thunderball Grotto | Snorkeling Cave</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; line-height: 1.6; color: #023047; background: #f8f9fa; }
-        header { background: #028090; color: white; padding: 2rem 5%; text-align: center; }
-        nav { background: #00a896; padding: 0.8rem 5%; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-        nav a { color: white; text-decoration: none; font-weight: 600; padding: 5px 10px; border-radius: 4px; }
-        nav a:hover, nav a.active { background: #023047; }
-        main { padding: 2rem 5%; max-width: 900px; margin: 0 auto; background: white; border-radius: 8px; margin-top: 1rem; }
-        footer { text-align: center; padding: 2rem; color: #6c757d; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Thunderball Grotto | Exuma Sport Coast Service</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    line-height: 1.7;
+    color: #023047;
+    background: #eefaff;
+}
+
+/* COMPANY */
+.company-intro {
+    width: 100%;
+    background: linear-gradient(135deg, #006d77, #00a896, #0096c7);
+    color: white;
+    padding: 25px 18px;
+}
+
+.company-intro-inner {
+    max-width: 1150px;
+    margin: auto;
+}
+
+.company-intro h1 {
+    margin: 0 0 12px;
+    color: white;
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.company-intro p {
+    margin: 0 0 10px;
+    color: white;
+    font-size: 15px;
+}
+
+.company-intro p:last-child {
+    margin-bottom: 0;
+}
+
+/* DESTINATION HEADER */
+.destination-header {
+    background: linear-gradient(135deg, #023047, #007c91);
+    color: white;
+    text-align: center;
+    padding: 45px 20px;
+}
+
+.destination-header h1 {
+    margin: 0 0 8px;
+    font-size: 42px;
+}
+
+.destination-header p {
+    margin: 0;
+    font-size: 18px;
+}
+
+/* NAVIGATION */
+nav {
+    background: #00a896;
+    padding: 12px 5%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 7px 12px;
+    border-radius: 6px;
+}
+
+nav a:hover,
+nav a.active {
+    background: #023047;
+}
+
+/* MAIN */
+main {
+    max-width: 1200px;
+    margin: 25px auto;
+    padding: 0 18px;
+}
+
+.intro-card {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 7px 25px rgba(0,0,0,.10);
+}
+
+.intro-card h2 {
+    color: #007c91;
+    margin-top: 0;
+    font-size: 30px;
+}
+
+.intro-card p {
+    font-size: 16px;
+}
+
+/* HIGHLIGHTS */
+.highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 18px;
+    margin: 30px 0;
+}
+
+.highlight {
+    background: linear-gradient(145deg, #ffffff, #e8fbff);
+    border-radius: 16px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,.09);
+}
+
+.highlight-icon {
+    font-size: 38px;
+}
+
+.highlight h3 {
+    color: #007c91;
+    margin: 8px 0;
+}
+
+/* PHOTO SECTION */
+.photo-section {
+    margin: 35px 0;
+}
+
+.photo-section h2 {
+    text-align: center;
+    color: #007c91;
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.photo-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,.12);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.photo-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 32px rgba(0,0,0,.18);
+}
+
+.photo-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+.photo-content {
+    padding: 20px;
+}
+
+.photo-content h3 {
+    color: #007c91;
+    margin: 0 0 10px;
+    font-size: 21px;
+}
+
+.photo-content p {
+    margin: 0;
+    color: #36515a;
+}
+
+/* INFORMATION */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+    margin: 35px 0;
+}
+
+.info-card {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 7px 22px rgba(0,0,0,.09);
+}
+
+.info-card h2 {
+    color: #007c91;
+    margin-top: 0;
+}
+
+/* VISITOR TIPS */
+.tips {
+    background: linear-gradient(135deg, #caf0f8, #e9fbff);
+    border-radius: 18px;
+    padding: 30px;
+    margin: 35px 0;
+}
+
+.tips h2 {
+    margin-top: 0;
+    color: #006d77;
+}
+
+.tips li {
+    margin-bottom: 9px;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    background: #023047;
+    color: white;
+    padding: 30px 15px;
+    margin-top: 45px;
+}
+
+@media (max-width: 600px) {
+
+    .company-intro {
+        padding: 22px 15px;
+    }
+
+    .company-intro h1 {
+        font-size: 25px;
+    }
+
+    .destination-header {
+        padding: 35px 15px;
+    }
+
+    .destination-header h1 {
+        font-size: 31px;
+    }
+
+    .destination-header p {
+        font-size: 16px;
+    }
+
+    .intro-card {
+        padding: 22px;
+    }
+
+    .intro-card h2,
+    .photo-section h2 {
+        font-size: 25px;
+    }
+
+    .photo-card img {
+        height: 220px;
+    }
+}
+</style>
+
+<style>
+.company-endnote {
+    width: 100%;
+    box-sizing: border-box;
+    background: #023047;
+    color: #ffffff;
+    padding: 40px 20px;
+    margin-top: 50px;
+}
+
+.company-endnote-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.company-endnote h2 {
+    margin: 0 0 15px;
+    color: #ffffff;
+    font-size: 27px;
+}
+
+.company-endnote p {
+    margin: 10px auto;
+    max-width: 800px;
+    line-height: 1.7;
+}
+
+.company-endnote a {
+    color: #90e0ef;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.company-endnote a:hover {
+    text-decoration: underline;
+}
+
+.company-endnote .copyright {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.25);
+    font-size: 14px;
+    color: #d8eef2;
+}
+</style>
+
+
+
+
+
+
+
+
+<style>
+html, body {
+    background: #ffffff !important;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.company-footnote {
+    width: 100%;
+    background: #ffffff !important;
+    color: #666666 !important;
+    text-align: center;
+    padding: 12px 10px 8px;
+    margin-top: auto;
+    border-top: 1px solid #eeeeee;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+.company-footnote p {
+    margin: 2px 0;
+}
+
+.company-footnote strong {
+    color: #444444;
+}
+
+.company-footnote a {
+    color: #007c91;
+    text-decoration: none;
+}
+
+.company-footnote a:hover {
+    text-decoration: underline;
+}
+
+.company-footnote + footer,
+.company-footnote ~ footer {
+    background: #ffffff !important;
+    color: #666666 !important;
+    padding: 8px 10px;
+    margin-top: 0;
+    font-size: 11px;
+}
+</style>
+
 </head>
+
 <body>
-    <header><h1>Thunderball Grotto</h1><p>James Bond Underwater Cave Snorkeling</p></header>
-    <nav>
-        <a href="index.html">Exuma Overview</a>
-        <a href="majorcay.html">Major Cay</a>
-        <a href="compasscay.html">Compass Cay</a>
-        <a href="stockingisland.html">Stocking Island</a>
-        <a href="sandbars.html">Sandbars</a>
-        <a href="stanielcay.html">Staniel Cay</a>
-        <a href="seapark.html">Sea Park</a>
-        <a href="grotto.html" class="active">Grotto</a>
-    </nav>
-    <main>
-        <img src="grotto.jpg" alt="Thunderball Grotto" style="width:100%;max-height:400px;object-fit:cover;border-radius:8px;margin-bottom:1rem;">
-        <h2>Thunderball Grotto Cave</h2>
-        <p>Famous for being featured in the James Bond movie *Thunderball*, this underwater cave system allows snorkelers to swim inside a hollowed rock filled with tropical fish.</p>
-    </main>
-    <footer><p>&copy; 2026 Exuma Travel Guide</p></footer>
+
+<!-- EXUMA SPORT COAST SERVICE -->
+<section class="company-intro">
+    <div class="company-intro-inner">
+
+        <h1>Exuma Sport Coast Service</h1>
+
+        <p>
+            <strong>Exuma Sport Coast Service</strong> helps visitors discover
+            comfortable accommodation and memorable experiences throughout
+            Exuma, Bahamas.
+        </p>
+
+        <p>
+            Explore beautiful islands, beaches, sandbars, marine life,
+            swimming spots and unforgettable destinations across the Exuma Cays.
+        </p>
+
+    </div>
+</section>
+
+<!-- DESTINATION HEADER -->
+<header class="destination-header">
+    <h1>Thunderball Grotto</h1>
+    <p>Explore One of Exuma's Most Famous Underwater Caves</p>
+</header>
+
+<!-- NAVIGATION -->
+<nav>
+    <a href="index.html">Exuma Overview</a>
+    <a href="majorcay.html">Major Cay</a>
+    <a href="compasscay.html">Compass Cay</a>
+    <a href="stockingisland.html">Stocking Island</a>
+    <a href="sandbars.html">Sandbars</a>
+    <a href="stanielcay.html">Staniel Cay</a>
+    <a href="seapark.html">Sea Park</a>
+    <a href="grotto.html" class="active">Grotto</a>
+</nav>
+
+<main>
+
+    <!-- INTRODUCTION -->
+    <section class="intro-card">
+        <h2>Discover Thunderball Grotto</h2>
+
+        <p>
+            Thunderball Grotto is one of the most recognizable natural
+            attractions in the Exuma Cays. This spectacular limestone cave
+            system sits near Staniel Cay and is famous for its crystal-clear
+            water, dramatic rock formations and underwater passages.
+        </p>
+
+        <p>
+            Visitors can swim or snorkel into the grotto through openings in
+            the rock and discover a fascinating underwater world. Sunlight
+            enters through openings in the cave, creating beautiful reflections
+            across the turquoise water and rocky walls.
+        </p>
+
+        <p>
+            The grotto became internationally famous after appearing in the
+            James Bond film <em>Thunderball</em>. Today it remains one of the
+            most popular snorkeling experiences in the Exuma Cays.
+        </p>
+    </section>
+
+    <!-- HIGHLIGHTS -->
+    
+
+    <!-- SIX PHOTO CARDS -->
+    <section class="photo-section">
+
+        <h2>Explore Thunderball Grotto</h2>
+
+        <div class="photo-grid">
+
+            <article class="photo-card">
+                <img src="images/grotto1.jpg" alt="Thunderball Grotto entrance">
+                <div class="photo-content">
+                    <h3>The Grotto Entrance</h3>
+                    <p>
+                        See the dramatic entrance to the cave where visitors
+                        begin their adventure into the clear Exuma waters.
+                    </p>
+                </div>
+            </article>
+
+            <article class="photo-card">
+                <img src="images/grotto2.jpg" alt="Thunderball Grotto turquoise water">
+                <div class="photo-content">
+                    <h3>Crystal-Clear Water</h3>
+                    <p>
+                        The grotto is surrounded by remarkably clear turquoise
+                        water, making it ideal for swimming and snorkeling.
+                    </p>
+                </div>
+            </article>
+
+            <article class="photo-card">
+                <img src="images/grotto3.jpg" alt="Fish swimming in Thunderball Grotto">
+                <div class="photo-content">
+                    <h3>Marine Life</h3>
+                    <p>
+                        Snorkelers can encounter tropical fish moving through
+                        the shallow water around the cave's rocky environment.
+                    </p>
+                </div>
+            </article>
+
+            <article class="photo-card">
+                <img src="images/grotto4.jpg" alt="Inside Thunderball Grotto cave">
+                <div class="photo-content">
+                    <h3>Inside the Cave</h3>
+                    <p>
+                        Natural openings allow sunlight into the grotto,
+                        producing beautiful patterns of light across the water.
+                    </p>
+                </div>
+            </article>
+
+            <article class="photo-card">
+                <img src="images/grotto5.jpg" alt="Thunderball Grotto rocks">
+                <div class="photo-content">
+                    <h3>Rock Formations</h3>
+                    <p>
+                        Explore the rugged limestone formations that make the
+                        grotto such a distinctive natural attraction.
+                    </p>
+                </div>
+            </article>
+
+            <article class="photo-card">
+                <img src="images/grotto6.jpg" alt="Visitors exploring Thunderball Grotto">
+                <div class="photo-content">
+                    <h3>Adventure in Exuma</h3>
+                    <p>
+                        A grotto visit combines swimming, snorkeling,
+                        sightseeing and an unforgettable island adventure.
+                    </p>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- MORE INFORMATION -->
+    <section class="info-grid">
+
+        <article class="info-card">
+            <h2>🤿 Snorkeling Experience</h2>
+            <p>
+                Thunderball Grotto is particularly exciting for visitors who
+                enjoy snorkeling. The clear water makes it possible to observe
+                fish and underwater rock formations while swimming through the
+                cave system.
+            </p>
+        </article>
+
+        <article class="info-card">
+            <h2>🚤 Getting There</h2>
+            <p>
+                The grotto is commonly visited as part of boat trips around
+                Staniel Cay and the surrounding Exuma Cays. Many island-hopping
+                excursions include the grotto as one of their major stops.
+            </p>
+        </article>
+
+        <article class="info-card">
+            <h2>🌊 Best Conditions</h2>
+            <p>
+                Visibility and access can vary with tides, weather and sea
+                conditions. Visitors should follow their captain or guide's
+                instructions when entering the cave.
+            </p>
+        </article>
+
+        <article class="info-card">
+            <h2>📸 Photography</h2>
+            <p>
+                The combination of blue water, sunlight, rock formations and
+                marine life makes Thunderball Grotto an excellent location for
+                underwater photography and holiday memories.
+            </p>
+        </article>
+
+    </section>
+
+    <!-- VISITOR TIPS -->
+    <section class="tips">
+
+        <h2>Visitor Tips</h2>
+
+        <ul>
+            <li>Follow your boat captain or local guide when entering the grotto.</li>
+            <li>Check sea and tide conditions before entering the cave.</li>
+            <li>Bring suitable swimming or snorkeling equipment.</li>
+            <li>Protect waterproof phones and cameras from water damage.</li>
+            <li>Avoid touching or damaging marine life and rock formations.</li>
+            <li>Be considerate of other visitors exploring the cave.</li>
+            <li>Keep the grotto clean and take all rubbish back with you.</li>
+        </ul>
+
+    </section>
+
+    <section class="intro-card">
+
+        <h2>Make Thunderball Grotto Part of Your Exuma Adventure</h2>
+
+        <p>
+            A visit to Thunderball Grotto can be combined with other famous
+            Exuma attractions, including Staniel Cay, nearby sandbars,
+            Compass Cay and the Exuma Cays Land & Sea Park.
+        </p>
+
+        <p>
+            Whether you are visiting for snorkeling, sightseeing, photography
+            or simply experiencing one of the Bahamas' most memorable natural
+            attractions, Thunderball Grotto offers an adventure worth adding
+            to your Exuma itinerary.
+        </p>
+
+    </section>
+
+</main>
+
+
+
+
+
+<!-- SMALL EXUMA SPORT COAST FOOTNOTE -->
+<section class="company-footnote">
+    <p>
+        <strong>Exuma Sport Coast Service</strong> · Exuma, Bahamas,
+        opposite the airport ·
+        <a href="mailto:exumaaccomodations@gmail.com">
+            exumaaccomodations@gmail.com
+        </a>
+    </p>
+    <p>© 2026 Exuma Sport Coast Service · All rights reserved.</p>
+</section>
+
+<footer>
+    <p>&copy; 2026 Exuma Sport Coast Service</p>
+    <p>Explore Exuma • Discover the Cays • Enjoy the Bahamas</p>
+</footer>
+
 </body>
 </html>
