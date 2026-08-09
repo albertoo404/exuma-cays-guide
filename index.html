@@ -568,6 +568,46 @@ body {
 
                 <button type="submit">Find Beach Stays</button>
             </form>
+
+<script>
+(function () {
+    const searchForm = document.querySelector('input[name="checkin"]')?.closest("form");
+
+    if (!searchForm) {
+        console.error("Exuma search form not found.");
+        return;
+    }
+
+    searchForm.addEventListener("submit", function () {
+        const region = searchForm.querySelector('[name="region"]');
+        const checkin = searchForm.querySelector('[name="checkin"]');
+        const checkout = searchForm.querySelector('[name="checkout"]');
+        const adults = searchForm.querySelector('[name="adults"]');
+        const children = searchForm.querySelector('[name="children"]');
+
+        if (region) {
+            localStorage.setItem("exuma_region", region.value);
+        }
+
+        if (checkin) {
+            localStorage.setItem("exuma_search_checkin", checkin.value);
+        }
+
+        if (checkout) {
+            localStorage.setItem("exuma_search_checkout", checkout.value);
+        }
+
+        if (adults) {
+            localStorage.setItem("exuma_search_adults", adults.value);
+        }
+
+        if (children) {
+            localStorage.setItem("exuma_search_children", children.value);
+        }
+    });
+})();
+</script>
+
         </section>
 
         <section class="accommodations-info">

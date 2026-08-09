@@ -874,6 +874,7 @@ alt="Staniel Cay accommodation ${i} bathroom">
         <form id="exuma-reservation-form"
               action="https://exuma-cays-guide-api.onrender.com/reserve"
               method="POST">
+<input type="hidden" id="booking-total" name="total" value="0">
 
             <div class="reservation-grid">
 
@@ -1133,60 +1134,48 @@ alt="Staniel Cay accommodation ${i} bathroom">
      * They should NOT have to enter them again.
      */
     function importSearchDetails() {
+        /*
+         * The customer already entered these details on index.html.
+         * Because index.html submits using GET, read them directly
+         * from the URL.
+         */
+        const params = new URLSearchParams(window.location.search);
 
-        const savedRegion =
-            localStorage.getItem("exuma_region");
-
-        const savedCheckIn =
-            localStorage.getItem("exuma_search_checkin");
-
-        const savedCheckOut =
-            localStorage.getItem("exuma_search_checkout");
-
-        const savedAdults =
-            localStorage.getItem("exuma_search_adults");
-
-        const savedChildren =
-            localStorage.getItem("exuma_search_children");
+        const savedRegion = params.get("region");
+        const savedCheckIn = params.get("checkin");
+        const savedCheckOut = params.get("checkout");
+        const savedAdults = params.get("adults");
+        const savedChildren = params.get("children");
 
         /*
-         * Convert the region values used by index.html
-         * into the region names used by the reservation form.
+         * Convert index.html region values to the values
+         * used by the reservation form.
          */
         const regionMap = {
             "george-town": "George Town",
             "moss-town": "Moss Town",
             "michelson-rokers-point": "Roker's Point",
             "staniel-cay-exuma-cays": "Staniel Cay",
-            "luxury-villas": "Luxury Villas"
+            "luxury-villas": "Other Exuma"
         };
 
         if (savedRegion) {
-
             const reservationRegion =
                 regionMap[savedRegion] || savedRegion;
 
-            const option =
-                Array.from(region.options).find(function (item) {
+            const option = Array.from(region.options).find(
+                function (item) {
                     return item.value === reservationRegion;
-                });
+                }
+            );
 
             if (option) {
-                region.value = reservationRegion;
-            } else {
-                const newOption =
-                    new Option(
-                        reservationRegion,
-                        reservationRegion
-                    );
-
-                region.add(newOption);
                 region.value = reservationRegion;
             }
         }
 
         /*
-         * Copy the dates directly from the search form.
+         * Copy the customer's dates.
          */
         if (savedCheckIn) {
             checkIn.value = savedCheckIn;
@@ -1197,7 +1186,7 @@ alt="Staniel Cay accommodation ${i} bathroom">
         }
 
         /*
-         * Copy guest numbers directly from the search form.
+         * Copy the customer's guest numbers.
          */
         if (savedAdults !== null) {
             adults.value = savedAdults;
@@ -1208,40 +1197,37 @@ alt="Staniel Cay accommodation ${i} bathroom">
         }
 
         /*
-         * Prevent checkout from being before check-in.
+         * Make sure checkout cannot be before check-in.
          */
         if (checkIn.value) {
             checkOut.min = checkIn.value;
         }
 
         /*
-         * Also save these values under the reservation
-         * storage keys used by the existing system.
+         * Also keep the values in localStorage for the existing
+         * reservation system.
          */
-        localStorage.setItem(
-            "exuma_check_in",
-            checkIn.value
-        );
+        if (savedRegion) {
+            localStorage.setItem("exuma_region", savedRegion);
+        }
 
-        localStorage.setItem(
-            "exuma_check_out",
-            checkOut.value
-        );
+        if (savedCheckIn) {
+            localStorage.setItem("exuma_check_in", savedCheckIn);
+        }
 
-        localStorage.setItem(
-            "exuma_adults",
-            adults.value
-        );
+        if (savedCheckOut) {
+            localStorage.setItem("exuma_check_out", savedCheckOut);
+        }
 
-        localStorage.setItem(
-            "exuma_children",
-            children.value
-        );
+        if (savedAdults !== null) {
+            localStorage.setItem("exuma_adults", savedAdults);
+        }
+
+        if (savedChildren !== null) {
+            localStorage.setItem("exuma_children", savedChildren);
+        }
     }
 
-    /*
-     * Import the customer's search details immediately.
-     */
     importSearchDetails();
 
 
@@ -1438,7 +1424,83 @@ alt="Staniel Cay accommodation ${i} bathroom">
      * Native POST sends the exact values currently
      * contained in the form.
      */
-    form.addEventListener("submit", function (event) {
+    
+    /*
+     * Calculate the final accommodation price.
+     *
+     * The customer does NOT see the calculation.
+     * Only the final total is sent to the receipt/backend.
+     *
+     * Total = number of nights × accommodation price per night
+     */
+    function calculateReservationTotal() {
+        const checkInDate = checkIn.value;
+        const checkOutDate = checkOut.value;
+
+        const selectedAccommodation =
+            house.options[house.selectedIndex];
+
+        if (!checkInDate || !checkOutDate ||
+            !selectedAccommodation ||
+            !selectedAccommodation.dataset.price) {
+            return 0;
+        }
+
+        const start = new Date(checkInDate + "T00:00:00");
+        const end = new Date(checkOutDate + "T00:00:00");
+
+        const millisecondsPerNight = 1000 * 60 * 60 * 24;
+        const nights = Math.round(
+            (end - start) / millisecondsPerNight
+        );
+
+        if (nights <= 0) {
+            return 0;
+        }
+
+        const nightlyPrice =
+            Number(selectedAccommodation.dataset.price);
+
+        if (!Number.isFinite(nightlyPrice) || nightlyPrice < 0) {
+            return 0;
+        }
+
+        return nights * nightlyPrice;
+    }
+
+    function updateReservationTotal() {
+        const total = calculateReservationTotal();
+
+        const totalField =
+            document.getElementById("booking-total");
+
+        if (totalField) {
+            totalField.value = total.toFixed(2);
+        }
+
+        return total;
+    }
+
+    /*
+     * Recalculate whenever the customer changes
+     * the accommodation or dates.
+     */
+    checkIn.addEventListener("change", updateReservationTotal);
+    checkOut.addEventListener("change", updateReservationTotal);
+    house.addEventListener("change", updateReservationTotal);
+
+    updateReservationTotal();
+
+form.addEventListener("submit", function (event) {
+        const finalTotal = updateReservationTotal();
+
+        if (finalTotal <= 0) {
+            alert("Please select valid check-in, check-out and accommodation dates.");
+            event.preventDefault();
+            return;
+        }
+
+
         if (!form.checkValidity()) {
             event.preventDefault();
             form.reportValidity();

@@ -196,7 +196,12 @@ button {{
 </div>
 
 <div class="detail">
-    <span class="label">Price</span>
+    <span class="label">Number of Nights</span>
+    <strong>{data.get("nights", 0)}</strong>
+</div>
+
+<div class="detail">
+    <span class="label">Total</span>
     <strong>USD {data["price"]:.2f}</strong>
 </div>
 
@@ -225,6 +230,23 @@ button {{
 
     (RECEIPTS / f"{number}.html").write_text(html)
 
+@app.route("/")
+def home():
+    return send_from_directory(BASE, "index.html")
+
+@app.route("/accommodations.html")
+def accommodations():
+    return send_from_directory(BASE, "accommodations.html")
+
+@app.route("/<path:filename>")
+def website_files(filename):
+    file_path = BASE / filename
+
+    if file_path.is_file():
+        return send_from_directory(BASE, filename)
+
+    return "File not found", 404
+
 @app.route("/reserve", methods=["POST"])
 def reserve():
     region = request.form.get("region", "").strip()
@@ -235,9 +257,29 @@ def reserve():
     try:
         adults = max(1, int(request.form.get("adults", "1")))
         children = max(0, int(request.form.get("children", "0")))
-        price = float(request.form.get("price", "0"))
-    except ValueError:
+        nightly_price = float(request.form.get("price", "0"))
+
+        check_in_date = datetime.strptime(
+            check_in, "%Y-%m-%d"
+        ).date()
+
+        check_out_date = datetime.strptime(
+            check_out, "%Y-%m-%d"
+        ).date()
+
+        nights = (check_out_date - check_in_date).days
+
+    except (ValueError, TypeError):
         return "Invalid reservation information", 400
+
+    if nights <= 0:
+        return "Check-out must be after check-in", 400
+
+    if nightly_price < 0:
+        return "Invalid accommodation price", 400
+
+    # Final accommodation price = nights × nightly price
+    price = nightly_price * nights
 
     if not region or not check_in or not check_out or not accommodation:
         return "Missing reservation information", 400
@@ -254,6 +296,7 @@ def reserve():
         "children": children,
         "accommodation": accommodation,
         "price": price,
+        "nights": nights,
         "created_at": created_at
     }
 
@@ -298,6 +341,22 @@ def receipt(number):
         return "Reservation not found", 404
 
     data = dict(row)
+
+    try:
+        check_in_date = datetime.strptime(
+            data["check_in"], "%Y-%m-%d"
+        ).date()
+
+        check_out_date = datetime.strptime(
+            data["check_out"], "%Y-%m-%d"
+        ).date()
+
+        data["nights"] = (
+            check_out_date - check_in_date
+        ).days
+
+    except (ValueError, TypeError):
+        data["nights"] = 0
 
     create_receipt(data)
 
