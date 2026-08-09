@@ -1429,18 +1429,40 @@ alt="Staniel Cay accommodation ${i} bathroom">
         }
 
         /*
-         * PRESERVE CHECK-IN AND CHECK-OUT.
+         * PRESERVE CUSTOMER ENTERED DETAILS.
+         *
+         * These values must NOT be changed when an
+         * accommodation is selected.
          */
-        if (checkIn.value) {
+        const currentCheckIn = checkIn.value;
+        const currentCheckOut = checkOut.value;
+        const currentAdults = adults.value;
+        const currentChildren = children.value;
 
-            checkOut.min =
-                checkIn.value;
+        if (currentCheckIn) {
+            checkIn.value = currentCheckIn;
+            checkOut.min = currentCheckIn;
+        }
+
+        if (currentCheckOut) {
+            checkOut.value = currentCheckOut;
+        }
+
+        if (currentAdults !== "") {
+            adults.value = currentAdults;
+        }
+
+        if (currentChildren !== "") {
+            children.value = currentChildren;
         }
 
         /*
-         * Preserve all existing customer information.
+         * Save exactly what the customer entered.
          */
-        saveReservationDetails();
+        localStorage.setItem("exuma_check_in", currentCheckIn);
+        localStorage.setItem("exuma_check_out", currentCheckOut);
+        localStorage.setItem("exuma_adults", currentAdults);
+        localStorage.setItem("exuma_children", currentChildren);
 
         /*
          * Scroll to reservation form.
