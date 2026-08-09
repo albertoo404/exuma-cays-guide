@@ -149,7 +149,7 @@ button {{
 <div class="receipt">
 
 <div class="header">
-    <img src="/images/exumalogo.jpg"
+    <img src="https://exuma-cays-guide-api.onrender.com/images/exumalogo.jpg"
          alt="Exuma Sport Coast Service">
     <h1>Exuma Sport Coast Service</h1>
     <p>Accommodation Reservation Receipt</p>
@@ -284,12 +284,28 @@ def reserve():
 
 @app.route("/reservation/<number>")
 def receipt(number):
-    filename = f"{number}.html"
+    conn = sqlite3.connect(DB)
+    conn.row_factory = sqlite3.Row
 
-    if not (RECEIPTS / filename).exists():
+    row = conn.execute(
+        "SELECT * FROM reservations WHERE reservation_number = ?",
+        (number,)
+    ).fetchone()
+
+    conn.close()
+
+    if not row:
         return "Reservation not found", 404
 
-    return send_from_directory(RECEIPTS, filename)
+    data = dict(row)
+
+    create_receipt(data)
+
+    return send_from_directory(
+        RECEIPTS,
+        f"{number}.html"
+    )
+
 
 @app.route("/admin/reservations")
 def reservations():
