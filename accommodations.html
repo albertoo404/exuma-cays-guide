@@ -1102,85 +1102,253 @@ alt="Staniel Cay accommodation ${i} bathroom">
 (function () {
 
     const form = document.getElementById("exuma-reservation-form");
-    const house = document.getElementById("booking-house");
-    const price = document.getElementById("booking-price");
     const region = document.getElementById("booking-region");
     const checkIn = document.getElementById("booking-checkin");
     const checkOut = document.getElementById("booking-checkout");
+    const adults = document.getElementById("booking-adults");
+    const children = document.getElementById("booking-children");
+    const house = document.getElementById("booking-house");
+    const price = document.getElementById("booking-price");
 
-    function updatePrice() {
-        const selected = house.options[house.selectedIndex];
+    if (!form || !region || !checkIn || !checkOut ||
+        !adults || !children || !house || !price) {
+        console.error("Reservation form elements not found.");
+        return;
+    }
 
-        if (selected && selected.dataset.price) {
-            price.value = Number(selected.dataset.price).toFixed(2);
-        } else {
-            price.value = "0.00";
+    /*
+     * Save the customer's current reservation information.
+     */
+    function saveReservationDetails() {
+
+        localStorage.setItem("exuma_region", region.value);
+        localStorage.setItem("exuma_check_in", checkIn.value);
+        localStorage.setItem("exuma_check_out", checkOut.value);
+        localStorage.setItem("exuma_adults", adults.value);
+        localStorage.setItem("exuma_children", children.value);
+        localStorage.setItem("exuma_accommodation", house.value);
+        localStorage.setItem("exuma_price", price.value);
+    }
+
+    /*
+     * Restore information previously entered by the customer.
+     */
+    function restoreReservationDetails() {
+
+        const savedRegion =
+            localStorage.getItem("exuma_region");
+
+        const savedCheckIn =
+            localStorage.getItem("exuma_check_in");
+
+        const savedCheckOut =
+            localStorage.getItem("exuma_check_out");
+
+        const savedAdults =
+            localStorage.getItem("exuma_adults");
+
+        const savedChildren =
+            localStorage.getItem("exuma_children");
+
+        const savedAccommodation =
+            localStorage.getItem("exuma_accommodation");
+
+        const savedPrice =
+            localStorage.getItem("exuma_price");
+
+        if (savedRegion) {
+            region.value = savedRegion;
+        }
+
+        if (savedCheckIn) {
+            checkIn.value = savedCheckIn;
+        }
+
+        if (savedCheckOut) {
+            checkOut.value = savedCheckOut;
+        }
+
+        if (savedAdults) {
+            adults.value = savedAdults;
+        }
+
+        if (savedChildren) {
+            children.value = savedChildren;
+        }
+
+        if (savedAccommodation) {
+
+            let option = Array.from(house.options)
+                .find(function (item) {
+                    return item.value === savedAccommodation;
+                });
+
+            if (!option) {
+
+                option = new Option(
+                    savedAccommodation,
+                    savedAccommodation
+                );
+
+                house.add(option);
+            }
+
+            house.value = savedAccommodation;
+        }
+
+        if (savedPrice) {
+            price.value = savedPrice;
         }
     }
 
     /*
-     * Restore information the customer has already entered.
-     * This includes:
-     * region
-     * check-in
-     * check-out
-     * adults
-     * children
-     * accommodation
+     * Update price from the selected accommodation.
      */
-    form.querySelectorAll("input, select").forEach(function (field) {
+    function updatePrice() {
 
-        if (!field.name) return;
+        const selected =
+            house.options[house.selectedIndex];
 
-        const key = "exuma_" + field.name;
-        const saved = localStorage.getItem(key);
+        if (selected && selected.dataset.price) {
 
-        if (saved !== null) {
-            field.value = saved;
+            price.value =
+                Number(selected.dataset.price).toFixed(2);
+
+        } else {
+
+            price.value = "0.00";
         }
 
-        field.addEventListener("change", function () {
-            localStorage.setItem(key, field.value);
-        });
+        localStorage.setItem(
+            "exuma_price",
+            price.value
+        );
+    }
 
-        field.addEventListener("input", function () {
-            localStorage.setItem(key, field.value);
-        });
+    /*
+     * When the customer manually changes accommodation.
+     */
+    house.addEventListener("change", function () {
 
+        updatePrice();
+
+        localStorage.setItem(
+            "exuma_accommodation",
+            house.value
+        );
     });
 
     /*
-     * When an accommodation card is clicked,
-     * automatically fill the reservation form.
+     * Save region whenever customer changes it.
+     */
+    region.addEventListener("change", function () {
+
+        localStorage.setItem(
+            "exuma_region",
+            region.value
+        );
+    });
+
+    /*
+     * Save dates and guests immediately.
+     */
+    checkIn.addEventListener("change", function () {
+
+        localStorage.setItem(
+            "exuma_check_in",
+            checkIn.value
+        );
+
+        checkOut.min = checkIn.value;
+
+        if (
+            checkOut.value &&
+            checkOut.value < checkIn.value
+        ) {
+            checkOut.value = "";
+
+            localStorage.removeItem(
+                "exuma_check_out"
+            );
+        }
+    });
+
+    checkOut.addEventListener("change", function () {
+
+        localStorage.setItem(
+            "exuma_check_out",
+            checkOut.value
+        );
+    });
+
+    adults.addEventListener("input", function () {
+
+        localStorage.setItem(
+            "exuma_adults",
+            adults.value
+        );
+    });
+
+    children.addEventListener("input", function () {
+
+        localStorage.setItem(
+            "exuma_children",
+            children.value
+        );
+    });
+
+    /*
+     * IMPORTANT:
+     *
+     * Clicking an accommodation card automatically fills:
+     *
+     * REGION
+     * ACCOMMODATION
+     * PRICE
+     *
+     * The customer's existing:
+     *
+     * CHECK-IN
+     * CHECK-OUT
+     * ADULTS
+     * CHILDREN
+     *
+     * are NOT changed.
      */
     document.addEventListener("click", function (event) {
 
-        const button = event.target.closest(".reserve-btn");
+        const button =
+            event.target.closest(".reserve-btn");
 
-        if (!button) return;
+        if (!button) {
+            return;
+        }
 
         event.preventDefault();
 
         const selectedRegion =
-            button.dataset.region || "";
+            button.getAttribute("data-region");
 
         const selectedAccommodation =
-            button.dataset.accommodation || "";
+            button.getAttribute("data-accommodation");
 
         const selectedPrice =
-            button.dataset.price || "";
+            button.getAttribute("data-price");
 
         /*
-         * Fill region automatically.
+         * REGION
          */
         if (selectedRegion) {
 
-            let regionOption = Array.from(region.options)
-                .find(function (option) {
-                    return option.value === selectedRegion;
-                });
+            let regionOption =
+                Array.from(region.options).find(
+                    function (option) {
+                        return option.value === selectedRegion;
+                    }
+                );
 
             if (!regionOption) {
+
                 regionOption = new Option(
                     selectedRegion,
                     selectedRegion
@@ -1198,34 +1366,44 @@ alt="Staniel Cay accommodation ${i} bathroom">
         }
 
         /*
-         * Fill accommodation automatically.
+         * ACCOMMODATION
+         *
+         * Create the option if it does not already
+         * exist in the reservation dropdown.
          */
         if (selectedAccommodation) {
 
-            let houseOption = Array.from(house.options)
-                .find(function (option) {
-                    return option.value === selectedAccommodation;
-                });
-
-            if (!houseOption) {
-
-                houseOption = new Option(
-                    selectedAccommodation,
-                    selectedAccommodation +
-                    (selectedPrice
-                        ? " — $" + selectedPrice + "/night"
-                        : "")
+            let accommodationOption =
+                Array.from(house.options).find(
+                    function (option) {
+                        return option.value === selectedAccommodation;
+                    }
                 );
 
-                if (selectedPrice) {
-                    houseOption.dataset.price =
-                        selectedPrice;
-                }
+            if (!accommodationOption) {
 
-                house.add(houseOption);
+                accommodationOption = new Option(
+                    selectedAccommodation,
+                    selectedAccommodation
+                );
+
+                house.add(accommodationOption);
             }
 
+            /*
+             * Select exactly the house the customer clicked.
+             */
             house.value = selectedAccommodation;
+
+            /*
+             * Make sure the selected option has
+             * the correct price.
+             */
+            if (selectedPrice) {
+
+                accommodationOption.dataset.price =
+                    selectedPrice;
+            }
 
             localStorage.setItem(
                 "exuma_accommodation",
@@ -1234,7 +1412,7 @@ alt="Staniel Cay accommodation ${i} bathroom">
         }
 
         /*
-         * Fill the accommodation price automatically.
+         * PRICE
          */
         if (selectedPrice) {
 
@@ -1246,25 +1424,26 @@ alt="Staniel Cay accommodation ${i} bathroom">
                 price.value
             );
         } else {
+
             updatePrice();
         }
 
         /*
-         * DO NOT modify:
-         * check-in
-         * check-out
-         * adults
-         * children
-         *
-         * Those values remain exactly as the customer
-         * previously entered them.
+         * PRESERVE CHECK-IN AND CHECK-OUT.
          */
         if (checkIn.value) {
-            checkOut.min = checkIn.value;
+
+            checkOut.min =
+                checkIn.value;
         }
 
         /*
-         * Scroll to the reservation form.
+         * Preserve all existing customer information.
+         */
+        saveReservationDetails();
+
+        /*
+         * Scroll to reservation form.
          */
         form.scrollIntoView({
             behavior: "smooth",
@@ -1274,29 +1453,23 @@ alt="Staniel Cay accommodation ${i} bathroom">
     });
 
     /*
-     * Keep check-out after check-in.
+     * Restore saved information when page opens.
      */
-    checkIn.addEventListener("change", function () {
-
-        checkOut.min = checkIn.value;
-
-        if (
-            checkOut.value &&
-            checkOut.value < checkIn.value
-        ) {
-            checkOut.value = "";
-
-            localStorage.removeItem(
-                "exuma_check_out"
-            );
-        }
-
-    });
+    restoreReservationDetails();
 
     /*
-     * Normal browser submission.
+     * Make sure check-out cannot be before check-in.
+     */
+    if (checkIn.value) {
+        checkOut.min = checkIn.value;
+    }
+
+    /*
+     * Normal browser POST to Render.
      */
     form.addEventListener("submit", function (event) {
+
+        saveReservationDetails();
 
         updatePrice();
 
@@ -1312,13 +1485,12 @@ alt="Staniel Cay accommodation ${i} bathroom">
             form.querySelector(".reserve-button");
 
         if (button) {
+
             button.disabled = true;
             button.textContent = "Processing...";
         }
 
     });
-
-    updatePrice();
 
 })();
 </script>
