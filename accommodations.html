@@ -7,6 +7,14 @@
 <title>Exuma Accommodations</title>
 
 <style>
+
+html {
+    scroll-behavior: smooth;
+}
+
+#exuma-reservation-form {
+    scroll-margin-top: 30px;
+}
 * {
     box-sizing: border-box;
 }
@@ -484,7 +492,7 @@ alt="George Town accommodation ${i} bathroom">
 <div class="price"><strong>From $${georgePrices[i-1]} / night</strong></div>
 </div>
 
-<a class="reserve-btn" href="#">Reserve Accommodation</a>
+<a class="reserve-btn" href="#exuma-reservation-form">Reserve Accommodation</a>
 
 </div>
 `);
@@ -572,7 +580,7 @@ alt="Luxury accommodation ${i} bathroom">
 <div class="price">From $${luxuryPrices[i-1]} / night</div>
 </div>
 
-<a class="reserve-btn" href="#">Reserve Accommodation</a>
+<a class="reserve-btn" href="#exuma-reservation-form">Reserve Accommodation</a>
 
 </div>
 `);
@@ -642,7 +650,7 @@ alt="Michelson accommodation ${i} bathroom">
 <div class="price">From $${michelsonPrices[i-1]} / night</div>
 </div>
 
-<a class="reserve-btn" href="#">Reserve Accommodation</a>
+<a class="reserve-btn" href="#exuma-reservation-form">Reserve Accommodation</a>
 
 </div>
 `);
@@ -726,7 +734,7 @@ alt="Moss Town accommodation ${i} bathroom">
 <div class="price">From $${mossPrices[i-1]} / night</div>
 </div>
 
-<a class="reserve-btn" href="#">Reserve Accommodation</a>
+<a class="reserve-btn" href="#exuma-reservation-form">Reserve Accommodation</a>
 
 </div>
 `);
@@ -790,7 +798,7 @@ alt="Staniel Cay accommodation ${i} bathroom">
 <div class="price">From $${stanielPrices[i-1]} / night</div>
 </div>
 
-<a class="reserve-btn" href="#">Reserve Accommodation</a>
+<a class="reserve-btn" href="#exuma-reservation-form">Reserve Accommodation</a>
 
 </div>
 `);
@@ -839,15 +847,6 @@ alt="Staniel Cay accommodation ${i} bathroom">
 
             <div class="reservation-grid">
 
-            <div class="reservation-field">
-                <label for="booking-check-in">Check-in</label>
-                <input id="booking-check-in" type="date" required>
-            </div>
-
-            <div class="reservation-field">
-                <label for="booking-check-out">Check-out</label>
-                <input id="booking-check-out" type="date" required>
-            </div>
 
                 <div class="reservation-field">
                     <label for="booking-region">Region</label>
@@ -1094,27 +1093,11 @@ alt="Staniel Cay accommodation ${i} bathroom">
      * actual accommodation prices.
      */
 
-    const prices = {
-        "1 Bedroom House": 0,
-        "2 Bedroom House": 0,
-        "3 Bedroom House": 0,
-        "Studio": 0,
-        "Apartment": 0,
-        "Luxury Villa": 0
-    };
-
-
     function updatePrice() {
+        const selected = house.options[house.selectedIndex];
 
-        const accommodation =
-            house.value;
-
-        if (
-            accommodation &&
-            prices[accommodation] !== undefined
-        ) {
-            price.value =
-                prices[accommodation].toFixed(2);
+        if (selected && selected.dataset.price) {
+            price.value = Number(selected.dataset.price).toFixed(2);
         } else {
             price.value = "0.00";
         }
