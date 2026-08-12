@@ -926,6 +926,100 @@ def db_test():
         }), 500
 
 
+
+@app.route("/admin/migrate-reservations", methods=["POST"])
+def migrate_reservations():
+    supplied_secret = request.headers.get("X-Migration-Secret", "")
+    expected_secret = os.environ.get("MIGRATION_SECRET", "")
+
+    if not expected_secret or supplied_secret != expected_secret:
+        return jsonify({
+            "success": False,
+            "error": "Unauthorized"
+        }), 401
+
+    data = request.get_json(silent=True)
+
+    if not isinstance(data, list):
+        return jsonify({
+            "success": False,
+            "error": "Expected a JSON array"
+        }), 400
+
+    conn = None
+
+    try:
+        conn = psycopg2.connect(DATABASE_URL)
+
+        inserted = 0
+        skipped = 0
+
+        with conn.cursor() as cur:
+            for item in data:
+                cur.execute("""
+                    INSERT INTO reservations
+                    (
+                        reservation_number,
+                        region,
+                        check_in,
+                        check_out,
+                        adults,
+                        children,
+                        accommodation,
+                        price,
+                        created_at,
+                        client_name,
+                        client_phone,
+                        client_email
+                    )
+                    VALUES (
+                        %s, %s, %s, %s, %s, %s,
+                        %s, %s, %s, %s, %s, %s
+                    )
+                    ON CONFLICT (reservation_number) DO NOTHING
+                """, (
+                    item.get("reservation_number"),
+                    item.get("region"),
+                    item.get("check_in"),
+                    item.get("check_out"),
+                    item.get("adults"),
+                    item.get("children"),
+                    item.get("accommodation"),
+                    item.get("price"),
+                    item.get("created_at"),
+                    item.get("client_name"),
+                    item.get("client_phone"),
+                    item.get("client_email")
+                ))
+
+                if cur.rowcount == 1:
+                    inserted += 1
+                else:
+                    skipped += 1
+
+        conn.commit()
+
+        return jsonify({
+            "success": True,
+            "received": len(data),
+            "inserted": inserted,
+            "skipped_existing": skipped
+        })
+
+    except Exception as error:
+        if conn:
+            conn.rollback()
+
+        return jsonify({
+            "success": False,
+            "error": repr(error)
+        }), 500
+
+    finally:
+        if conn:
+            conn.close()
+
+
 init_db()
 
 if __name__ == "__main__":
