@@ -773,10 +773,7 @@ def request_payment_details(number):
 
         return jsonify({
             "success": False,
-            "error": (
-                "We could not send the payment request. "
-                "Please try again later."
-            )
+            "error": repr(error)
         }), 500
 
 
