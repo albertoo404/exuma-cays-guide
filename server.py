@@ -22,6 +22,7 @@ RECEIPTS.mkdir(exist_ok=True)
 
 def init_db():
     conn = sqlite3.connect(DB)
+
     conn.execute("""
         CREATE TABLE IF NOT EXISTS reservations (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,8 +37,32 @@ def init_db():
             created_at TEXT NOT NULL
         )
     """)
+
+    # Safe migration for existing databases
+    columns = {
+        row[1]
+        for row in conn.execute(
+            "PRAGMA table_info(reservations)"
+        )
+    }
+
+    migrations = {
+        "client_name": "TEXT",
+        "client_phone": "TEXT",
+        "client_email": "TEXT"
+    }
+
+    for column, definition in migrations.items():
+        if column not in columns:
+            conn.execute(
+                f"ALTER TABLE reservations ADD COLUMN {column} {definition}"
+            )
+            print(f"Added database column: {column}")
+
     conn.commit()
     conn.close()
+
+    print("Database initialized successfully.")
 
 def generate_number():
     date = datetime.now().strftime("%Y%m%d")
