@@ -4,9 +4,16 @@ import sqlite3
 from pathlib import Path
 from datetime import datetime
 import secrets
+import os
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 app = Flask(__name__)
-CORS(app, origins=["https://albertoo404.github.io"])
+CORS(app, origins=[
+    "https://albertoo404.github.io",
+    "https://exumasportaccomodation.netlify.app"
+])
 
 BASE = Path(__file__).resolve().parent
 DB = BASE / "reservations.db"
@@ -253,6 +260,9 @@ def reserve():
     check_in = request.form.get("check_in", "").strip()
     check_out = request.form.get("check_out", "").strip()
     accommodation = request.form.get("accommodation", "").strip()
+    client_name = request.form.get("client_name", "").strip()
+    client_phone = request.form.get("client_phone", "").strip()
+    client_email = request.form.get("client_email", "").strip()
 
     try:
         adults = max(1, int(request.form.get("adults", "1")))
@@ -281,9 +291,7 @@ def reserve():
     # Final accommodation price = nights × nightly price
     price = nightly_price * nights
 
-    if not region or not check_in or not check_out or not accommodation:
-        return "Missing reservation information", 400
-
+    
     number = generate_number()
     created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -297,15 +305,31 @@ def reserve():
         "accommodation": accommodation,
         "price": price,
         "nights": nights,
+        "client_name": client_name or None,
+        "client_phone": client_phone or None,
+        "client_email": client_email or None,
         "created_at": created_at
     }
 
     conn = sqlite3.connect(DB)
+
     conn.execute("""
         INSERT INTO reservations
-        (reservation_number, region, check_in, check_out,
-         adults, children, accommodation, price, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (
+            reservation_number,
+            region,
+            check_in,
+            check_out,
+            adults,
+            children,
+            accommodation,
+            price,
+            client_name,
+            client_phone,
+            client_email,
+            created_at
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (
         number,
         region,
@@ -315,15 +339,19 @@ def reserve():
         children,
         accommodation,
         price,
+        client_name or None,
+        client_phone or None,
+        client_email or None,
         created_at
     ))
+
     conn.commit()
     conn.close()
 
     create_receipt(data)
 
-    # Silent transition to the generated receipt
     return redirect(f"/reservation/{number}")
+
 
 @app.route("/reservation/<number>")
 def receipt(number):
@@ -365,6 +393,402 @@ def receipt(number):
         f"{number}.html"
     )
 
+
+
+
+
+def send_payment_request_email(data):
+    """
+    Send the colourful HTML payment-details request
+    using Gmail SMTP.
+    """
+
+    import os
+    import smtplib
+    from email.message import EmailMessage
+
+    smtp_email = os.environ.get("SMTP_EMAIL")
+    smtp_password = os.environ.get("SMTP_APP_PASSWORD")
+
+    if not smtp_email:
+        raise RuntimeError("SMTP_EMAIL is not configured.")
+
+    if not smtp_password:
+        raise RuntimeError("SMTP_APP_PASSWORD is not configured.")
+
+    company_email = "exumaaccomodations@gmail.com"
+
+    customer_name = (
+        data.get("client_name") or "Customer"
+    ).strip()
+
+    customer_email = (
+        data.get("client_email") or ""
+    ).strip()
+
+    customer_phone = (
+        data.get("client_phone") or "Not provided"
+    ).strip()
+
+    reservation = data.get("reservation_number")
+    accommodation = data.get("accommodation") or "—"
+    region = data.get("region") or "—"
+    check_in = data.get("check_in") or "—"
+    check_out = data.get("check_out") or "—"
+    adults = data.get("adults", 0)
+    children = data.get("children", 0)
+
+    total = float(data.get("price") or 0)
+    deposit = total * 0.50
+
+    subject = (
+        f"Payment Details Request - Reservation {reservation}"
+    )
+
+    html = f"""
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+</head>
+
+<body style="
+    margin:0;
+    padding:25px 10px;
+    background:#eef8fb;
+    font-family:Arial,Helvetica,sans-serif;font-size:18px;
+    color:#173b43;
+">
+
+<div style="
+    max-width:650px;
+    margin:auto;
+    background:#ffffff;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 8px 30px rgba(0,0,0,.12);
+">
+
+<div style="
+    background:linear-gradient(135deg,#006d77,#00a6a6);
+    padding:30px 20px;
+    text-align:center;
+    color:white;
+">
+    <h1 style="margin:0;font-size:32px;">
+        EXUMA SPORTS ACCOMMODATIONS
+    </h1>
+
+    <p style="margin:8px 0 0;font-size:15px;">
+        Payment Details Request
+    </p>
+</div>
+
+<div style="padding:30px 25px;">
+
+    <h2 style="color:#006d77;margin-top:0;">
+        New Payment Request
+    </h2>
+
+    <p>
+        A customer has requested payment details for the following reservation.
+    </p>
+
+    <div style="
+        background:#f1fbfc;
+        border-left:5px solid #00a6a6;
+        padding:18px;
+        margin:20px 0;
+        border-radius:8px;
+    ">
+
+        <p><strong>Reservation:</strong> {reservation}</p>
+        <p><strong>Customer:</strong> {customer_name}</p>
+        <p><strong>Email:</strong> {customer_email}</p>
+        <p><strong>Phone:</strong> {customer_phone}</p>
+        <p><strong>Accommodation:</strong> {accommodation}</p>
+        <p><strong>Region:</strong> {region}</p>
+        <p><strong>Check-in:</strong> {check_in}</p>
+        <p><strong>Check-out:</strong> {check_out}</p>
+        <p><strong>Adults:</strong> {adults}</p>
+        <p><strong>Children:</strong> {children}</p>
+
+    </div>
+
+    <div style="
+        background:#fff8e7;
+        border-radius:10px;
+        padding:18px;
+        margin-top:20px;
+    ">
+
+        <p style="margin:5px 0;">
+            <strong>Total accommodation price:</strong>
+            ${total:,.2f}
+        </p>
+
+        <p style="margin:5px 0;">
+            <strong>50% deposit:</strong>
+            ${deposit:,.2f}
+        </p>
+
+    </div>
+
+    <p style="
+        margin-top:25px;
+        color:#555;
+        font-size:14px;
+    ">
+        Please provide the appropriate payment instructions or payment link
+        to the customer using their contact information above.
+    </p>
+
+</div>
+
+<div style="
+    background:#023047;
+    color:white;
+    padding:18px;
+    text-align:center;
+    font-size:13px;
+">
+    Exuma Cays Guide · Exuma, Bahamas
+</div>
+
+</div>
+
+</body>
+</html>
+"""
+
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = smtp_email
+    msg["To"] = company_email
+
+    if customer_email:
+        msg["Reply-To"] = customer_email
+
+    msg.set_content(
+        f"""
+Payment Details Request
+
+Reservation: {reservation}
+Customer: {customer_name}
+Email: {customer_email}
+Phone: {customer_phone}
+Accommodation: {accommodation}
+Region: {region}
+Check-in: {check_in}
+Check-out: {check_out}
+Adults: {adults}
+Children: {children}
+
+Total: ${total:,.2f}
+50% deposit: ${deposit:,.2f}
+"""
+    )
+
+    msg.add_alternative(html, subtype="html")
+
+    try:
+        with smtplib.SMTP("smtp.gmail.com", 587, timeout=30) as server:
+            server.starttls()
+            server.login(smtp_email, smtp_password)
+            server.send_message(msg)
+
+        print(
+            "GMAIL SMTP PAYMENT REQUEST SENT:",
+            reservation
+        )
+
+    except Exception as error:
+        print(
+            "GMAIL SMTP ERROR:",
+            repr(error)
+        )
+        raise RuntimeError(
+            "Could not send payment request through Gmail SMTP."
+        )
+
+
+@app.route("/update-customer/<number>", methods=["POST"])
+def update_customer(number):
+    conn = sqlite3.connect(DB)
+
+    try:
+        client_name = (request.form.get("client_name") or "").strip()
+        client_phone = (request.form.get("client_phone") or "").strip()
+        client_email = (request.form.get("client_email") or "").strip()
+
+        if not client_name or not client_phone or not client_email:
+            return jsonify({
+                "success": False,
+                "error": "Name, phone number and email are required."
+            }), 400
+
+        reservation = conn.execute(
+            "SELECT id FROM reservations WHERE reservation_number = ?",
+            (number,)
+        ).fetchone()
+
+        if not reservation:
+            return jsonify({
+                "success": False,
+                "error": "Reservation not found."
+            }), 404
+
+        conn.execute(
+            """
+            UPDATE reservations
+            SET client_name = ?,
+                client_phone = ?,
+                client_email = ?
+            WHERE reservation_number = ?
+            """,
+            (client_name, client_phone, client_email, number)
+        )
+
+        conn.commit()
+
+        return jsonify({
+            "success": True,
+            "message": "Customer details saved successfully.",
+            "reservation_number": number
+        })
+
+    except Exception as error:
+        conn.rollback()
+        print("UPDATE CUSTOMER ERROR:", repr(error))
+
+        return jsonify({
+            "success": False,
+            "error": "Could not save customer details."
+        }), 500
+
+    finally:
+        conn.close()
+
+@app.route("/request-payment-details/<number>", methods=["POST"])
+def request_payment_details(number):
+
+    conn = sqlite3.connect(DB)
+    conn.row_factory = sqlite3.Row
+
+    row = conn.execute(
+        "SELECT * FROM reservations WHERE reservation_number = ?",
+        (number,)
+    ).fetchone()
+
+    conn.close()
+
+    if not row:
+        return jsonify({
+            "success": False,
+            "error": "Reservation not found"
+        }), 404
+
+    data = dict(row)
+
+    customer_email = (
+        data.get("client_email") or ""
+    ).strip()
+
+    customer_name = (
+        data.get("client_name") or ""
+    ).strip()
+
+    customer_phone = (
+        data.get("client_phone") or ""
+    ).strip()
+
+    if not customer_name or not customer_phone or not customer_email:
+        return jsonify({
+            "success": False,
+            "error": (
+                "Please enter your name, phone number "
+                "and email before requesting payment details."
+            )
+        }), 400
+
+    try:
+        check_in_date = datetime.strptime(
+            data["check_in"], "%Y-%m-%d"
+        ).date()
+
+        check_out_date = datetime.strptime(
+            data["check_out"], "%Y-%m-%d"
+        ).date()
+
+        data["nights"] = (
+            check_out_date - check_in_date
+        ).days
+
+    except (ValueError, TypeError):
+        data["nights"] = 0
+
+    try:
+        send_payment_request_email(data)
+
+        return jsonify({
+            "success": True,
+            "message": (
+                "Your payment-details request has been "
+                "sent successfully."
+            ),
+            "reservation_number": number
+        })
+
+    except Exception as error:
+        print(
+            "PAYMENT REQUEST EMAIL ERROR:",
+            repr(error)
+        )
+
+        return jsonify({
+            "success": False,
+            "error": (
+                "We could not send the payment request. "
+                "Please try again later."
+            )
+        }), 500
+
+
+@app.route("/reservation-data/<number>")
+def reservation_data(number):
+    conn = sqlite3.connect(DB)
+    conn.row_factory = sqlite3.Row
+
+    row = conn.execute(
+        "SELECT * FROM reservations WHERE reservation_number = ?",
+        (number,)
+    ).fetchone()
+
+    conn.close()
+
+    if not row:
+        return jsonify({"error": "Reservation not found"}), 404
+
+    data = dict(row)
+
+    try:
+        check_in_date = datetime.strptime(
+            data["check_in"], "%Y-%m-%d"
+        ).date()
+
+        check_out_date = datetime.strptime(
+            data["check_out"], "%Y-%m-%d"
+        ).date()
+
+        data["nights"] = (
+            check_out_date - check_in_date
+        ).days
+
+    except (ValueError, TypeError):
+        data["nights"] = 0
+
+    return jsonify(data)
 
 @app.route("/admin/reservations")
 def reservations():

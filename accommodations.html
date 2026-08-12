@@ -1410,12 +1410,43 @@ alt="Staniel Cay accommodation ${i} bathroom">
         }
 
         /*
-         * Scroll to reservation form.
+         * Transition to the reservation payment page.
+         *
+         * All selected reservation information is stored first,
+         * then reserve.html loads it using the reservation data.
          */
-        form.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
+        const params = new URLSearchParams();
+
+        if (selectedRegion) {
+            params.set("region", selectedRegion);
+        }
+
+        if (selectedAccommodation) {
+            params.set("accommodation", selectedAccommodation);
+        }
+
+        if (selectedPrice) {
+            params.set("price", selectedPrice);
+        }
+
+        if (checkIn.value) {
+            params.set("checkin", checkIn.value);
+        }
+
+        if (checkOut.value) {
+            params.set("checkout", checkOut.value);
+        }
+
+        if (adults.value) {
+            params.set("adults", adults.value);
+        }
+
+        if (children.value) {
+            params.set("children", children.value);
+        }
+
+        window.location.href =
+            "reserve.html?" + params.toString();
     });
 
     /*
