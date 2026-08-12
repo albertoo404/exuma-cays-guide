@@ -5,7 +5,7 @@ from pathlib import Path
 from datetime import datetime
 import secrets
 import os
-import smtplib
+import requests
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -618,23 +618,62 @@ Total: ${total:,.2f}
     msg.add_alternative(html, subtype="html")
 
     try:
-        with smtplib.SMTP("smtp.gmail.com", 587, timeout=30) as server:
-            server.starttls()
-            server.login(smtp_email, smtp_password)
-            server.send_message(msg)
+        google_apps_script_url = os.environ.get(
+            "GOOGLE_APPS_SCRIPT_URL"
+        )
+
+        if not google_apps_script_url:
+            raise RuntimeError(
+                "GOOGLE_APPS_SCRIPT_URL is not configured."
+            )
+
+        plain_message = f"""
+Payment Details Request
+
+Reservation: {reservation}
+Customer: {customer_name}
+Email: {customer_email}
+Phone: {customer_phone}
+Accommodation: {accommodation}
+Region: {region}
+Check-in: {check_in}
+Check-out: {check_out}
+Adults: {adults}
+Children: {children}
+
+Total: ${total:,.2f}
+50% deposit: ${deposit:,.2f}
+"""
+
+        response = requests.post(
+            google_apps_script_url,
+            data={
+                "to": company_email,
+                "subject": subject,
+                "message": plain_message
+            },
+            timeout=30,
+            allow_redirects=False
+        )
+
+        if response.status_code not in (200, 302):
+            raise RuntimeError(
+                f"Google Apps Script returned HTTP "
+                f"{response.status_code}: {response.text[:500]}"
+            )
 
         print(
-            "GMAIL SMTP PAYMENT REQUEST SENT:",
+            "GOOGLE APPS SCRIPT PAYMENT REQUEST SENT:",
             reservation
         )
 
     except Exception as error:
         print(
-            "GMAIL SMTP ERROR:",
+            "GOOGLE APPS SCRIPT ERROR:",
             repr(error)
         )
         raise RuntimeError(
-            f"GMAIL SMTP ERROR: {error!r}"
+            f"GOOGLE APPS SCRIPT ERROR: {error!r}"
         )
 
 
