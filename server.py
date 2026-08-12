@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect, send_from_directory, jsonify
 from flask_cors import CORS
-import sqlite3
+import psycopg2
+from psycopg2.extras import RealDictCursor
 from pathlib import Path
 from datetime import datetime
 import secrets
@@ -16,53 +17,45 @@ CORS(app, origins=[
 ])
 
 BASE = Path(__file__).resolve().parent
-DB = BASE / "reservations.db"
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL environment variable is not configured.")
 RECEIPTS = BASE / "reservations"
 RECEIPTS.mkdir(exist_ok=True)
 
 def init_db():
-    conn = sqlite3.connect(DB)
+    conn = psycopg2.connect(DATABASE_URL)
 
-    conn.execute("""
-        CREATE TABLE IF NOT EXISTS reservations (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            reservation_number TEXT UNIQUE NOT NULL,
-            region TEXT NOT NULL,
-            check_in TEXT NOT NULL,
-            check_out TEXT NOT NULL,
-            adults INTEGER NOT NULL,
-            children INTEGER NOT NULL,
-            accommodation TEXT NOT NULL,
-            price REAL NOT NULL,
-            created_at TEXT NOT NULL
-        )
-    """)
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                CREATE TABLE IF NOT EXISTS reservations (
+                    id SERIAL PRIMARY KEY,
+                    reservation_number TEXT UNIQUE NOT NULL,
+                    region TEXT NOT NULL,
+                    check_in TEXT NOT NULL,
+                    check_out TEXT NOT NULL,
+                    adults INTEGER NOT NULL,
+                    children INTEGER NOT NULL,
+                    accommodation TEXT NOT NULL,
+                    price DOUBLE PRECISION NOT NULL,
+                    created_at TEXT NOT NULL,
+                    client_name TEXT,
+                    client_phone TEXT,
+                    client_email TEXT
+                )
+            """)
 
-    # Safe migration for existing databases
-    columns = {
-        row[1]
-        for row in conn.execute(
-            "PRAGMA table_info(reservations)"
-        )
-    }
+        conn.commit()
+        print("PostgreSQL database initialized successfully.")
 
-    migrations = {
-        "client_name": "TEXT",
-        "client_phone": "TEXT",
-        "client_email": "TEXT"
-    }
+    except Exception:
+        conn.rollback()
+        raise
 
-    for column, definition in migrations.items():
-        if column not in columns:
-            conn.execute(
-                f"ALTER TABLE reservations ADD COLUMN {column} {definition}"
-            )
-            print(f"Added database column: {column}")
-
-    conn.commit()
-    conn.close()
-
-    print("Database initialized successfully.")
+    finally:
+        conn.close()
 
 def generate_number():
     date = datetime.now().strftime("%Y%m%d")
@@ -336,42 +329,50 @@ def reserve():
         "created_at": created_at
     }
 
-    conn = sqlite3.connect(DB)
+    conn = psycopg2.connect(DATABASE_URL)
 
-    conn.execute("""
-        INSERT INTO reservations
-        (
-            reservation_number,
-            region,
-            check_in,
-            check_out,
-            adults,
-            children,
-            accommodation,
-            price,
-            client_name,
-            client_phone,
-            client_email,
-            created_at
-        )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    """, (
-        number,
-        region,
-        check_in,
-        check_out,
-        adults,
-        children,
-        accommodation,
-        price,
-        client_name or None,
-        client_phone or None,
-        client_email or None,
-        created_at
-    ))
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                INSERT INTO reservations
+                (
+                    reservation_number,
+                    region,
+                    check_in,
+                    check_out,
+                    adults,
+                    children,
+                    accommodation,
+                    price,
+                    client_name,
+                    client_phone,
+                    client_email,
+                    created_at
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """, (
+                number,
+                region,
+                check_in,
+                check_out,
+                adults,
+                children,
+                accommodation,
+                price,
+                client_name or None,
+                client_phone or None,
+                client_email or None,
+                created_at
+            ))
 
-    conn.commit()
-    conn.close()
+        conn.commit()
+
+    except Exception:
+        conn.rollback()
+        raise
+
+    finally:
+        conn.close()
 
     create_receipt(data)
 
@@ -380,15 +381,21 @@ def reserve():
 
 @app.route("/reservation/<number>")
 def receipt(number):
-    conn = sqlite3.connect(DB)
-    conn.row_factory = sqlite3.Row
+    conn = psycopg2.connect(
+        DATABASE_URL,
+        cursor_factory=RealDictCursor
+    )
 
-    row = conn.execute(
-        "SELECT * FROM reservations WHERE reservation_number = ?",
-        (number,)
-    ).fetchone()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT * FROM reservations WHERE reservation_number = %s",
+                (number,)
+            )
+            row = cur.fetchone()
 
-    conn.close()
+    finally:
+        conn.close()
 
     if not row:
         return "Reservation not found", 404
@@ -679,7 +686,7 @@ Total: ${total:,.2f}
 
 @app.route("/update-customer/<number>", methods=["POST"])
 def update_customer(number):
-    conn = sqlite3.connect(DB)
+    conn = psycopg2.connect(DATABASE_URL)
 
     try:
         client_name = (request.form.get("client_name") or "").strip()
@@ -692,27 +699,29 @@ def update_customer(number):
                 "error": "Name, phone number and email are required."
             }), 400
 
-        reservation = conn.execute(
-            "SELECT id FROM reservations WHERE reservation_number = ?",
-            (number,)
-        ).fetchone()
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT id FROM reservations WHERE reservation_number = %s",
+                (number,)
+            )
+            reservation = cur.fetchone()
 
-        if not reservation:
-            return jsonify({
-                "success": False,
-                "error": "Reservation not found."
-            }), 404
+            if not reservation:
+                return jsonify({
+                    "success": False,
+                    "error": "Reservation not found."
+                }), 404
 
-        conn.execute(
-            """
-            UPDATE reservations
-            SET client_name = ?,
-                client_phone = ?,
-                client_email = ?
-            WHERE reservation_number = ?
-            """,
-            (client_name, client_phone, client_email, number)
-        )
+            cur.execute(
+                """
+                UPDATE reservations
+                SET client_name = %s,
+                    client_phone = %s,
+                    client_email = %s
+                WHERE reservation_number = %s
+                """,
+                (client_name, client_phone, client_email, number)
+            )
 
         conn.commit()
 
@@ -737,15 +746,21 @@ def update_customer(number):
 @app.route("/request-payment-details/<number>", methods=["POST"])
 def request_payment_details(number):
 
-    conn = sqlite3.connect(DB)
-    conn.row_factory = sqlite3.Row
+    conn = psycopg2.connect(
+        DATABASE_URL,
+        cursor_factory=RealDictCursor
+    )
 
-    row = conn.execute(
-        "SELECT * FROM reservations WHERE reservation_number = ?",
-        (number,)
-    ).fetchone()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT * FROM reservations WHERE reservation_number = %s",
+                (number,)
+            )
+            row = cur.fetchone()
 
-    conn.close()
+    finally:
+        conn.close()
 
     if not row:
         return jsonify({
@@ -818,15 +833,21 @@ def request_payment_details(number):
 
 @app.route("/reservation-data/<number>")
 def reservation_data(number):
-    conn = sqlite3.connect(DB)
-    conn.row_factory = sqlite3.Row
+    conn = psycopg2.connect(
+        DATABASE_URL,
+        cursor_factory=RealDictCursor
+    )
 
-    row = conn.execute(
-        "SELECT * FROM reservations WHERE reservation_number = ?",
-        (number,)
-    ).fetchone()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT * FROM reservations WHERE reservation_number = %s",
+                (number,)
+            )
+            row = cur.fetchone()
 
-    conn.close()
+    finally:
+        conn.close()
 
     if not row:
         return jsonify({"error": "Reservation not found"}), 404
@@ -853,21 +874,57 @@ def reservation_data(number):
 
 @app.route("/admin/reservations")
 def reservations():
-    conn = sqlite3.connect(DB)
-    conn.row_factory = sqlite3.Row
+    conn = psycopg2.connect(
+        DATABASE_URL,
+        cursor_factory=RealDictCursor
+    )
 
-    rows = conn.execute("""
-        SELECT * FROM reservations
-        ORDER BY id DESC
-    """).fetchall()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT * FROM reservations
+                ORDER BY id DESC
+            """)
+            rows = cur.fetchall()
 
-    conn.close()
+    finally:
+        conn.close()
 
-    return jsonify([dict(row) for row in rows])
+    return jsonify(rows)
 
 @app.route("/images/<path:filename>")
 def images(filename):
     return send_from_directory(BASE / "images", filename)
+
+
+@app.route("/db-test")
+def db_test():
+    try:
+        conn = psycopg2.connect(
+            DATABASE_URL,
+            cursor_factory=RealDictCursor
+        )
+
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT COUNT(*) AS count FROM reservations"
+            )
+            row = cur.fetchone()
+
+        conn.close()
+
+        return jsonify({
+            "success": True,
+            "database": "PostgreSQL",
+            "reservations_count": row["count"]
+        })
+
+    except Exception as error:
+        return jsonify({
+            "success": False,
+            "error": repr(error)
+        }), 500
+
 
 init_db()
 
