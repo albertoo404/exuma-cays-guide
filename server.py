@@ -634,7 +634,7 @@ Total: ${total:,.2f}
             repr(error)
         )
         raise RuntimeError(
-            "Could not send payment request through Gmail SMTP."
+            f"GMAIL SMTP ERROR: {error!r}"
         )
 
 
