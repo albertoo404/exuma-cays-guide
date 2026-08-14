@@ -7,4 +7,49 @@ reservations.db
 reservations/
 
 # Local Netlify folder
-.netlify
+.netlify/
+
+# Google/OAuth secrets
+access_token.txt
+creds.json
+google_tokens.json
+*.token
+*_token.txt
+
+# Temporary Apps Script/API files
+apps-script-response.txt
+apps_script_*.json
+appsscript.json
+content_upload.json
+deployment*.json
+deployments.json
+project_check.json
+version*.json
+*_result.json
+post_body*.txt
+post_headers*.txt
+
+# Node/OAuth temporary files
+node_modules/
+package-lock.json
+package.json
+oauth.js
+manual_oauth.js
+refresh_token.js
+get_token.py
+update_deployment.js
+create_version5.js
+create_version6.js
+sendCompanyNotification.js
+
+# Backups
+backups/
+server.py.bak
+accommodations-backup.html
+
+# Apps Script temporary files
+Code.gs.upload
+create_sheet_code.gs
+apps-script-test.json
+exuma-test.json
+reservations-migration.json

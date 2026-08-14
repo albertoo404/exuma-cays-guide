@@ -1319,7 +1319,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-
     const API_BASE = "https://exuma-cays-guide-api.onrender.com";
 
     const button =
@@ -1330,6 +1329,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const reservationElement =
         document.getElementById("reservation-number");
+
+    const nameInput =
+        document.getElementById("reservation-client-name");
+
+    const phoneInput =
+        document.getElementById("reservation-client-phone");
+
+    const emailInput =
+        document.getElementById("reservation-client-email");
 
     if (!button || !reservationElement) {
         return;
@@ -1347,17 +1355,74 @@ document.addEventListener("DOMContentLoaded", function () {
         ) {
             message.textContent =
                 "Please wait for your reservation number to load.";
+            message.style.color = "#b42318";
+            return;
+        }
 
+        const name =
+            nameInput ? nameInput.value.trim() : "";
+
+        const phone =
+            phoneInput ? phoneInput.value.trim() : "";
+
+        const email =
+            emailInput ? emailInput.value.trim() : "";
+
+        if (!name || !phone || !email) {
+            message.textContent =
+                "Please enter your name, phone number and email before requesting payment details.";
+            message.style.color = "#b42318";
             return;
         }
 
         button.disabled = true;
-        button.textContent = "Sending Request...";
+        button.textContent = "Saving Details...";
         message.textContent = "";
+        message.style.color = "";
 
         try {
 
-            const response = await fetch(
+            /* STEP 1: Save customer details */
+
+            const formData = new URLSearchParams();
+
+            formData.append("client_name", name);
+            formData.append("client_phone", phone);
+            formData.append("client_email", email);
+
+            const saveResponse = await fetch(
+                API_BASE +
+                "/update-customer/" +
+                encodeURIComponent(reservationNumber),
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+                    body: formData.toString()
+                }
+            );
+
+            const saveResult =
+                await saveResponse.json();
+
+            if (
+                !saveResponse.ok ||
+                !saveResult.success
+            ) {
+                throw new Error(
+                    saveResult.error ||
+                    "Unable to save customer details."
+                );
+            }
+
+            /* STEP 2: Send payment request */
+
+            button.textContent =
+                "Sending Request...";
+
+            const paymentResponse = await fetch(
                 API_BASE +
                 "/request-payment-details/" +
                 encodeURIComponent(reservationNumber),
@@ -1366,14 +1431,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             );
 
-            const result = await response.json();
+            const paymentResult =
+                await paymentResponse.json();
 
-            if (!response.ok || !result.success) {
+            if (
+                !paymentResponse.ok ||
+                !paymentResult.success
+            ) {
                 throw new Error(
-                    result.error ||
+                    paymentResult.error ||
                     "Unable to send payment request."
                 );
             }
+
+            /* STEP 3: Success */
 
             message.textContent =
                 "✓ Payment request sent successfully. " +
@@ -1382,7 +1453,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             message.style.color = "#087f5b";
 
-            button.textContent = "Request Sent";
+            button.textContent =
+                "Request Sent";
 
         } catch (error) {
 
@@ -1398,11 +1470,11 @@ document.addEventListener("DOMContentLoaded", function () {
             message.style.color = "#b42318";
 
             button.disabled = false;
-            button.textContent = "Send Payment Request";
+
+            button.textContent =
+                "Send Payment Request";
         }
-
     });
-
 });
 </script>
 

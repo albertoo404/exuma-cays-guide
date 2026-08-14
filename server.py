@@ -554,10 +554,10 @@ Total accommodation price: ${total:,.2f}
 Please provide the customer with the appropriate payment instructions or payment link.
 """
 
-    google_apps_script_url = os.environ.get("GOOGLE_APPS_SCRIPT_URL")
+    google_apps_script_url = os.environ.get("GOOGLE_APPS_SCRIPTURL")
 
     if not google_apps_script_url:
-        raise RuntimeError("GOOGLE_APPS_SCRIPT_URL is not configured.")
+        raise RuntimeError("GOOGLE_APPS_SCRIPTURL is not configured.")
 
     payload = {
         "action": "payment_request",
@@ -575,11 +575,37 @@ Please provide the customer with the appropriate payment instructions or payment
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            timeout=30
+            timeout=30,
+            allow_redirects=False
         )
 
         print(
-            "GOOGLE APPS SCRIPT RESPONSE:",
+            "GOOGLE APPS SCRIPT INITIAL RESPONSE:",
+            response.status_code,
+            response.headers.get("Location", "")
+        )
+
+        if response.status_code == 302:
+            redirect_url = response.headers.get("Location")
+
+            if not redirect_url:
+                raise RuntimeError(
+                    "Google Apps Script returned 302 without a Location header."
+                )
+
+            response = requests.post(
+                redirect_url,
+                json=payload,
+                headers={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                timeout=30,
+                allow_redirects=False
+            )
+
+        print(
+            "GOOGLE APPS SCRIPT FINAL RESPONSE:",
             response.status_code,
             response.text[:1000]
         )
