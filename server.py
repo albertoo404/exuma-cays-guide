@@ -431,38 +431,17 @@ def receipt(number):
 
 def send_payment_request_email(data):
     """
-    Send the colourful HTML payment-details request
-    using Gmail SMTP.
+    Send a colourful HTML payment-details request
+    through Google Apps Script.
     """
-
-    import os
-    import smtplib
-    from email.message import EmailMessage
-
-    smtp_email = os.environ.get("SMTP_EMAIL")
-    smtp_password = os.environ.get("SMTP_APP_PASSWORD")
-
-    if not smtp_email:
-        raise RuntimeError("SMTP_EMAIL is not configured.")
-
-    if not smtp_password:
-        raise RuntimeError("SMTP_APP_PASSWORD is not configured.")
 
     company_email = "exumaaccomodations@gmail.com"
 
-    customer_name = (
-        data.get("client_name") or "Customer"
-    ).strip()
+    customer_name = (data.get("client_name") or "Customer").strip()
+    customer_email = (data.get("client_email") or "").strip()
+    customer_phone = (data.get("client_phone") or "Not provided").strip()
 
-    customer_email = (
-        data.get("client_email") or ""
-    ).strip()
-
-    customer_phone = (
-        data.get("client_phone") or "Not provided"
-    ).strip()
-
-    reservation = data.get("reservation_number")
+    reservation = data.get("reservation_number") or "—"
     accommodation = data.get("accommodation") or "—"
     region = data.get("region") or "—"
     check_in = data.get("check_in") or "—"
@@ -470,122 +449,84 @@ def send_payment_request_email(data):
     adults = data.get("adults", 0)
     children = data.get("children", 0)
 
-    total = float(data.get("price") or 0)
+    try:
+        total = float(data.get("price") or 0)
+    except (ValueError, TypeError):
+        total = 0.0
+
     deposit = total * 0.50
 
-    subject = (
-        f"Payment Details Request - Reservation {reservation}"
-    )
+    subject = f"Payment Details Request - Reservation {reservation}"
 
-    html = f"""
-<!DOCTYPE html>
+    def escape_html(value):
+        return (
+            str(value)
+            .replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+            .replace('"', "&quot;")
+            .replace("'", "&#039;")
+        )
+
+    html = f"""<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
+<title>Payment Details Request</title>
 </head>
 
-<body style="
-    margin:0;
-    padding:25px 10px;
-    background:#eef8fb;
-    font-family:Arial,Helvetica,sans-serif;font-size:18px;
-    color:#173b43;
-">
+<body style="margin:0;padding:25px 10px;background:#eef8fb;font-family:Arial,Helvetica,sans-serif;color:#173b43;">
 
-<div style="
-    max-width:650px;
-    margin:auto;
-    background:#ffffff;
-    border-radius:18px;
-    overflow:hidden;
-    box-shadow:0 8px 30px rgba(0,0,0,.12);
-">
+<div style="max-width:650px;margin:auto;background:#ffffff;border-radius:18px;overflow:hidden;">
 
-<div style="
-    background:linear-gradient(135deg,#006d77,#00a6a6);
-    padding:30px 20px;
-    text-align:center;
-    color:white;
-">
-    <h1 style="margin:0;font-size:32px;">
-        EXUMA SPORTS ACCOMMODATIONS
-    </h1>
-
-    <p style="margin:8px 0 0;font-size:15px;">
-        Payment Details Request
-    </p>
+<div style="background:#006d77;padding:30px 20px;text-align:center;color:#ffffff;">
+<h1 style="margin:0;font-size:30px;">EXUMA SPORTS ACCOMMODATIONS</h1>
+<p style="margin:8px 0 0;font-size:15px;">Payment Details Request</p>
 </div>
 
 <div style="padding:30px 25px;">
 
-    <h2 style="color:#006d77;margin-top:0;">
-        New Payment Request
-    </h2>
+<h2 style="color:#006d77;margin-top:0;">New Payment Request</h2>
 
-    <p>
-        A customer has requested payment details for the following reservation.
-    </p>
+<p>A customer has requested payment details for the following reservation.</p>
 
-    <div style="
-        background:#f1fbfc;
-        border-left:5px solid #00a6a6;
-        padding:18px;
-        margin:20px 0;
-        border-radius:8px;
-    ">
+<div style="background:#f1fbfc;border-left:5px solid #00a6a6;padding:18px;margin:20px 0;border-radius:8px;">
 
-        <p><strong>Reservation:</strong> {reservation}</p>
-        <p><strong>Customer:</strong> {customer_name}</p>
-        <p><strong>Email:</strong> {customer_email}</p>
-        <p><strong>Phone:</strong> {customer_phone}</p>
-        <p><strong>Accommodation:</strong> {accommodation}</p>
-        <p><strong>Region:</strong> {region}</p>
-        <p><strong>Check-in:</strong> {check_in}</p>
-        <p><strong>Check-out:</strong> {check_out}</p>
-        <p><strong>Adults:</strong> {adults}</p>
-        <p><strong>Children:</strong> {children}</p>
-
-    </div>
-
-    <div style="
-        background:#fff8e7;
-        border-radius:10px;
-        padding:18px;
-        margin-top:20px;
-    ">
-
-        <p style="margin:5px 0;">
-            <strong>Total accommodation price:</strong>
-            ${total:,.2f}
-        </p>
-
-        <p style="margin:5px 0;">
-            <strong>50% deposit:</strong>
-            ${deposit:,.2f}
-        </p>
-
-    </div>
-
-    <p style="
-        margin-top:25px;
-        color:#555;
-        font-size:14px;
-    ">
-        Please provide the appropriate payment instructions or payment link
-        to the customer using their contact information above.
-    </p>
+<p><strong>Reservation:</strong> {escape_html(reservation)}</p>
+<p><strong>Customer:</strong> {escape_html(customer_name)}</p>
+<p><strong>Email:</strong> {escape_html(customer_email)}</p>
+<p><strong>Phone:</strong> {escape_html(customer_phone)}</p>
+<p><strong>Accommodation:</strong> {escape_html(accommodation)}</p>
+<p><strong>Region:</strong> {escape_html(region)}</p>
+<p><strong>Check-in:</strong> {escape_html(check_in)}</p>
+<p><strong>Check-out:</strong> {escape_html(check_out)}</p>
+<p><strong>Adults:</strong> {escape_html(adults)}</p>
+<p><strong>Children:</strong> {escape_html(children)}</p>
 
 </div>
 
-<div style="
-    background:#023047;
-    color:white;
-    padding:18px;
-    text-align:center;
-    font-size:13px;
-">
-    Exuma Cays Guide · Exuma, Bahamas
+<div style="background:#fff8e7;border-radius:10px;padding:18px;margin-top:20px;">
+
+<p style="margin:5px 0;">
+<strong>Total accommodation price:</strong> ${total:,.2f}
+</p>
+
+<p style="margin:5px 0;">
+<strong>50% deposit:</strong> ${deposit:,.2f}
+</p>
+
+</div>
+
+<p style="margin-top:25px;color:#555;font-size:14px;">
+Please provide the appropriate payment instructions or payment link
+to the customer using their contact information above.
+</p>
+
+</div>
+
+<div style="background:#023047;color:white;padding:18px;text-align:center;font-size:13px;">
+Exuma Cays Guide · Exuma, Bahamas
 </div>
 
 </div>
@@ -594,17 +535,7 @@ def send_payment_request_email(data):
 </html>
 """
 
-    msg = EmailMessage()
-    msg["Subject"] = subject
-    msg["From"] = smtp_email
-    msg["To"] = company_email
-
-    if customer_email:
-        msg["Reply-To"] = customer_email
-
-    msg.set_content(
-        f"""
-Payment Details Request
+    plain_message = f"""Payment Details Request
 
 Reservation: {reservation}
 Customer: {customer_name}
@@ -617,68 +548,71 @@ Check-out: {check_out}
 Adults: {adults}
 Children: {children}
 
-Total: ${total:,.2f}
+Total accommodation price: ${total:,.2f}
 50% deposit: ${deposit:,.2f}
-"""
-    )
 
-    msg.add_alternative(html, subtype="html")
+Please provide the customer with the appropriate payment instructions or payment link.
+"""
+
+    google_apps_script_url = os.environ.get("GOOGLE_APPS_SCRIPT_URL")
+
+    if not google_apps_script_url:
+        raise RuntimeError("GOOGLE_APPS_SCRIPT_URL is not configured.")
+
+    payload = {
+        "action": "payment_request",
+        "to": company_email,
+        "subject": subject,
+        "message": plain_message,
+        "htmlBody": html
+    }
 
     try:
-        google_apps_script_url = os.environ.get(
-            "GOOGLE_APPS_SCRIPT_URL"
-        )
-
-        if not google_apps_script_url:
-            raise RuntimeError(
-                "GOOGLE_APPS_SCRIPT_URL is not configured."
-            )
-
-        plain_message = f"""
-Payment Details Request
-
-Reservation: {reservation}
-Customer: {customer_name}
-Email: {customer_email}
-Phone: {customer_phone}
-Accommodation: {accommodation}
-Region: {region}
-Check-in: {check_in}
-Check-out: {check_out}
-Adults: {adults}
-Children: {children}
-
-Total: ${total:,.2f}
-50% deposit: ${deposit:,.2f}
-"""
-
         response = requests.post(
             google_apps_script_url,
-            data={
-                "to": company_email,
-                "subject": subject,
-                "message": plain_message
+            json=payload,
+            headers={
+                "Content-Type": "application/json",
+                "Accept": "application/json"
             },
-            timeout=30,
-            allow_redirects=False
+            timeout=30
         )
 
-        if response.status_code not in (200, 302):
+        print(
+            "GOOGLE APPS SCRIPT RESPONSE:",
+            response.status_code,
+            response.text[:1000]
+        )
+
+        if response.status_code != 200:
             raise RuntimeError(
                 f"Google Apps Script returned HTTP "
                 f"{response.status_code}: {response.text[:500]}"
             )
 
+        try:
+            result = response.json()
+        except Exception:
+            raise RuntimeError(
+                "Google Apps Script did not return valid JSON: "
+                + response.text[:500]
+            )
+
+        if not result.get("success"):
+            raise RuntimeError(
+                "Google Apps Script rejected the request: "
+                + str(result.get("error", "Unknown error"))
+            )
+
         print(
-            "GOOGLE APPS SCRIPT PAYMENT REQUEST SENT:",
+            "GOOGLE APPS SCRIPT HTML PAYMENT REQUEST SENT:",
             reservation
         )
 
+        return result
+
     except Exception as error:
-        print(
-            "GOOGLE APPS SCRIPT ERROR:",
-            repr(error)
-        )
+        print("GOOGLE APPS SCRIPT ERROR:", repr(error))
         raise RuntimeError(
             f"GOOGLE APPS SCRIPT ERROR: {error!r}"
         )
