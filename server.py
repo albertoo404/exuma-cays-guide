@@ -576,33 +576,8 @@ Please provide the customer with the appropriate payment instructions or payment
                 "Accept": "application/json"
             },
             timeout=30,
-            allow_redirects=False
+            allow_redirects=True
         )
-
-        print(
-            "GOOGLE APPS SCRIPT INITIAL RESPONSE:",
-            response.status_code,
-            response.headers.get("Location", "")
-        )
-
-        if response.status_code == 302:
-            redirect_url = response.headers.get("Location")
-
-            if not redirect_url:
-                raise RuntimeError(
-                    "Google Apps Script returned 302 without a Location header."
-                )
-
-            response = requests.post(
-                redirect_url,
-                json=payload,
-                headers={
-                    "Content-Type": "application/json",
-                    "Accept": "application/json"
-                },
-                timeout=30,
-                allow_redirects=False
-            )
 
         print(
             "GOOGLE APPS SCRIPT FINAL RESPONSE:",
