@@ -174,7 +174,7 @@ button {{
 <div class="receipt">
 
 <div class="header">
-    <img src="https://exuma-cays-guide-api.onrender.com/images/exumalogo.jpg"
+    <img src="https://exuma-cays-guide.onrender.com/images/exumalogo.jpg"
          alt="Exuma Sport Coast Service">
     <h1>Exuma Sport Coast Service</h1>
     <p>Accommodation Reservation Receipt</p>
