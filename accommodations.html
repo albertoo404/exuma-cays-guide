@@ -965,10 +965,23 @@ document.addEventListener("DOMContentLoaded", function () {
         const accommodation = button.dataset.accommodation || "";
         const price = button.dataset.price || "";
 
+        const checkin =
+            localStorage.getItem("exuma_search_checkin") || "";
+        const checkout =
+            localStorage.getItem("exuma_search_checkout") || "";
+        const adults =
+            localStorage.getItem("exuma_search_adults") || "";
+        const children =
+            localStorage.getItem("exuma_search_children") || "";
+
         button.href =
             "reserve.html?region=" + encodeURIComponent(region) +
             "&accommodation=" + encodeURIComponent(accommodation) +
-            "&price=" + encodeURIComponent(price);
+            "&price=" + encodeURIComponent(price) +
+            "&checkin=" + encodeURIComponent(checkin) +
+            "&checkout=" + encodeURIComponent(checkout) +
+            "&adults=" + encodeURIComponent(adults) +
+            "&children=" + encodeURIComponent(children);
     });
 });
 </script>

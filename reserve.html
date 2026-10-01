@@ -644,35 +644,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 ""
             ).trim();
 
-        const checkInInput =
-            document.getElementById("booking-check-in");
-
-        const checkOutInput =
-            document.getElementById("booking-check-out");
-
-        const adultsInput =
-            document.getElementById("booking-adults");
-
-        const childrenInput =
-            document.getElementById("booking-children");
-
         const checkIn =
-            checkInInput
-                ? checkInInput.value.trim()
-                : (
-                    params.get("checkin") ||
-                    params.get("check_in") ||
-                    ""
-                ).trim();
+            (
+                params.get("checkin") ||
+                params.get("check_in") ||
+                ""
+            ).trim();
 
         const checkOut =
-            checkOutInput
-                ? checkOutInput.value.trim()
-                : (
-                    params.get("checkout") ||
-                    params.get("check_out") ||
-                    ""
-                ).trim();
+            (
+                params.get("checkout") ||
+                params.get("check_out") ||
+                ""
+            ).trim();
 
         const nightlyPrice =
             Number(
@@ -680,14 +664,10 @@ document.addEventListener("DOMContentLoaded", function () {
             ) || 0;
 
         const adults =
-            adultsInput
-                ? Number(adultsInput.value) || 1
-                : Number(params.get("adults")) || 1;
+            Number(params.get("adults")) || 1;
 
         const children =
-            childrenInput
-                ? Number(childrenInput.value) || 0
-                : Number(params.get("children")) || 0;
+            Number(params.get("children")) || 0;
 
         /*
          * Customer fields are optional.
@@ -954,54 +934,7 @@ document.addEventListener("DOMContentLoaded", function () {
      * Create it immediately.
      */
 
-    const createButton =
-        document.getElementById("create-reservation-button");
-
-    const bookingError =
-        document.getElementById("booking-error");
-
-    if (createButton) {
-
-        createButton.addEventListener("click", function () {
-
-            if (bookingError) {
-                bookingError.textContent = "";
-            }
-
-            const checkIn =
-                document.getElementById("booking-check-in").value;
-
-            const checkOut =
-                document.getElementById("booking-check-out").value;
-
-            if (!checkIn || !checkOut) {
-
-                if (bookingError) {
-                    bookingError.textContent =
-                        "Please select both check-in and check-out dates.";
-                }
-
-                return;
-            }
-
-            const start = new Date(checkIn + "T00:00:00");
-            const end = new Date(checkOut + "T00:00:00");
-
-            if (end <= start) {
-
-                if (bookingError) {
-                    bookingError.textContent =
-                        "Check-out must be after check-in.";
-                }
-
-                return;
-            }
-
-            createReservation();
-
-        });
-
-    }
+    createReservation();
 
 });
 </script>
@@ -1011,123 +944,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-<section id="booking-details-section" style="
-    margin-top:25px;
-    padding:22px;
-    border:1px solid #b7dfe5;
-    border-radius:14px;
-    background:#ffffff;
-">
 
-    <h2 style="margin-top:0;color:#006d77;">
-        Select Your Stay Details
-    </h2>
-
-    <p style="line-height:1.6;">
-        Please select your check-in and check-out dates and the
-        number of guests before creating your reservation.
-    </p>
-
-    <label for="booking-check-in">
-        Check-in Date
-    </label>
-
-    <input
-        id="booking-check-in"
-        type="date"
-        style="
-            width:100%;
-            padding:12px;
-            margin:7px 0 15px;
-            box-sizing:border-box;
-            border:1px solid #ccc;
-            border-radius:8px;
-        "
-    >
-
-    <label for="booking-check-out">
-        Check-out Date
-    </label>
-
-    <input
-        id="booking-check-out"
-        type="date"
-        style="
-            width:100%;
-            padding:12px;
-            margin:7px 0 15px;
-            box-sizing:border-box;
-            border:1px solid #ccc;
-            border-radius:8px;
-        "
-    >
-
-    <label for="booking-adults">
-        Adults
-    </label>
-
-    <input
-        id="booking-adults"
-        type="number"
-        min="1"
-        value="1"
-        style="
-            width:100%;
-            padding:12px;
-            margin:7px 0 15px;
-            box-sizing:border-box;
-            border:1px solid #ccc;
-            border-radius:8px;
-        "
-    >
-
-    <label for="booking-children">
-        Children
-    </label>
-
-    <input
-        id="booking-children"
-        type="number"
-        min="0"
-        value="0"
-        style="
-            width:100%;
-            padding:12px;
-            margin:7px 0 15px;
-            box-sizing:border-box;
-            border:1px solid #ccc;
-            border-radius:8px;
-        "
-    >
-
-    <button
-        id="create-reservation-button"
-        type="button"
-        style="
-            width:100%;
-            padding:15px;
-            border:0;
-            border-radius:10px;
-            background:#006d77;
-            color:white;
-            cursor:pointer;
-            font-weight:bold;
-            font-size:16px;
-        "
-    >
-        Create Reservation
-    </button>
-
-    <div
-        id="booking-error"
-        style="
-            margin-top:12px;
-            color:#b91c1c;
-            font-weight:bold;
-        "
-    ></div>
-
-</section>
 
 <section id="customer-save-section" style="
     margin-top:25px;
