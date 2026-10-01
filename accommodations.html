@@ -872,7 +872,7 @@ alt="Staniel Cay accommodation ${i} bathroom">
         </p>
 
         <form id="exuma-reservation-form"
-              action="https://exuma-cays-guide.onrender.com/reserve"
+              action="https://exuma-cays-guide-api.onrender.com/reserve"
               method="POST">
 <input type="hidden" id="booking-total" name="total" value="0">
 
@@ -1609,6 +1609,34 @@ form.addEventListener("submit", function (event) {
     });
 
 })();
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".gallery").forEach(function (gallery) {
+        const items = Array.from(gallery.querySelectorAll(".gallery-item"));
+
+        if (items.length < 2) return;
+
+        items.forEach(function (item, index) {
+            const img = item.querySelector("img");
+            if (!img) return;
+
+            img.style.cursor = "pointer";
+
+            img.addEventListener("click", function () {
+                const nextIndex = (index + 1) % items.length;
+
+                items[nextIndex].scrollIntoView({
+                    behavior: "smooth",
+                    block: "nearest",
+                    inline: "start"
+                });
+            });
+        });
+    });
+});
 </script>
 
 </body>
