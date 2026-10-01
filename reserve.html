@@ -826,7 +826,6 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             if (!response.ok) {
-
                 throw new Error(
                     "Server returned HTTP " +
                     response.status
@@ -834,9 +833,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             /*
-             * Flask redirects to:
-             *
-             * /reservation/EXM-XXXXXXXX-XXXX
+             * Flask follows the redirect and the final
+             * URL contains the reservation number.
              */
 
             const match =
@@ -845,7 +843,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
             if (!match) {
-
                 throw new Error(
                     "Reservation number was not returned."
                 );
