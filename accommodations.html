@@ -471,6 +471,14 @@ alt="George Town accommodation ${i} bathroom">
 
 <div class="info">
 <div class="price"><strong>From $${georgePrices[i-1]} / night</strong></div>
+
+<a class="reserve-btn"
+   href="reserve.html"
+   data-region="George Town"
+   data-accommodation="${georgeNames[i-1]}"
+   data-price="${georgePrices[i-1]}">
+   Reserve Accommodation
+</a>
 </div>
 
 
@@ -559,6 +567,14 @@ alt="Luxury accommodation ${i} bathroom">
 
 <div class="info">
 <div class="price">From $${luxuryPrices[i-1]} / night</div>
+
+<a class="reserve-btn"
+   href="reserve.html"
+   data-region="Luxury Villas"
+   data-accommodation="${luxuryNames[i-1]}"
+   data-price="${luxuryPrices[i-1]}">
+   Reserve Accommodation
+</a>
 </div>
 
 
@@ -629,6 +645,14 @@ alt="Michelson accommodation ${i} bathroom">
 
 <div class="info">
 <div class="price">From $${michelsonPrices[i-1]} / night</div>
+
+<a class="reserve-btn"
+   href="reserve.html"
+   data-region="Michelson"
+   data-accommodation="${michelsonPricesTitles[i-1]}"
+   data-price="${michelsonPrices[i-1]}">
+   Reserve Accommodation
+</a>
 </div>
 
 
@@ -713,6 +737,14 @@ alt="Moss Town accommodation ${i} bathroom">
 
 <div class="info">
 <div class="price">From $${mossPrices[i-1]} / night</div>
+
+<a class="reserve-btn"
+   href="reserve.html"
+   data-region="Moss Town"
+   data-accommodation="${mossNames[i-1]}"
+   data-price="${mossPrices[i-1]}">
+   Reserve Accommodation
+</a>
 </div>
 
 
@@ -777,6 +809,14 @@ alt="Staniel Cay accommodation ${i} bathroom">
 
 <div class="info">
 <div class="price">From $${stanielPrices[i-1]} / night</div>
+
+<a class="reserve-btn"
+   href="reserve.html"
+   data-region="Staniel Cay"
+   data-accommodation="${stanielPricesTitles[i-1]}"
+   data-price="${stanielPrices[i-1]}">
+   Reserve Accommodation
+</a>
 </div>
 
 
@@ -891,6 +931,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
         });
+    });
+});
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".reserve-btn").forEach(function (button) {
+        const region = button.dataset.region || "";
+        const accommodation = button.dataset.accommodation || "";
+        const price = button.dataset.price || "";
+
+        button.href =
+            "reserve.html?region=" + encodeURIComponent(region) +
+            "&accommodation=" + encodeURIComponent(accommodation) +
+            "&price=" + encodeURIComponent(price);
     });
 });
 </script>
