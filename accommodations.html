@@ -109,8 +109,14 @@ header a {
     font-size: 14px;
 }
 
-/* THREE ACCOMMODATION PHOTOS */
-
+.accommodation-description {
+    margin: 10px 0 15px;
+    padding: 0 15px;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.6;
+    white-space: pre-line;
+}
 
 .info {
     padding: 14px 15px 5px;
@@ -122,39 +128,6 @@ header a {
     color: #007ea7;
 }
 
-footer {
-    background: #003f54;
-    color: white;
-    text-align: center;
-    padding: 25px;
-    margin-top: 30px;
-}
-
-@media (max-width: 600px) {
-
-    header nav {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .gallery img {
-        height: 105px;
-    }
-
-    .gallery-label {
-        font-size: 9px;
-        padding: 4px 1px;
-    }
-}
-.photo-labels span {
-    flex: 0 0 33.333%;
-}
-.gallery::-webkit-scrollbar {
-    display: none;
-}
-
-
-/* One-photo-at-a-time accommodation gallery */
 .gallery {
     display: flex;
     width: 100%;
@@ -186,9 +159,39 @@ footer {
     display: block;
 }
 
-</style>
+.gallery-label {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    padding: 6px 4px;
+    pointer-events: none;
+}
 
-<style>
+.reserve-btn {
+    display: block;
+    width: 100%;
+    padding: 13px 18px;
+    background: #007ea7;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 12px;
+    margin-top: 15px;
+    transition: 0.2s ease;
+}
+
+.reserve-btn:hover {
+    background: #006994;
+    transform: translateY(-1px);
+}
+
 .company-intro {
     width: 100%;
     box-sizing: border-box;
@@ -220,37 +223,6 @@ footer {
     margin-bottom: 0;
 }
 
-@media (max-width: 600px) {
-    .company-intro {
-        padding: 22px 15px;
-    }
-
-    .company-intro h1 {
-    color: #ffffff;
-        font-size: 25px;
-    }
-
-    .company-intro p {
-    color: #ffffff;
-        font-size: 14px;
-        line-height: 1.65;
-    }
-}
-</style>
-
-
-<style id="accommodation-description-style">
-.accommodation-description {
-    margin: 10px 0 15px;
-    padding: 0;
-    color: #555;
-    font-size: 14px;
-    line-height: 1.6;
-}
-</style>
-
-
-<style>
 .company-endnote {
     width: 100%;
     box-sizing: border-box;
@@ -295,30 +267,19 @@ footer {
     font-size: 14px;
     color: #d8eef2;
 }
-</style>
 
-
-
-
-
-
-
-
-<style>
-html, body {
-    background: #ffffff !important;
-}
-
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+footer {
+    background: #003f54;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 30px;
 }
 
 .company-footnote {
     width: 100%;
-    background: #ffffff !important;
-    color: #666666 !important;
+    background: #ffffff;
+    color: #666666;
     text-align: center;
     padding: 12px 10px 8px;
     margin-top: auto;
@@ -344,43 +305,42 @@ body {
     text-decoration: underline;
 }
 
-.company-footnote + footer,
-.company-footnote ~ footer {
-    background: #ffffff !important;
-    color: #666666 !important;
-    padding: 8px 10px;
-    margin-top: 0;
-    font-size: 11px;
-}
-</style>
+@media (max-width: 600px) {
 
+    header nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-<style>
-.reserve-btn {
-    display: block;
-    width: 100%;
-    padding: 13px 18px;
-    background: #007ea7;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    font-weight: 600;
-    border-radius: 12px;
-    margin-top: 15px;
-    transition: 0.2s ease;
+    .gallery img {
+        height: 105px;
+    }
+
+    .gallery-label {
+        font-size: 9px;
+        padding: 4px 1px;
+    }
+
+    .company-intro {
+        padding: 22px 15px;
+    }
+
+    .company-intro h1 {
+        font-size: 25px;
+    }
+
+    .company-intro p {
+        font-size: 14px;
+        line-height: 1.65;
+    }
 }
 
-.reserve-btn:hover {
-    background: #006994;
-    transform: translateY(-1px);
-}
 </style>
 
 </head>
 
 <body>
 
-<!-- EXUMA SPORT COAST SERVICE -->
 <section class="company-intro">
     <div class="company-intro-inner">
         <h1>Exuma Sport Coast Service</h1>
@@ -404,7 +364,6 @@ body {
         </p>
     </div>
 </section>
-
 
 
 <header>
@@ -448,31 +407,36 @@ const georgeNames = [
 ];
 
 const georgeDescriptions = [
-    "A comfortable two-bedroom retreat in George Town, ideal for couples or small families looking for an affordable and convenient Great Exuma stay.
+    `A comfortable two-bedroom retreat in George Town, ideal for couples or small families looking for an affordable and convenient Great Exuma stay.
 
 Bedroom
 Beachfront
-Wi-Fi included",
-    "A premium two-bedroom retreat offering additional comfort and stylish spaces for guests seeking a more elevated George Town experience.
+Wi-Fi included`,
+    `A premium two-bedroom retreat offering additional comfort and stylish spaces for guests seeking a more elevated George Town experience.
+
 Bedroom
 Beachfront
-Wi-Fi included",
-    "A spacious three-bedroom villa providing extra room for families and groups while keeping guests close to George Town's attractions.
+Wi-Fi included`,
+    `A spacious three-bedroom villa providing extra room for families and groups while keeping guests close to George Town's attractions.
+
 Bedroom
 Beachfront
-Wi-Fi included",
-    "A generous four-bedroom executive villa designed for larger families and groups seeking comfortable accommodation in George Town.
+Wi-Fi included`,
+    `A generous four-bedroom executive villa designed for larger families and groups seeking comfortable accommodation in George Town.
+
 Bedroom
 Beachfront
-Wi-Fi included",
-    "A substantial five-bedroom grand villa offering plenty of space for larger families and groups enjoying an extended Great Exuma stay.
+Wi-Fi included`,
+    `A substantial five-bedroom grand villa offering plenty of space for larger families and groups enjoying an extended Great Exuma stay.
+
 Bedroom
 Beachfront
-Wi-Fi included",
-    "A six-bedroom estate providing maximum accommodation capacity for large families and groups seeking space, comfort and privacy in George Town.
+Wi-Fi included`,
+    `A six-bedroom estate providing maximum accommodation capacity for large families and groups seeking space, comfort and privacy in George Town.
+
 Bedroom
 Beachfront
-Wi-Fi included"
+Wi-Fi included`
 ];
 
 for (let i = 1; i <= 6; i++) {
@@ -511,7 +475,7 @@ alt="George Town accommodation ${i} bathroom">
 </div>
 
 <div class="info">
-<div class="price"><strong>From $${georgePrices[i-1]} / night</strong></div>
+<div class="price">From $${georgePrices[i-1]} / night</div>
 
 <a class="reserve-btn"
    href="reserve.html"
@@ -521,8 +485,6 @@ alt="George Town accommodation ${i} bathroom">
    Reserve Accommodation
 </a>
 </div>
-
-
 
 </div>
 `);
@@ -559,35 +521,41 @@ const luxuryNames = [
 ];
 
 const luxuryDescriptions = [
-    "A refined two-bedroom retreat combining modern comfort and island style, ideal for couples or small families seeking an upscale Exuma stay.
+    `A refined two-bedroom retreat combining modern comfort and island style, ideal for couples or small families seeking an upscale Exuma stay.
+
 Bedroom
 Beachfront
-Wi-Fi included",
-    
-    "A premium two-bedroom retreat offering enhanced comfort, stylish living spaces and additional amenities for guests seeking a more exclusive island experience.
+Wi-Fi included`,
+
+    `A premium two-bedroom retreat offering enhanced comfort, stylish living spaces and additional amenities for guests seeking a more exclusive island experience.
+
 Bedroom
 Beachfront
-Wi-Fi included",
-    
-    "A spacious three-bedroom luxury villa providing extra room for families and groups while maintaining a relaxing upscale island atmosphere.
+Wi-Fi included`,
+
+    `A spacious three-bedroom luxury villa providing extra room for families and groups while maintaining a relaxing upscale island atmosphere.
+
 Bedroom
 Beachfront
-Wi-Fi included",
-    
-    "A generous four-bedroom executive villa designed for larger families and groups seeking comfortable accommodation and a premium Exuma vacation setting.
+Wi-Fi included`,
+
+    `A generous four-bedroom executive villa designed for larger families and groups seeking comfortable accommodation and a premium Exuma vacation setting.
+
 Bedroom
 Beachfront
-Wi-Fi included",
-    
-    "A substantial five-bedroom grand villa offering extensive space, comfortable shared areas and plenty of room for larger families and groups.
+Wi-Fi included`,
+
+    `A substantial five-bedroom grand villa offering extensive space, comfortable shared areas and plenty of room for larger families and groups.
+
 Bedroom
 Beachfront
-Wi-Fi included",
-    
-    "A six-bedroom luxury estate providing the greatest accommodation capacity in the collection, ideal for large families and groups seeking maximum space, privacy and comfort.
+Wi-Fi included`,
+
+    `A six-bedroom luxury estate providing the greatest accommodation capacity in the collection, ideal for large families and groups seeking maximum space, privacy and comfort.
+
 Bedroom
 Beachfront
-Wi-Fi included"
+Wi-Fi included`
 ];
 
 for (let i = 1; i <= 6; i++) {
@@ -600,7 +568,6 @@ document.write(`
 <div class="accommodation-description">
 ${luxuryDescriptions[i-1]}
 </div>
-
 
 <div class="gallery">
 
@@ -636,8 +603,6 @@ alt="Luxury accommodation ${i} bathroom">
 </a>
 </div>
 
-
-
 </div>
 `);
 }
@@ -663,20 +628,52 @@ alt="Luxury accommodation ${i} bathroom">
 <script>
 const michelsonPrices = [155, 180, 220, 275, 305, 322];
 
+const michelsonPricesTitles = [
+    '1 Bedroom Coastal Retreat',
+    '2 Bedroom Premium Coastal Retreat',
+    '3 Bedroom Coastal Villa',
+    '4 Bedroom Ocean Villa',
+    '5 Bedroom Grand Ocean Villa',
+    '6 Bedroom Coastal Estate'
+];
 
-const michelsonPricesTitles = ['1 Bedroom Coastal Retreat', '2 Bedroom Premium Coastal Retreat', '3 Bedroom Coastal Villa', '4 Bedroom Ocean Villa', '5 Bedroom Grand Ocean Villa', '6 Bedroom Coastal Estate'];
+const michelsonPricesDescriptions = [
+    `A welcoming two-bedroom coastal retreat around Michelson and Roker's Point, suitable for couples or small families seeking an affordable coastal stay.
 
-const michelsonPricesDescriptions = ["A welcoming two-bedroom coastal retreat around Michelson and Roker's Point, suitable for couples or small families seeking an affordable coastal stay. Bedroom
+Bedroom
 Beachfront
-Wi-Fi included", 'A premium two-bedroom coastal retreat offering enhanced comfort and additional space for guests looking for a more exclusive stay. Bedroom
+Wi-Fi included`,
+
+    `A premium two-bedroom coastal retreat offering enhanced comfort and additional space for guests looking for a more exclusive stay.
+
+Bedroom
 Beachfront
-Wi-Fi included', 'A comfortable three-bedroom coastal villa offering additional room for families and groups while keeping the relaxed coastal atmosphere.Bedroom
+Wi-Fi included`,
+
+    `A comfortable three-bedroom coastal villa offering additional room for families and groups while keeping the relaxed coastal atmosphere.
+
+Bedroom
 Beachfront
-Wi-Fi included', 'A spacious four-bedroom ocean villa designed for larger families and groups seeking generous accommodation near the coast.Bedroom
+Wi-Fi included`,
+
+    `A spacious four-bedroom ocean villa designed for larger families and groups seeking generous accommodation near the coast.
+
+Bedroom
 Beachfront
-Wi-Fi included', 'A large five-bedroom grand ocean villa offering extensive space for families and groups seeking a memorable coastal getaway.Bedroom
+Wi-Fi included`,
+
+    `A large five-bedroom grand ocean villa offering extensive space for families and groups seeking a memorable coastal getaway.
+
+Bedroom
 Beachfront
-Wi-Fi included', 'A six-bedroom coastal estate providing maximum accommodation capacity, privacy and comfort for larger families and groups.'];
+Wi-Fi included`,
+
+    `A six-bedroom coastal estate providing maximum accommodation capacity, privacy and comfort for larger families and groups.
+
+Bedroom
+Beachfront
+Wi-Fi included`
+];
 
 for (let i = 1; i <= 6; i++) {
 
@@ -688,7 +685,6 @@ document.write(`
 <div class="accommodation-description">
 ${michelsonPricesDescriptions[i-1]}
 </div>
-
 
 <div class="gallery">
 
@@ -723,8 +719,6 @@ alt="Michelson accommodation ${i} bathroom">
    Reserve Accommodation
 </a>
 </div>
-
-
 
 </div>
 `);
@@ -761,30 +755,41 @@ const mossNames = [
 ];
 
 const mossDescriptions = [
-    "A comfortable two-bedroom retreat in Moss Town, ideal for couples or small families looking for an affordable Great Exuma stay.
+    `A comfortable two-bedroom retreat in Moss Town, ideal for couples or small families looking for an affordable Great Exuma stay.
+
 Bedroom
 Beachfront
-Wi-Fi included",
-    "A premium two-bedroom retreat offering enhanced comfort and additional space for guests seeking a more refined Moss Town experience.
+Wi-Fi included`,
+
+    `A premium two-bedroom retreat offering enhanced comfort and additional space for guests seeking a more refined Moss Town experience.
+
 Bedroom
 Beachfront
-Wi-Fi included",
-    "A welcoming three-bedroom villa providing extra room for families and groups while maintaining a relaxed island atmosphere.
+Wi-Fi included`,
+
+    `A welcoming three-bedroom villa providing extra room for families and groups while maintaining a relaxed island atmosphere.
+
 Bedroom
 Beachfront
-Wi-Fi included",
-    "A spacious four-bedroom executive villa designed for larger families and groups seeking comfortable accommodation in Moss Town.
+Wi-Fi included`,
+
+    `A spacious four-bedroom executive villa designed for larger families and groups seeking comfortable accommodation in Moss Town.
+
 Bedroom
 Beachfront
-Wi-Fi included",
-    "A large five-bedroom grand villa offering generous living space for families and groups planning a memorable Great Exuma holiday.
+Wi-Fi included`,
+
+    `A large five-bedroom grand villa offering generous living space for families and groups planning a memorable Great Exuma holiday.
+
 Bedroom
 Beachfront
-Wi-Fi included",
-    "A six-bedroom estate providing maximum sleeping capacity and spacious accommodation for larger groups seeking comfort and privacy.
+Wi-Fi included`,
+
+    `A six-bedroom estate providing maximum sleeping capacity and spacious accommodation for larger groups seeking comfort and privacy.
+
 Bedroom
 Beachfront
-Wi-Fi included"
+Wi-Fi included`
 ];
 
 for (let i = 1; i <= 6; i++) {
@@ -834,8 +839,6 @@ alt="Moss Town accommodation ${i} bathroom">
 </a>
 </div>
 
-
-
 </div>
 `);
 }
@@ -843,6 +846,12 @@ alt="Moss Town accommodation ${i} bathroom">
 
 </div>
 </section>
+
+
+<!-- =====================================================
+     STANIEL CAY
+===================================================== -->
+
 <section class="region" id="staniel-cay-exuma-cays">
 
 <div class="region-title">
@@ -855,201 +864,48 @@ alt="Moss Town accommodation ${i} bathroom">
 <script>
 const stanielPrices = [155, 180, 220, 275, 305, 322];
 
+const stanielPricesTitles = [
+    '2 Bedroom Staniel Cay Retreat',
+    '2 Bedroom Staniel Cay Premium Retreat',
+    '3 Bedroom Staniel Cay Villa',
+    '4 Bedroom Staniel Cay Island Villa',
+    '5 Bedroom Staniel Cay Grand Villa',
+    '6 Bedroom Staniel Cay Estate'
+];
 
-const stanielPricesTitles = ['2 Bedroom Staniel Cay Retreat', '2 Bedroom Staniel Cay Premium Retreat', '3 Bedroom Staniel Cay Villa', '4 Bedroom Staniel Cay Island Villa', '5 Bedroom Staniel Cay Grand Villa', '6 Bedroom Staniel Cay Estate'];
+const stanielPricesDescriptions = [
+    `A cozy two-bedroom accommodation for couples or small families wanting to experience the beauty and relaxed atmosphere of Staniel Cay.
 
-const stanielPricesDescriptions = ['A cozy two-bedroom accommodation for couples or small families wanting to experience the beauty and relaxed atmosphere of Staniel Cay.', 'A premium two-bedroom retreat offering additional comfort and space for guests seeking an elevated Staniel Cay experience.', 'A comfortable three-bedroom villa offering more room for families and groups exploring the Exuma Cays.', 'A spacious four-bedroom island villa suited to groups wanting comfortable accommodation while enjoying the attractions and waters around Staniel Cay.', 'A large five-bedroom grand villa designed for families and groups seeking plenty of space during their Exuma Cays adventure.', 'A six-bedroom estate offering maximum accommodation capacity for larger families and groups seeking comfort, privacy and an unforgettable Staniel Cay stay.'];
+Bedroom
+Beachfront
+Wi-Fi included`,
 
-for (let i = 1; i <= 6; i++) {
+    `A premium two-bedroom retreat offering additional comfort and space for guests seeking an elevated Staniel Cay experience.
 
-document.write(`
-<div class="card">
+Bedroom
+Beachfront
+Wi-Fi included`,
 
-<h3>${stanielPricesTitles[i-1]}</h3>
-<div class="card-location">Staniel Cay, Exuma Cays</div>
-<div class="accommodation-description">
-${stanielPricesDescriptions[i-1]}
-</div>
+    `A comfortable three-bedroom villa offering more room for families and groups exploring the Exuma Cays.
 
+Bedroom
+Beachfront
+Wi-Fi included`,
 
-<div class="gallery">
+    `A spacious four-bedroom island villa suited to groups wanting comfortable accommodation while enjoying the attractions and waters around Staniel Cay.
 
-<div class="gallery-item">
-<img src="images/accommodations/staniellivingroom${i}.jpg"
-alt="Staniel Cay accommodation ${i} living room">
-<div class="gallery-label">Living Room</div>
-</div>
+Bedroom
+Beachfront
+Wi-Fi included`,
 
-<div class="gallery-item">
-<img src="images/accommodations/stanielbedroom${i}.jpg"
-alt="Staniel Cay accommodation ${i} bedroom">
-<div class="gallery-label">Bedroom</div>
-</div>
+    `A large five-bedroom grand villa designed for families and groups seeking plenty of space during their Exuma Cays adventure.
 
-<div class="gallery-item">
-<img src="images/accommodations/stanielbathroom${i}.jpg"
-alt="Staniel Cay accommodation ${i} bathroom">
-<div class="gallery-label">Bathroom</div>
-</div>
+Bedroom
+Beachfront
+Wi-Fi included`,
 
-</div>
+    `A six-bedroom estate offering maximum accommodation capacity for larger families and groups seeking comfort, privacy and an unforgettable Staniel Cay stay.
 
-<div class="info">
-<div class="price">From $${stanielPrices[i-1]} / night</div>
-
-<a class="reserve-btn"
-   href="reserve.html"
-   data-region="Staniel Cay"
-   data-accommodation="${stanielPricesTitles[i-1]}"
-   data-price="${stanielPrices[i-1]}">
-   Reserve Accommodation
-</a>
-</div>
-
-
-
-</div>
-`);
-}
-</script>
-
-</div>
-</section>
-
-</main>
-
-
-
-
-
-<!-- SMALL EXUMA SPORT COAST FOOTNOTE -->
-<section class="company-footnote">
-    <p>
-        <strong>Exuma Sport Coast Service</strong> · Exuma, Bahamas,
-        opposite the airport ·
-        <a href="mailto:exumaaccomodations@gmail.com">
-            exumaaccomodations@gmail.com
-        </a>
-    </p>
-    <p>© 2026 Exuma Sport Coast Service · All rights reserved.</p>
-</section>
-
-
-
-
-
-
-
-<footer>
-<p>Explore Exuma • Beaches • Islands • Accommodation • Adventures</p>
-</footer>
-
-
-
-
-
-
-
-
-<script>
-(function () {
-
-    const params = new URLSearchParams(window.location.search);
-    const selectedRegion =
-        (params.get("region") || "").trim().toLowerCase();
-
-    const regionMap = {
-        "george-town": "george-town",
-        "georgetown": "george-town",
-
-        "luxury-villas": "luxury-villas",
-        "luxury": "luxury-villas",
-
-        "michelson-rokers-point": "michelson-rokers-point",
-        "michelson": "michelson-rokers-point",
-        "rokers-point": "michelson-rokers-point",
-
-        "moss-town": "moss-town",
-        "mosstown": "moss-town",
-
-        "staniel-cay-exuma-cays": "staniel-cay-exuma-cays",
-        "staniel-cay": "staniel-cay-exuma-cays",
-        "staniel": "staniel-cay-exuma-cays"
-    };
-
-    const targetId = regionMap[selectedRegion];
-    const regions = document.querySelectorAll(".region");
-
-    regions.forEach(function(region) {
-
-        if (targetId) {
-            region.style.display =
-                region.id === targetId ? "" : "none";
-        } else {
-            region.style.display = "";
-        }
-
-    });
-
-})();
-</script>
-
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".gallery").forEach(function (gallery) {
-        const items = Array.from(gallery.querySelectorAll(".gallery-item"));
-
-        if (items.length < 2) return;
-
-        items.forEach(function (item, index) {
-            const img = item.querySelector("img");
-            if (!img) return;
-
-            img.style.cursor = "pointer";
-
-            img.addEventListener("click", function () {
-                const nextIndex = (index + 1) % items.length;
-
-                items[nextIndex].scrollIntoView({
-                    behavior: "smooth",
-                    block: "nearest",
-                    inline: "start"
-                });
-            });
-        });
-    });
-});
-</script>
-
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".reserve-btn").forEach(function (button) {
-        const region = button.dataset.region || "";
-        const accommodation = button.dataset.accommodation || "";
-        const price = button.dataset.price || "";
-
-        const checkin =
-            localStorage.getItem("exuma_search_checkin") || "";
-        const checkout =
-            localStorage.getItem("exuma_search_checkout") || "";
-        const adults =
-            localStorage.getItem("exuma_search_adults") || "";
-        const children =
-            localStorage.getItem("exuma_search_children") || "";
-
-        button.href =
-            "reserve.html?region=" + encodeURIComponent(region) +
-            "&accommodation=" + encodeURIComponent(accommodation) +
-            "&price=" + encodeURIComponent(price) +
-            "&checkin=" + encodeURIComponent(checkin) +
-            "&checkout=" + encodeURIComponent(checkout) +
-            "&adults=" + encodeURIComponent(adults) +
-            "&children=" + encodeURIComponent(children);
-    });
-});
-</script>
-
-</body>
-</html>
+Bedroom
+Beachfront
+Wi-Fi included
