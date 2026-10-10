@@ -371,23 +371,6 @@ footer {
     <p><strong>Exuma Sport Coast Service</strong> — accommodation across Exuma, Bahamas.</p>
     <p>Questions? <a href="reserve.html">Make a reservation</a>.</p>
 </div>
-
-<footer>
-    <p>Exuma Sport Coast Service · Exuma, Bahamas</p>
-</footer>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-    <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
-    <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous image">‹</button>
-    <img class="lightbox-img" id="lightboxImg" src="" alt="">
-    <button class="lightbox-next" id="lightboxNext" aria-label="Next image">›</button>
-    <div class="lightbox-caption">
-        <span class="lb-name" id="lightboxName"></span>
-        <span class="lb-label" id="lightboxLabel"></span>
-    </div>
-</div>
-
 <script>
 (function () {
     "use strict";
@@ -400,7 +383,8 @@ footer {
 
     var REGIONS = [
         {
-            id: "grid-george-town",
+            id: "george-town",
+            gridId: "grid-george-town",
             region: "George Town",
             location: "George Town, Great Exuma",
             altPrefix: "George Town accommodation",
@@ -455,7 +439,8 @@ Wi-Fi included`
             }
         },
         {
-            id: "grid-luxury",
+            id: "luxury-villas",
+            gridId: "grid-luxury",
             region: "Luxury Villas",
             location: "Exuma, Bahamas",
             altPrefix: "Luxury accommodation",
@@ -506,7 +491,8 @@ Wi-Fi included`
             }
         },
         {
-            id: "grid-michelson",
+            id: "michelson-rokers-point",
+            gridId: "grid-michelson",
             region: "Michelson",
             location: "Michelson, Exuma",
             altPrefix: "Michelson accommodation",
@@ -557,7 +543,8 @@ Wi-Fi included`
             }
         },
         {
-            id: "grid-moss",
+            id: "moss-town",
+            gridId: "grid-moss",
             region: "Moss Town",
             location: "Moss Town, Great Exuma",
             altPrefix: "Moss Town accommodation",
@@ -608,7 +595,8 @@ Wi-Fi included`
             }
         },
         {
-            id: "grid-staniel",
+            id: "staniel-cay-exuma-cays",
+            gridId: "grid-staniel",
             region: "Staniel Cay",
             location: "Staniel Cay, Exuma Cays",
             altPrefix: "Staniel Cay accommodation",
@@ -617,7 +605,7 @@ Wi-Fi included`
                 "2 Bedroom Staniel Cay Premium Retreat",
                 "3 Bedroom Staniel Cay Villa",
                 "4 Bedroom Staniel Cay Island Villa",
-                "5 Bedroom Staniel Cay Grand Villa",   
+                "5 Bedroom Staniel Cay Grand Villa",
                 "6 Bedroom Staniel Cay Estate"
             ],
             descriptions: [
@@ -659,9 +647,37 @@ Wi-Fi included`
             }
         }
     ];
+    /* ============================================================
+       2. REGION FILTER
+          If a region was chosen on index.html, hide all others.
+       ============================================================ */
+
+    var urlParams = new URLSearchParams(window.location.search);
+
+    function pickParam(urlKey, storageKey) {
+        var v = urlParams.get(urlKey);
+        if (v && v.trim()) return v.trim();
+        try {
+            var s = localStorage.getItem(storageKey);
+            return s ? s.trim() : "";
+        } catch (e) { return ""; }
+    }
+
+    var selectedRegionId = pickParam("region", "exuma_region");
+
+    var validIds = REGIONS.map(function (r) { return r.id; });
+    var filterActive = selectedRegionId && validIds.indexOf(selectedRegionId) !== -1;
+
+    if (filterActive) {
+        document.querySelectorAll("section.region").forEach(function (sec) {
+            if (sec.id !== selectedRegionId) {
+                sec.style.display = "none";
+            }
+        });
+    }
 
     /* ============================================================
-       2. RENDER CARDS
+       3. RENDER CARDS
        ============================================================ */
 
     function escapeHtml(s) {
@@ -710,8 +726,11 @@ Wi-Fi included`
     }
 
     REGIONS.forEach(function (region) {
-        var grid = document.getElementById(region.id);
+        if (filterActive && region.id !== selectedRegionId) return;
+
+        var grid = document.getElementById(region.gridId);
         if (!grid) return;
+
         var html = "";
         for (var i = 0; i < region.names.length; i++) {
             html += buildCard(region, i);
@@ -720,24 +739,13 @@ Wi-Fi included`
     });
 
     /* ============================================================
-       3. RESERVE BUTTON — forward dates + selection to reserve.html
+       4. RESERVE BUTTON — forward dates + selection to reserve.html
        ============================================================ */
 
-    var urlParams = new URLSearchParams(window.location.search);
-
-    function pick(urlKey, storageKey) {
-        var v = urlParams.get(urlKey);
-        if (v && v.trim()) return v.trim();
-        try {
-            var s = localStorage.getItem(storageKey);
-            return s ? s.trim() : "";
-        } catch (e) { return ""; }
-    }
-
-    var searchCheckin  = pick("checkin",  "exuma_search_checkin");
-    var searchCheckout = pick("checkout", "exuma_search_checkout");
-    var searchAdults   = pick("adults",   "exuma_search_adults");
-    var searchChildren = pick("children", "exuma_search_children");
+    var searchCheckin  = pickParam("checkin",  "exuma_search_checkin");
+    var searchCheckout = pickParam("checkout", "exuma_search_checkout");
+    var searchAdults   = pickParam("adults",   "exuma_search_adults");
+    var searchChildren = pickParam("children", "exuma_search_children");
 
     document.addEventListener("click", function (e) {
         var btn = e.target.closest(".reserve-btn");
@@ -758,7 +766,7 @@ Wi-Fi included`
     });
 
     /* ============================================================
-       4. LIGHTBOX — click any gallery image to view it larger
+       5. LIGHTBOX — click any gallery image to view it larger
        ============================================================ */
 
     var lightbox  = document.getElementById("lightbox");
@@ -845,4 +853,17 @@ Wi-Fi included`
 
 </body>
 </html>
-                
+<footer>
+    <p>Exuma Sport Coast Service · Exuma, Bahamas</p>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+    <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous image">‹</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    <button class="lightbox-next" id="lightboxNext" aria-label="Next image">›</button>
+    <div class="lightbox-caption">
+        <span class="lb-name" id="lightboxName"></span>
+        <span class="lb-label" id="lightboxLabel"></span>
+    </div>
+</div>
