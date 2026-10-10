@@ -1,4 +1,3 @@
-
 from flask import Flask, request, redirect, send_from_directory, jsonify
 from flask_cors import CORS
 import psycopg2
@@ -9,10 +8,10 @@ import secrets
 import os
 import math
 import requests
-from html import escape
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 app = Flask(__name__)
-
 CORS(app, origins=[
     "https://albertoo404.github.io",
     "https://exumasportaccomodation.netlify.app"
@@ -20,27 +19,14 @@ CORS(app, origins=[
 
 BASE = Path(__file__).resolve().parent
 DATABASE_URL = os.environ.get("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL environment variable is not configured.")
 RECEIPTS = BASE / "reservations"
 RECEIPTS.mkdir(exist_ok=True)
 
-COMPANY_EMAIL = "exumaaccomodations@gmail.com"
-
-
-# --------------------------------------------------
-# DATABASE
-# --------------------------------------------------
-
-def get_connection():
-    if not DATABASE_URL:
-        raise RuntimeError(
-            "DATABASE_URL environment variable is not configured."
-        )
-
-    return psycopg2.connect(DATABASE_URL)
-
-
 def init_db():
-    conn = get_connection()
+    conn = psycopg2.connect(DATABASE_URL)
 
     try:
         with conn.cursor() as cur:
@@ -72,46 +58,12 @@ def init_db():
     finally:
         conn.close()
 
-
 def generate_number():
     date = datetime.now().strftime("%Y%m%d")
     return f"EXM-{date}-{secrets.randbelow(9000) + 1000}"
 
-
-def calculate_nights(check_in, check_out):
-    check_in_date = datetime.strptime(
-        check_in, "%Y-%m-%d"
-    ).date()
-
-    check_out_date = datetime.strptime(
-        check_out, "%Y-%m-%d"
-    ).date()
-
-    nights = (check_out_date - check_in_date).days
-
-    if nights <= 0:
-        raise ValueError("Check-out must be after check-in.")
-
-    return nights
-
-
-# --------------------------------------------------
-# HTML RECEIPT
-# --------------------------------------------------
-
 def create_receipt(data):
-    number = escape(str(data["reservation_number"]))
-
-    region = escape(str(data["region"]))
-    check_in = escape(str(data["check_in"]))
-    check_out = escape(str(data["check_out"]))
-    accommodation = escape(str(data["accommodation"]))
-    created_at = escape(str(data["created_at"]))
-
-    adults = int(data["adults"])
-    children = int(data["children"])
-    nights = int(data.get("nights", 0))
-    total = float(data["price"])
+    number = data["reservation_number"]
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -219,10 +171,11 @@ button {{
 </head>
 
 <body>
+
 <div class="receipt">
 
 <div class="header">
-    <img src="https://exuma-cays-guide-api-gnhl.onrender.com/images/exumalogo.jpg"
+    <img src="https://exuma-cays-guide.onrender.com/images/exumalogo.jpg"
          alt="Exuma Sport Coast Service">
     <h1>Exuma Sport Coast Service</h1>
     <p>Accommodation Reservation Receipt</p>
@@ -235,58 +188,58 @@ button {{
 
 <div class="detail">
     <span class="label">Region</span>
-    <strong>{region}</strong>
+    <strong>{data["region"]}</strong>
 </div>
 
 <div class="detail">
     <span class="label">Check-in</span>
-    <strong>{check_in}</strong>
+    <strong>{data["check_in"]}</strong>
 </div>
 
 <div class="detail">
     <span class="label">Check-out</span>
-    <strong>{check_out}</strong>
+    <strong>{data["check_out"]}</strong>
 </div>
 
 <div class="detail">
     <span class="label">Adults</span>
-    <strong>{adults}</strong>
+    <strong>{data["adults"]}</strong>
 </div>
 
 <div class="detail">
     <span class="label">Children</span>
-    <strong>{children}</strong>
+    <strong>{data["children"]}</strong>
 </div>
 
 <div class="detail">
     <span class="label">Total Clients</span>
-    <strong>{adults + children}</strong>
+    <strong>{data["adults"] + data["children"]}</strong>
 </div>
 
 <div class="detail">
     <span class="label">Accommodation</span>
-    <strong>{accommodation}</strong>
+    <strong>{data["accommodation"]}</strong>
 </div>
 
 <div class="detail">
     <span class="label">Number of Nights</span>
-    <strong>{nights}</strong>
+    <strong>{data.get("nights", 0)}</strong>
 </div>
 
 <div class="detail">
     <span class="label">Total</span>
-    <strong>USD {total:.2f}</strong>
+    <strong>USD {data["price"]:.2f}</strong>
 </div>
 
 <div class="detail">
     <span class="label">Reserved</span>
-    <strong>{created_at}</strong>
+    <strong>{data["created_at"]}</strong>
 </div>
 
 <div class="note">
     Please keep this receipt for your reservation records.
     For assistance contact
-    <strong>{COMPANY_EMAIL}</strong>.
+    <strong>exumaaccomodations@gmail.com</strong>.
 </div>
 
 <button onclick="window.print()">Print / Save PDF</button>
@@ -296,29 +249,20 @@ button {{
 </div>
 
 </div>
+
 </body>
 </html>
 """
 
-    (RECEIPTS / f"{data['reservation_number']}.html").write_text(
-        html,
-        encoding="utf-8"
-    )
-
-
-# --------------------------------------------------
-# WEBSITE FILES
-# --------------------------------------------------
+    (RECEIPTS / f"{number}.html").write_text(html)
 
 @app.route("/")
 def home():
     return send_from_directory(BASE, "index.html")
 
-
 @app.route("/accommodations.html")
 def accommodations():
     return send_from_directory(BASE, "accommodations.html")
-
 
 @app.route("/<path:filename>")
 def website_files(filename):
@@ -329,72 +273,45 @@ def website_files(filename):
 
     return "File not found", 404
 
-
-# --------------------------------------------------
-# CREATE RESERVATION
-# --------------------------------------------------
-
 @app.route("/reserve", methods=["POST"])
 def reserve():
-    region = (request.form.get("region") or "").strip()
-    check_in = (request.form.get("check_in") or "").strip()
-    check_out = (request.form.get("check_out") or "").strip()
-    accommodation = (
-        request.form.get("accommodation") or ""
-    ).strip()
-
-    client_name = (
-        request.form.get("client_name") or ""
-    ).strip()
-
-    client_phone = (
-        request.form.get("client_phone") or ""
-    ).strip()
-
-    client_email = (
-        request.form.get("client_email") or ""
-    ).strip()
+    region = request.form.get("region", "").strip()
+    check_in = request.form.get("check_in", "").strip()
+    check_out = request.form.get("check_out", "").strip()
+    accommodation = request.form.get("accommodation", "").strip()
+    client_name = request.form.get("client_name", "").strip()
+    client_phone = request.form.get("client_phone", "").strip()
+    client_email = request.form.get("client_email", "").strip()
 
     try:
-        adults = int(request.form.get("adults", "1"))
-        children = int(request.form.get("children", "0"))
+        adults = max(1, int(request.form.get("adults", "1")))
+        children = max(0, int(request.form.get("children", "0")))
+        submitted_total = float(request.form.get("price", "0"))
 
-        if adults < 1 or adults > 20:
-            return "Invalid number of adults.", 400
+        check_in_date = datetime.strptime(
+            check_in, "%Y-%m-%d"
+        ).date()
 
-        if children < 0 or children > 10:
-            return "Invalid number of children.", 400
+        check_out_date = datetime.strptime(
+            check_out, "%Y-%m-%d"
+        ).date()
 
-        nights = calculate_nights(check_in, check_out)
-
-        # IMPORTANT PRICE CORRECTION:
-        # reserve.html already calculates:
-        # nightly price × number of nights.
-        #
-        # Therefore, the incoming "price" is the
-        # FULL SUBTOTAL, not the nightly rate.
-        #
-        # Store that subtotal directly. Do NOT multiply
-        # it by nights again.
-
-        submitted_total = float(
-            request.form.get("price", "0")
-        )
-
-        if not math.isfinite(submitted_total):
-            return "Invalid reservation price.", 400
-
-        if submitted_total <= 0:
-            return "Invalid reservation price.", 400
-
-        price = round(submitted_total, 2)
+        nights = (check_out_date - check_in_date).days
 
     except (ValueError, TypeError):
-        return "Invalid reservation information.", 400
+        return "Invalid reservation information", 400
 
-    if not region or not accommodation:
-        return "Region and accommodation are required.", 400
+    if nights <= 0:
+        return "Check-out must be after check-in", 400
 
+    if not math.isfinite(submitted_total) or submitted_total <= 0:
+        return "Invalid reservation price", 400
+
+    # The frontend already sends the total for all nights.
+    # Do not multiply by nights again.
+    price = round(submitted_total, 2)
+
+    
     number = generate_number()
     created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -414,12 +331,13 @@ def reserve():
         "created_at": created_at
     }
 
-    conn = get_connection()
+    conn = psycopg2.connect(DATABASE_URL)
 
     try:
         with conn.cursor() as cur:
             cur.execute("""
-                INSERT INTO reservations (
+                INSERT INTO reservations
+                (
                     reservation_number,
                     region,
                     check_in,
@@ -433,10 +351,7 @@ def reserve():
                     client_email,
                     created_at
                 )
-                VALUES (
-                    %s, %s, %s, %s, %s, %s,
-                    %s, %s, %s, %s, %s, %s
-                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """, (
                 number,
                 region,
@@ -456,8 +371,7 @@ def reserve():
 
     except Exception:
         conn.rollback()
-        app.logger.exception("Could not create reservation.")
-        return "Could not save the reservation.", 500
+        raise
 
     finally:
         conn.close()
@@ -467,22 +381,17 @@ def reserve():
     return redirect(f"/reservation/{number}")
 
 
-# --------------------------------------------------
-# VIEW RESERVATION RECEIPT
-# --------------------------------------------------
-
 @app.route("/reservation/<number>")
 def receipt(number):
-    conn = get_connection()
+    conn = psycopg2.connect(
+        DATABASE_URL,
+        cursor_factory=RealDictCursor
+    )
 
     try:
-        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+        with conn.cursor() as cur:
             cur.execute(
-                """
-                SELECT *
-                FROM reservations
-                WHERE reservation_number = %s
-                """,
+                "SELECT * FROM reservations WHERE reservation_number = %s",
                 (number,)
             )
             row = cur.fetchone()
@@ -491,16 +400,24 @@ def receipt(number):
         conn.close()
 
     if not row:
-        return "Reservation not found.", 404
+        return "Reservation not found", 404
 
     data = dict(row)
 
     try:
-        data["nights"] = calculate_nights(
-            data["check_in"],
-            data["check_out"]
-        )
-    except ValueError:
+        check_in_date = datetime.strptime(
+            data["check_in"], "%Y-%m-%d"
+        ).date()
+
+        check_out_date = datetime.strptime(
+            data["check_out"], "%Y-%m-%d"
+        ).date()
+
+        data["nights"] = (
+            check_out_date - check_in_date
+        ).days
+
+    except (ValueError, TypeError):
         data["nights"] = 0
 
     create_receipt(data)
@@ -511,22 +428,20 @@ def receipt(number):
     )
 
 
-# --------------------------------------------------
-# SEND PAYMENT-DETAILS REQUEST EMAIL
-# --------------------------------------------------
+
+
 
 def send_payment_request_email(data):
-    customer_name = (
-        data.get("client_name") or "Customer"
-    ).strip()
+    """
+    Send a colourful HTML payment-details request
+    through Google Apps Script.
+    """
 
-    customer_email = (
-        data.get("client_email") or ""
-    ).strip()
+    company_email = "exumaaccomodations@gmail.com"
 
-    customer_phone = (
-        data.get("client_phone") or "Not provided"
-    ).strip()
+    customer_name = (data.get("client_name") or "Customer").strip()
+    customer_email = (data.get("client_email") or "").strip()
+    customer_phone = (data.get("client_phone") or "Not provided").strip()
 
     reservation = data.get("reservation_number") or "—"
     accommodation = data.get("accommodation") or "—"
@@ -536,13 +451,24 @@ def send_payment_request_email(data):
     adults = data.get("adults", 0)
     children = data.get("children", 0)
 
-    total = float(data.get("price") or 0)
-    deposit = round(total * 0.50, 2)
+    try:
+        total = float(data.get("price") or 0)
+    except (ValueError, TypeError):
+        total = 0.0
+
+    deposit = total * 0.50
 
     subject = f"Payment Details Request - Reservation {reservation}"
 
-    def safe(value):
-        return escape(str(value))
+    def escape_html(value):
+        return (
+            str(value)
+            .replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+            .replace('"', "&quot;")
+            .replace("'", "&#039;")
+        )
 
     html = f"""<!DOCTYPE html>
 <html>
@@ -565,20 +491,20 @@ def send_payment_request_email(data):
 
 <h2 style="color:#006d77;margin-top:0;">New Payment Request</h2>
 
-<p>A customer has requested payment details for this reservation.</p>
+<p>A customer has requested payment details for the following reservation.</p>
 
 <div style="background:#f1fbfc;border-left:5px solid #00a6a6;padding:18px;margin:20px 0;border-radius:8px;">
 
-<p><strong>Reservation:</strong> {safe(reservation)}</p>
-<p><strong>Customer:</strong> {safe(customer_name)}</p>
-<p><strong>Email:</strong> {safe(customer_email)}</p>
-<p><strong>Phone:</strong> {safe(customer_phone)}</p>
-<p><strong>Accommodation:</strong> {safe(accommodation)}</p>
-<p><strong>Region:</strong> {safe(region)}</p>
-<p><strong>Check-in:</strong> {safe(check_in)}</p>
-<p><strong>Check-out:</strong> {safe(check_out)}</p>
-<p><strong>Adults:</strong> {safe(adults)}</p>
-<p><strong>Children:</strong> {safe(children)}</p>
+<p><strong>Reservation:</strong> {escape_html(reservation)}</p>
+<p><strong>Customer:</strong> {escape_html(customer_name)}</p>
+<p><strong>Email:</strong> {escape_html(customer_email)}</p>
+<p><strong>Phone:</strong> {escape_html(customer_phone)}</p>
+<p><strong>Accommodation:</strong> {escape_html(accommodation)}</p>
+<p><strong>Region:</strong> {escape_html(region)}</p>
+<p><strong>Check-in:</strong> {escape_html(check_in)}</p>
+<p><strong>Check-out:</strong> {escape_html(check_out)}</p>
+<p><strong>Adults:</strong> {escape_html(adults)}</p>
+<p><strong>Children:</strong> {escape_html(children)}</p>
 
 </div>
 
@@ -606,6 +532,7 @@ Exuma Cays Guide · Exuma, Bahamas
 </div>
 
 </div>
+
 </body>
 </html>
 """
@@ -629,104 +556,91 @@ Total accommodation price: ${total:,.2f}
 Please provide the customer with the appropriate payment instructions or payment link.
 """
 
-    google_apps_script_url = os.environ.get(
-        "GOOGLE_APPS_SCRIPTURL"
-    )
+    google_apps_script_url = os.environ.get("GOOGLE_APPS_SCRIPTURL")
 
     if not google_apps_script_url:
-        raise RuntimeError(
-            "GOOGLE_APPS_SCRIPTURL is not configured."
-        )
+        raise RuntimeError("GOOGLE_APPS_SCRIPTURL is not configured.")
 
     payload = {
         "action": "payment_request",
-        "to": COMPANY_EMAIL,
+        "to": company_email,
         "subject": subject,
         "message": plain_message,
         "htmlBody": html
     }
 
-    response = requests.post(
-        google_apps_script_url,
-        json=payload,
-        headers={
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        timeout=30,
-        allow_redirects=True
-    )
-
-    print(
-        "GOOGLE APPS SCRIPT RESPONSE:",
-        response.status_code,
-        response.text[:1000]
-    )
-
-    if response.status_code != 200:
-        raise RuntimeError(
-            f"Google Apps Script returned HTTP "
-            f"{response.status_code}: {response.text[:500]}"
-        )
-
     try:
-        result = response.json()
-    except ValueError as error:
-        raise RuntimeError(
-            "Google Apps Script returned invalid JSON."
-        ) from error
-
-    if not result.get("success"):
-        raise RuntimeError(
-            "Google Apps Script rejected the request: "
-            + str(result.get("error", "Unknown error"))
+        response = requests.post(
+            google_apps_script_url,
+            json=payload,
+            headers={
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            timeout=30,
+            allow_redirects=True
         )
 
-    print(
-        "HTML PAYMENT REQUEST SENT:",
-        reservation
-    )
+        print(
+            "GOOGLE APPS SCRIPT FINAL RESPONSE:",
+            response.status_code,
+            response.text[:1000]
+        )
 
-    return result
+        if response.status_code != 200:
+            raise RuntimeError(
+                f"Google Apps Script returned HTTP "
+                f"{response.status_code}: {response.text[:500]}"
+            )
 
+        try:
+            result = response.json()
+        except Exception:
+            raise RuntimeError(
+                "Google Apps Script did not return valid JSON: "
+                + response.text[:500]
+            )
 
-# --------------------------------------------------
-# UPDATE CUSTOMER DETAILS
-# --------------------------------------------------
+        if not result.get("success"):
+            raise RuntimeError(
+                "Google Apps Script rejected the request: "
+                + str(result.get("error", "Unknown error"))
+            )
+
+        print(
+            "GOOGLE APPS SCRIPT HTML PAYMENT REQUEST SENT:",
+            reservation
+        )
+
+        return result
+
+    except Exception as error:
+        print("GOOGLE APPS SCRIPT ERROR:", repr(error))
+        raise RuntimeError(
+            f"GOOGLE APPS SCRIPT ERROR: {error!r}"
+        )
+
 
 @app.route("/update-customer/<number>", methods=["POST"])
 def update_customer(number):
-    client_name = (
-        request.form.get("client_name") or ""
-    ).strip()
-
-    client_phone = (
-        request.form.get("client_phone") or ""
-    ).strip()
-
-    client_email = (
-        request.form.get("client_email") or ""
-    ).strip()
-
-    if not client_name or not client_phone or not client_email:
-        return jsonify({
-            "success": False,
-            "error": "Name, phone number and email are required."
-        }), 400
-
-    conn = get_connection()
+    conn = psycopg2.connect(DATABASE_URL)
 
     try:
+        client_name = (request.form.get("client_name") or "").strip()
+        client_phone = (request.form.get("client_phone") or "").strip()
+        client_email = (request.form.get("client_email") or "").strip()
+
+        if not client_name or not client_phone or not client_email:
+            return jsonify({
+                "success": False,
+                "error": "Name, phone number and email are required."
+            }), 400
+
         with conn.cursor() as cur:
             cur.execute(
-                """
-                SELECT id
-                FROM reservations
-                WHERE reservation_number = %s
-                """,
+                "SELECT id FROM reservations WHERE reservation_number = %s",
                 (number,)
             )
-
             reservation = cur.fetchone()
 
             if not reservation:
@@ -743,12 +657,7 @@ def update_customer(number):
                     client_email = %s
                 WHERE reservation_number = %s
                 """,
-                (
-                    client_name,
-                    client_phone,
-                    client_email,
-                    number
-                )
+                (client_name, client_phone, client_email, number)
             )
 
         conn.commit()
@@ -759,9 +668,9 @@ def update_customer(number):
             "reservation_number": number
         })
 
-    except Exception:
+    except Exception as error:
         conn.rollback()
-        app.logger.exception("Could not update customer details.")
+        print("UPDATE CUSTOMER ERROR:", repr(error))
 
         return jsonify({
             "success": False,
@@ -771,23 +680,18 @@ def update_customer(number):
     finally:
         conn.close()
 
-
-# --------------------------------------------------
-# REQUEST PAYMENT DETAILS
-# --------------------------------------------------
-
 @app.route("/request-payment-details/<number>", methods=["POST"])
 def request_payment_details(number):
-    conn = get_connection()
+
+    conn = psycopg2.connect(
+        DATABASE_URL,
+        cursor_factory=RealDictCursor
+    )
 
     try:
-        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+        with conn.cursor() as cur:
             cur.execute(
-                """
-                SELECT *
-                FROM reservations
-                WHERE reservation_number = %s
-                """,
+                "SELECT * FROM reservations WHERE reservation_number = %s",
                 (number,)
             )
             row = cur.fetchone()
@@ -798,7 +702,7 @@ def request_payment_details(number):
     if not row:
         return jsonify({
             "success": False,
-            "error": "Reservation not found."
+            "error": "Reservation not found"
         }), 404
 
     data = dict(row)
@@ -821,4 +725,239 @@ def request_payment_details(number):
             "error": (
                 "Please enter your name, phone number "
                 "and email before requesting payment details."
-     
+            )
+        }), 400
+
+    try:
+        check_in_date = datetime.strptime(
+            data["check_in"], "%Y-%m-%d"
+        ).date()
+
+        check_out_date = datetime.strptime(
+            data["check_out"], "%Y-%m-%d"
+        ).date()
+
+        data["nights"] = (
+            check_out_date - check_in_date
+        ).days
+
+    except (ValueError, TypeError):
+        data["nights"] = 0
+
+    try:
+        send_payment_request_email(data)
+
+        return jsonify({
+            "success": True,
+            "message": (
+                "Your payment-details request has been "
+                "sent successfully."
+            ),
+            "reservation_number": number
+        })
+
+    except Exception as error:
+        print(
+            "PAYMENT REQUEST EMAIL ERROR:",
+            repr(error)
+        )
+
+        return jsonify({
+            "success": False,
+            "error": repr(error)
+        }), 500
+
+
+@app.route("/reservation-data/<number>")
+def reservation_data(number):
+    conn = psycopg2.connect(
+        DATABASE_URL,
+        cursor_factory=RealDictCursor
+    )
+
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT * FROM reservations WHERE reservation_number = %s",
+                (number,)
+            )
+            row = cur.fetchone()
+
+    finally:
+        conn.close()
+
+    if not row:
+        return jsonify({"error": "Reservation not found"}), 404
+
+    data = dict(row)
+
+    try:
+        check_in_date = datetime.strptime(
+            data["check_in"], "%Y-%m-%d"
+        ).date()
+
+        check_out_date = datetime.strptime(
+            data["check_out"], "%Y-%m-%d"
+        ).date()
+
+        data["nights"] = (
+            check_out_date - check_in_date
+        ).days
+
+    except (ValueError, TypeError):
+        data["nights"] = 0
+
+    return jsonify(data)
+
+@app.route("/admin/reservations")
+def reservations():
+    conn = psycopg2.connect(
+        DATABASE_URL,
+        cursor_factory=RealDictCursor
+    )
+
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT * FROM reservations
+                ORDER BY id DESC
+            """)
+            rows = cur.fetchall()
+
+    finally:
+        conn.close()
+
+    return jsonify(rows)
+
+@app.route("/images/<path:filename>")
+def images(filename):
+    return send_from_directory(BASE / "images", filename)
+
+
+@app.route("/db-test")
+def db_test():
+    try:
+        conn = psycopg2.connect(
+            DATABASE_URL,
+            cursor_factory=RealDictCursor
+        )
+
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT COUNT(*) AS count FROM reservations"
+            )
+            row = cur.fetchone()
+
+        conn.close()
+
+        return jsonify({
+            "success": True,
+            "database": "PostgreSQL",
+            "reservations_count": row["count"]
+        })
+
+    except Exception as error:
+        return jsonify({
+            "success": False,
+            "error": repr(error)
+        }), 500
+
+
+
+@app.route("/admin/migrate-reservations", methods=["POST"])
+def migrate_reservations():
+    supplied_secret = request.headers.get("X-Migration-Secret", "")
+    expected_secret = os.environ.get("MIGRATION_SECRET", "")
+
+    if not expected_secret or supplied_secret != expected_secret:
+        return jsonify({
+            "success": False,
+            "error": "Unauthorized"
+        }), 401
+
+    data = request.get_json(silent=True)
+
+    if not isinstance(data, list):
+        return jsonify({
+            "success": False,
+            "error": "Expected a JSON array"
+        }), 400
+
+    conn = None
+
+    try:
+        conn = psycopg2.connect(DATABASE_URL)
+
+        inserted = 0
+        skipped = 0
+
+        with conn.cursor() as cur:
+            for item in data:
+                cur.execute("""
+                    INSERT INTO reservations
+                    (
+                        reservation_number,
+                        region,
+                        check_in,
+                        check_out,
+                        adults,
+                        children,
+                        accommodation,
+                        price,
+                        created_at,
+                        client_name,
+                        client_phone,
+                        client_email
+                    )
+                    VALUES (
+                        %s, %s, %s, %s, %s, %s,
+                        %s, %s, %s, %s, %s, %s
+                    )
+                    ON CONFLICT (reservation_number) DO NOTHING
+                """, (
+                    item.get("reservation_number"),
+                    item.get("region"),
+                    item.get("check_in"),
+                    item.get("check_out"),
+                    item.get("adults"),
+                    item.get("children"),
+                    item.get("accommodation"),
+                    item.get("price"),
+                    item.get("created_at"),
+                    item.get("client_name"),
+                    item.get("client_phone"),
+                    item.get("client_email")
+                ))
+
+                if cur.rowcount == 1:
+                    inserted += 1
+                else:
+                    skipped += 1
+
+        conn.commit()
+
+        return jsonify({
+            "success": True,
+            "received": len(data),
+            "inserted": inserted,
+            "skipped_existing": skipped
+        })
+
+    except Exception as error:
+        if conn:
+            conn.rollback()
+
+        return jsonify({
+            "success": False,
+            "error": repr(error)
+        }), 500
+
+    finally:
+        if conn:
+            conn.close()
+
+
+init_db()
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
