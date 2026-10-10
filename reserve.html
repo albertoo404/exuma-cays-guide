@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +7,7 @@
 <title>Complete Reservation | Exuma Sport Coast Service</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -18,10 +17,7 @@ body {
     color: #173b43;
 }
 
-.container {
-    max-width: 650px;
-    margin: auto;
-}
+.container { max-width: 650px; margin: auto; }
 
 .card {
     background: white;
@@ -31,25 +27,13 @@ body {
     box-shadow: 0 8px 30px rgba(0,0,0,.10);
 }
 
-.header {
-    text-align: center;
-}
+.header { text-align: center; }
 
-.header img {
-    width: 70px;
-    height: 70px;
-    object-fit: contain;
-}
+.header img { width: 70px; height: 70px; object-fit: contain; }
 
-.header h1 {
-    color: #006d77;
-    margin: 10px 0 5px;
-    font-size: 25px;
-}
+.header h1 { color: #006d77; margin: 10px 0 5px; font-size: 25px; }
 
-.header p {
-    color: #607d86;
-}
+.header p { color: #607d86; }
 
 .reference {
     text-align: center;
@@ -59,10 +43,7 @@ body {
     margin-top: 20px;
 }
 
-.reference strong {
-    color: #023047;
-    font-size: 18px;
-}
+.reference strong { color: #023047; font-size: 18px; }
 
 .detail {
     display: flex;
@@ -72,9 +53,7 @@ body {
     border-bottom: 1px solid #eee;
 }
 
-.label {
-    color: #607d86;
-}
+.label { color: #607d86; }
 
 .total-box {
     margin-top: 20px;
@@ -83,55 +62,10 @@ body {
     background: #eef9fa;
 }
 
-.total-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 9px 0;
-}
+.total-row { display: flex; justify-content: space-between; gap: 15px; padding: 9px 0; }
 
-.total {
-    font-size: 23px;
-    font-weight: bold;
-    color: #006d77;
-}
-
-.deposit {
-    font-size: 21px;
-    font-weight: bold;
-    color: #023047;
-}
-
-.description {
-    margin-top: 15px;
-    padding: 14px;
-    background: #f7f7f7;
-    border-radius: 9px;
-    font-size: 13px;
-    line-height: 1.6;
-}
-
-.bank-title {
-    color: #006d77;
-    margin-top: 0;
-}
-
-.bank-detail {
-    padding: 12px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.bank-label {
-    display: block;
-    font-size: 12px;
-    color: #71858b;
-    margin-bottom: 4px;
-}
-
-.bank-value {
-    font-weight: bold;
-    word-break: break-word;
-}
+.total { font-size: 23px; font-weight: bold; color: #006d77; }
+.deposit { font-size: 21px; font-weight: bold; color: #023047; }
 
 .notice {
     margin-top: 18px;
@@ -142,47 +76,12 @@ body {
     line-height: 1.5;
 }
 
-.loading {
-    text-align: center;
-    padding: 30px;
-}
-
-.error {
-    text-align: center;
-    color: #b00020;
-}
-
-.footer {
-    text-align: center;
-    color: #777;
-    font-size: 12px;
-    padding: 15px;
-}
-
-@media(max-width: 500px) {
-    .card {
-        padding: 20px;
-    }
-
-    .detail,
-    .total-row {
-        flex-direction: column;
-        gap: 4px;
-    }
-}
-
-@media print {
-    body {
-        background: white;
-    }
-
-    .card {
-        box-shadow: none;
-        border: 1px solid #ddd;
-    }
-}
-
-/* ===== CLEAN CUSTOMER INFORMATION FORM ===== */
+.loading { text-align: center; padding: 30px; }
+.error { text-align: center; }
+.error h2 { color: #b00020; }
+.footer { text-align: center; color: #777; font-size: 12px; padding: 15px; }
+.footer a { color: #007c91; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
 
 .client-details {
     margin: 24px 0;
@@ -193,19 +92,10 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-.client-details h2 {
-    margin: 0 0 22px;
-    font-size: 22px;
-    line-height: 1.3;
-}
+.client-details h2 { margin: 0 0 22px; font-size: 22px; line-height: 1.3; }
 
-.client-details .field {
-    margin-bottom: 18px;
-}
-
-.client-details .field:last-child {
-    margin-bottom: 0;
-}
+.client-details .field { margin-bottom: 18px; }
+.client-details .field:last-of-type { margin-bottom: 0; }
 
 .client-details label {
     display: block;
@@ -220,99 +110,64 @@ body {
     width: 100%;
     min-height: 48px;
     padding: 12px 14px;
-    box-sizing: border-box;
-
     background: #ffffff;
     color: #111827;
-
     border: 1px solid #cbd5e1;
     border-radius: 8px;
-
     font-family: inherit;
     font-size: 16px;
     line-height: 1.4;
-
     outline: none;
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.client-details input::placeholder {
-    color: #94a3b8;
-}
-
-.client-details input:hover {
-    border-color: #94a3b8;
-}
+.client-details input::placeholder { color: #94a3b8; }
 
 .client-details input:focus {
     border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
 }
 
-.client-details input:invalid:not(:placeholder-shown) {
-    border-color: #dc2626;
-}
-
-@media (max-width: 600px) {
-
-    .client-details {
-        padding: 18px;
-        margin: 18px 0;
-    }
-
-    .client-details h2 {
-        font-size: 20px;
-        margin-bottom: 18px;
-    }
-
-    .client-details .field {
-        margin-bottom: 16px;
-    }
-
-    .client-details input {
-        min-height: 50px;
-        font-size: 16px;
-        padding: 12px 13px;
-    }
-}
-
-
-/* ===== CLICK-TO-COPY BANK DETAILS ===== */
-
-.bank-value {
+.save-btn,
+.request-btn {
+    width: 100%;
+    padding: 14px;
+    border: 0;
+    border-radius: 9px;
     cursor: pointer;
-    position: relative;
-    transition: opacity 0.2s ease, transform 0.1s ease;
-}
-
-.bank-value:hover {
-    opacity: 0.75;
-}
-
-.bank-value:active {
-    transform: scale(0.98);
-}
-
-.bank-value.copied {
-    text-decoration: underline;
-}
-
-.copy-message {
-    position: fixed;
-    left: 50%;
-    bottom: 25px;
-    transform: translateX(-50%);
-    background: #111827;
+    font-weight: bold;
+    font-size: 16px;
     color: #ffffff;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    z-index: 9999;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    background: #007ea7;
+    transition: background 0.2s ease;
 }
 
+.save-btn:hover,
+.request-btn:hover { background: #006994; }
+
+.save-btn:disabled,
+.request-btn:disabled { opacity: 0.6; cursor: default; }
+
+.payment-request-section {
+    margin-top: 25px;
+    padding: 22px;
+    border: 1px solid #b7dfe5;
+    border-radius: 14px;
+    background: linear-gradient(135deg,#f0fbfc,#ffffff);
+}
+
+.payment-request-section h2 { margin-top: 0; color: #006d77; }
+.payment-request-section p { line-height: 1.6; }
+
+@media (max-width: 500px) {
+    .card { padding: 20px; }
+    .detail, .total-row { flex-direction: column; gap: 4px; }
+}
+
+@media print {
+    body { background: white; }
+    .card { box-shadow: none; border: 1px solid #ddd; }
+}
 </style>
 </head>
 
@@ -320,1150 +175,467 @@ body {
 
 <div class="container">
 
-<div class="card header">
+    <div class="card header">
+        <img src="/images/exumalogo.jpg" alt="Exuma Sport Coast Service">
+        <h1>Complete Your Reservation</h1>
+        <p>Exuma Sport Coast Service</p>
 
-<img src="/images/exumalogo.jpg"
-     alt="Exuma Sport Coast Service">
+        <div class="reference">
+            Reservation Number<br>
+            <strong id="reservation-number">Loading...</strong>
+        </div>
+    </div>
 
-<h1>Complete Your Reservation</h1>
+    <div id="loading" class="card loading">
+        Loading reservation details...
+    </div>
 
-<p>Exuma Sport Coast Service</p>
+    <div id="reservation-content" style="display:none;">
 
-<div class="reference">
-    Reservation Number<br>
-    <strong id="reservation-number">Loading...</strong>
+        <div class="card">
+            <h2>Reservation Details</h2>
+
+            <div class="detail">
+                <span class="label">Region</span>
+                <strong id="region">—</strong>
+            </div>
+
+            <div class="detail">
+                <span class="label">Accommodation</span>
+                <strong id="accommodation">—</strong>
+            </div>
+
+            <div class="detail">
+                <span class="label">Check-in</span>
+                <strong id="check-in">—</strong>
+            </div>
+
+            <div class="detail">
+                <span class="label">Check-out</span>
+                <strong id="check-out">—</strong>
+            </div>
+
+            <div class="detail">
+                <span class="label">Number of Nights</span>
+                <strong id="nights">—</strong>
+            </div>
+
+            <div class="detail">
+                <span class="label">Adults</span>
+                <strong id="adults">—</strong>
+            </div>
+
+            <div class="detail">
+                <span class="label">Children</span>
+                <strong id="children">—</strong>
+            </div>
+
+            <div class="total-box">
+                <div class="total-row">
+                    <span>Total Bill</span>
+                    <strong class="total" id="total">USD 0.00</strong>
+                </div>
+
+                <div class="total-row">
+                    <span>50% Reservation Deposit</span>
+                    <strong class="deposit" id="deposit">USD 0.00</strong>
+                </div>
+            </div>
+
+            <div class="notice">
+                Your reservation number has been created. Please enter your
+                contact details below so the company can reach you and send
+                payment instructions.
+            </div>
+        </div>
+
+        <section class="client-details" id="customer-save-section">
+            <h2>Your Contact Details</h2>
+
+            <div class="field">
+                <label for="reservation-client-name">Full Name</label>
+                <input id="reservation-client-name" type="text"
+                       autocomplete="name" placeholder="Enter your full name">
+            </div>
+
+            <div class="field">
+                <label for="reservation-client-phone">Phone Number</label>
+                <input id="reservation-client-phone" type="tel"
+                       autocomplete="tel" placeholder="Enter your phone number">
+            </div>
+
+            <div class="field">
+                <label for="reservation-client-email">Email Address</label>
+                <input id="reservation-client-email" type="email"
+                       autocomplete="email" placeholder="Enter your email address">
+            </div>
+
+            <button id="save-customer-details" type="button" class="save-btn"
+                    style="margin-top:18px;">
+                Save Customer Details
+            </button>
+
+            <div id="customer-save-message"
+                 style="margin-top:12px;font-weight:bold;"></div>
+        </section>
+
+        <section class="payment-request-section" id="payment-request-section">
+            <h2>Request Payment Details</h2>
+
+            <p>
+                Once you have entered and saved your contact information,
+                you can send a payment request to Exuma Sport Coast Service.
+                The company will review your reservation and reply to your
+                email with the payment instructions.
+            </p>
+
+            <button id="request-payment-details" type="button" class="request-btn">
+                Send Payment Request
+            </button>
+
+            <div id="payment-request-message"
+                 style="margin-top:14px;font-weight:bold;line-height:1.5;"></div>
+        </section>
+
+    </div>
+
+    <div id="error" class="card error" style="display:none;">
+        <h2>Reservation Not Found</h2>
+        <p id="error-message">Please check your reservation number and try again.</p>
+        <p style="margin-top:18px;">
+            <a href="index.html"
+               style="color:#006d77;font-weight:600;text-decoration:none;">
+               ← Return to accommodations
+            </a>
+        </p>
+    </div>
+
+    <div class="footer">
+        © 2026 Exuma Sport Coast Service · Exuma, Bahamas<br>
+        <a href="mailto:exumaaccomodations@gmail.com">Help / Support</a>
+    </div>
+
 </div>
-
-</div>
-
-
-<div id="loading" class="card loading">
-    Loading reservation details...
-</div>
-
-
-<div id="reservation-content" style="display:none;">
-
-<div class="card">
-
-<h2>Reservation Details</h2>
-
-<div class="detail">
-    <span class="label">Region</span>
-    <strong id="region">—</strong>
-</div>
-
-<div class="detail">
-    <span class="label">Accommodation</span>
-    <strong id="accommodation">—</strong>
-</div>
-
-<div class="detail">
-    <span class="label">Check-in</span>
-    <strong id="check-in">—</strong>
-</div>
-
-<div class="detail">
-    <span class="label">Check-out</span>
-    <strong id="check-out">—</strong>
-</div>
-
-<div class="detail">
-    <span class="label">Number of Nights</span>
-    <strong id="nights">—</strong>
-</div>
-
-<div class="detail">
-    <span class="label">Adults</span>
-    <strong id="adults">—</strong>
-</div>
-
-<div class="detail">
-    <span class="label">Children</span>
-    <strong id="children">—</strong>
-</div>
-
-
-
-
-
-<div class="total-box">
-
-<div class="total-row">
-    <span>Total Bill</span>
-    <strong class="total" id="total">USD 0.00</strong>
-</div>
-
-<div class="total-row">
-    <span>50% Reservation Deposit</span>
-    <strong class="deposit" id="deposit">USD 0.00</strong>
-</div>
-
-
-</div>
-
-
-<div id="error" class="card error" style="display:none;">
-    <h2>Reservation Not Found</h2>
-    <p>Please check your reservation number and try again.</p>
-</div>
-
-
-
-
-</div>
-
-
 
 <script>
 const API_BASE = "https://exuma-cays-guide-api-gnhl.onrender.com";
 </script>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     "use strict";
 
-    const params = new URLSearchParams(window.location.search);
+    var params = new URLSearchParams(window.location.search);
 
-    const loading = document.getElementById("loading");
-    const content = document.getElementById("reservation-content");
-    const error = document.getElementById("error");
+    var loading      = document.getElementById("loading");
+    var content      = document.getElementById("reservation-content");
+    var errorBox     = document.getElementById("error");
+    var errorMsg     = document.getElementById("error-message");
 
-    const nameInput = document.getElementById("client-name");
-    const phoneInput = document.getElementById("client-phone");
-    const emailInput = document.getElementById("client-email");
+    var numberEl     = document.getElementById("reservation-number");
 
-    let creating = false;
+    var nameInput    = document.getElementById("reservation-client-name");
+    var phoneInput   = document.getElementById("reservation-client-phone");
+    var emailInput   = document.getElementById("reservation-client-email");
+
+    var saveBtn      = document.getElementById("save-customer-details");
+    var saveMsg      = document.getElementById("customer-save-message");
+
+    var requestBtn   = document.getElementById("request-payment-details");
+    var requestMsg   = document.getElementById("payment-request-message");
+
+    var currentNumber = "";
+    var creating = false;
 
     function setText(id, value) {
-        const el = document.getElementById(id);
-
-        if (el) {
-            el.textContent =
-                value === undefined ||
-                value === null ||
-                value === ""
-                    ? "—"
-                    : String(value);
-        }
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.textContent =
+            (value === undefined || value === null || value === "")
+                ? "—" : String(value);
     }
 
-    function showLoading(message) {
+    function showLoading(msg) {
         if (loading) {
-            loading.textContent =
-                message || "Loading...";
-
+            loading.textContent = msg || "Loading...";
             loading.style.display = "block";
         }
-
-        if (error) {
-            error.style.display = "none";
-        }
+        if (errorBox) errorBox.style.display = "none";
+        if (content) content.style.display = "none";
     }
 
-    function showError(message) {
-        console.error(
-            "RESERVATION ERROR:",
-            message
-        );
-
-        if (loading) {
-            loading.style.display = "none";
-        }
-
-        if (content) {
-            content.style.display = "block";
-        }
-
-        if (error) {
-            error.style.display = "block";
-
-            const p =
-                error.querySelector("p");
-
-            if (p) {
-                p.textContent = message;
-            }
+    function showError(msg, heading) {
+        console.error("RESERVATION ERROR:", msg);
+        if (loading) loading.style.display = "none";
+        if (content) content.style.display = "none";
+        if (errorBox) {
+            errorBox.style.display = "block";
+            var h = errorBox.querySelector("h2");
+            if (h && heading) h.textContent = heading;
+            if (errorMsg) errorMsg.textContent = msg;
         }
     }
 
     function displayReservation(data) {
+        console.log("RESERVATION DATA:", data);
 
-        console.log(
-            "RESERVATION DATA:",
-            data
-        );
+        currentNumber = data.reservation_number || "";
 
-        setText(
-            "reservation-number",
-            data.reservation_number
-        );
-
-        setText(
-            "payment-reference",
-            data.reservation_number
-        );
-
+        setText("reservation-number", data.reservation_number);
         setText("region", data.region);
-        setText(
-            "accommodation",
-            data.accommodation
-        );
+        setText("accommodation", data.accommodation);
+        setText("check-in", data.check_in);
+        setText("check-out", data.check_out);
+        setText("nights", data.nights);
+        setText("adults", data.adults);
+        setText("children", data.children);
 
-        setText(
-            "check-in",
-            data.check_in
-        );
+        var total = Number(data.price) || 0;
+        setText("total", "USD " + total.toFixed(2));
+        setText("deposit", "USD " + (total * 0.50).toFixed(2));
 
-        setText(
-            "check-out",
-            data.check_out
-        );
+        if (nameInput  && data.client_name)  nameInput.value  = data.client_name;
+        if (phoneInput && data.client_phone) phoneInput.value = data.client_phone;
+        if (emailInput && data.client_email) emailInput.value = data.client_email;
 
-        setText(
-            "nights",
-            data.nights
-        );
-
-        setText(
-            "adults",
-            data.adults
-        );
-
-        setText(
-            "children",
-            data.children
-        );
-
-        const total =
-            Number(data.price) || 0;
-
-        setText(
-            "total",
-            "USD " +
-            total.toFixed(2)
-        );
-
-        setText(
-            "deposit",
-            "USD " +
-            (total * 0.50).toFixed(2)
-        );
-
-        if (loading) {
-            loading.style.display = "none";
-        }
-
-        if (error) {
-            error.style.display = "none";
-        }
-
-        if (content) {
-            content.style.display = "block";
-        }
+        if (loading) loading.style.display = "none";
+        if (errorBox) errorBox.style.display = "none";
+        if (content) content.style.display = "block";
     }
 
     function loadReservation(number) {
-
-        showLoading(
-            "Loading reservation details..."
-        );
+        showLoading("Loading reservation details...");
 
         fetch(
-            API_BASE + "/reservation-data/" +
-            encodeURIComponent(number) +
-            "?t=" +
-            Date.now(),
-            {
-                method: "GET",
-                cache: "no-store",
-                headers: {
-                    "Accept":
-                        "application/json"
-                }
-            }
+            API_BASE + "/reservation-data/" + encodeURIComponent(number) + "?t=" + Date.now(),
+            { method: "GET", cache: "no-store", headers: { "Accept": "application/json" } }
         )
-        .then(function (response) {
-
-            if (!response.ok) {
-                throw new Error(
-                    "HTTP " +
-                    response.status
-                );
-            }
-
-            return response.json();
+        .then(function (r) {
+            if (!r.ok) throw new Error("Reservation could not be found (HTTP " + r.status + ")");
+            return r.json();
         })
-        .then(function (data) {
-
-            displayReservation(data);
-
-        })
+        .then(displayReservation)
         .catch(function (err) {
-
-            showError(
-                "Could not load reservation: " +
-                err.message
-            );
-
+            showError(err.message, "Reservation Not Found");
         });
     }
-
-    /*
-     * CREATE RESERVATION IMMEDIATELY
-     *
-     * Customer information is NOT required.
-     */
 
     function createReservation() {
+        if (creating) return;
 
-        if (creating) {
-            return;
-        }
+        var region        = (params.get("region") || "").trim();
+        var accommodation = (params.get("accommodation") || "").trim();
+        var checkIn       = (params.get("checkin")  || params.get("check_in")  || "").trim();
+        var checkOut      = (params.get("checkout") || params.get("check_out") || "").trim();
+        var nightlyPrice  = Number(params.get("price")) || 0;
+        var adults        = Number(params.get("adults"))   || 1;
+        var children      = Number(params.get("children")) || 0;
 
-        const region =
-            (
-                params.get("region") ||
-                ""
-            ).trim();
-
-        const accommodation =
-            (
-                params.get("accommodation") ||
-                ""
-            ).trim();
-
-        const checkIn =
-            (
-                params.get("checkin") ||
-                params.get("check_in") ||
-                ""
-            ).trim();
-
-        const checkOut =
-            (
-                params.get("checkout") ||
-                params.get("check_out") ||
-                ""
-            ).trim();
-
-        const nightlyPrice =
-            Number(
-                params.get("price")
-            ) || 0;
-
-        const adults =
-            Number(params.get("adults")) || 1;
-
-        const children =
-            Number(params.get("children")) || 0;
-
-        /*
-         * Customer fields are optional.
-         */
-
-        const clientName =
-            nameInput
-                ? nameInput.value.trim()
-                : "";
-
-        const clientPhone =
-            phoneInput
-                ? phoneInput.value.trim()
-                : "";
-
-        const clientEmail =
-            emailInput
-                ? emailInput.value.trim()
-                : "";
-
-        if (
-            !region ||
-            !accommodation ||
-            !checkIn ||
-            !checkOut
-        ) {
-
+        if (!region || !accommodation || !checkIn || !checkOut) {
             showError(
-                "Reservation information is incomplete."
+                "We could not find any booking information in your link. " +
+                "Please start your booking from the accommodation page by " +
+                "clicking the \u201CReserve Accommodation\u201D button.",
+                "Reservation Information Missing"
             );
-
             return;
         }
 
-        const start =
-            new Date(
-                checkIn +
-                "T00:00:00"
-            );
-
-        const end =
-            new Date(
-                checkOut +
-                "T00:00:00"
-            );
-
-        const nights =
-            Math.round(
-                (end - start) /
-                (1000 * 60 * 60 * 24)
-            );
+        var start  = new Date(checkIn + "T00:00:00");
+        var end    = new Date(checkOut + "T00:00:00");
+        var nights = Math.round((end - start) / (1000 * 60 * 60 * 24));
 
         if (nights <= 0) {
-
-            showError(
-                "Check-out must be after check-in."
-            );
-
+            showError("Check-out must be after check-in.", "Invalid Dates");
             return;
         }
 
-        const total =
-            nightlyPrice * nights;
+        var total = nightlyPrice * nights;
 
-        const formData =
-            new URLSearchParams();
-
-        formData.set(
-            "region",
-            region
-        );
-
-        formData.set(
-            "accommodation",
-            accommodation
-        );
-
-        formData.set(
-            "check_in",
-            checkIn
-        );
-
-        formData.set(
-            "check_out",
-            checkOut
-        );
-
-        formData.set(
-            "adults",
-            adults
-        );
-
-        formData.set(
-            "children",
-            children
-        );
-
-        formData.set(
-            "price",
-            total.toFixed(2)
-        );
-
-        /*
-         * These can be EMPTY.
-         */
-
-        formData.set(
-            "client_name",
-            clientName
-        );
-
-        formData.set(
-            "client_phone",
-            clientPhone
-        );
-
-        formData.set(
-            "client_email",
-            clientEmail
-        );
+        var formData = new URLSearchParams();
+        formData.set("region", region);
+        formData.set("accommodation", accommodation);
+        formData.set("check_in", checkIn);
+        formData.set("check_out", checkOut);
+        formData.set("adults", adults);
+        formData.set("children", children);
+        formData.set("price", total.toFixed(2));
 
         creating = true;
+        showLoading("Creating your reservation...");
 
-        showLoading(
-            "Creating your reservation..."
-        );
-
-        console.log(
-            "Creating reservation immediately..."
-        );
-
-        fetch(
-            API_BASE + "/reserve",
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type":
-                        "application/x-www-form-urlencoded"
-                },
-
-                body:
-                    formData.toString()
-            }
-        )
+        fetch(API_BASE + "/reserve", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: formData.toString()
+        })
         .then(function (response) {
-
-            console.log(
-                "POST /reserve:",
-                response.status,
-                response.url
-            );
-
             if (!response.ok) {
-                throw new Error(
-                    "Server returned HTTP " +
-                    response.status
-                );
+                throw new Error("Server returned HTTP " + response.status);
             }
 
-            /*
-             * Flask follows the redirect and the final
-             * URL contains the reservation number.
-             */
-
-            const match =
-                response.url.match(
-                    /\/reservation\/([^/?#]+)/i
-                );
-
+            var match = response.url.match(/\/reservation\/([^/?#]+)/i);
             if (!match) {
-                throw new Error(
-                    "Reservation number was not returned."
-                );
+                throw new Error("Reservation number was not returned by the server.");
             }
 
-            const number =
-                decodeURIComponent(
-                    match[1]
-                );
-
-            console.log(
-                "RESERVATION CREATED:",
-                number
-            );
-
-            /*
-             * Load the newly created reservation.
-             */
+            var number = decodeURIComponent(match[1]);
+            console.log("RESERVATION CREATED:", number);
 
             return fetch(
-                API_BASE + "/reservation-data/" +
-                encodeURIComponent(number) +
-                "?t=" +
-                Date.now(),
-                {
-                    method: "GET",
-                    cache: "no-store",
-                    headers: {
-                        "Accept":
-                            "application/json"
-                    }
-                }
+                API_BASE + "/reservation-data/" + encodeURIComponent(number) + "?t=" + Date.now(),
+                { method: "GET", cache: "no-store", headers: { "Accept": "application/json" } }
             );
         })
-        .then(function (response) {
+        .then(function (r) {
+            if (!r.ok) throw new Error("Reservation was created, but details could not be loaded.");
+            return r.json();
+        })
+        .then(displayReservation)
+        .catch(function (err) {
+            showError(err.message, "Could Not Create Reservation");
+        })
+        .finally(function () { creating = false; });
+    }
 
-            if (!response.ok) {
-
-                throw new Error(
-                    "Reservation was created but details could not be loaded."
-                );
+    if (saveBtn) {
+        saveBtn.addEventListener("click", function () {
+            if (!currentNumber) {
+                saveMsg.style.color = "#b00020";
+                saveMsg.textContent = "Please wait for the reservation number to load.";
+                return;
             }
 
-            return response.json();
+            var name  = nameInput  ? nameInput.value.trim()  : "";
+            var phone = phoneInput ? phoneInput.value.trim() : "";
+            var email = emailInput ? emailInput.value.trim() : "";
 
-        })
-        .then(function (data) {
+            if (!name || !phone || !email) {
+                saveMsg.style.color = "#b00020";
+                saveMsg.textContent = "Please enter your name, phone number and email.";
+                return;
+            }
 
-            displayReservation(data);
+            var fd = new URLSearchParams();
+            fd.set("client_name", name);
+            fd.set("client_phone", phone);
+            fd.set("client_email", email);
 
-        })
-        .catch(function (err) {
+            saveBtn.disabled = true;
+            saveBtn.textContent = "Saving...";
+            saveMsg.style.color = "#023047";
+            saveMsg.textContent = "";
 
-            console.error(
-                "CREATE RESERVATION ERROR:",
-                err
-            );
-
-            showError(
-                "Could not create reservation: " +
-                err.message
-            );
-
-        })
-        .finally(function () {
-
-            creating = false;
-
+            fetch(
+                API_BASE + "/update-customer/" + encodeURIComponent(currentNumber),
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: fd.toString()
+                }
+            )
+            .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+            .then(function (res) {
+                if (!res.ok || !res.body.success) {
+                    throw new Error(res.body.error || "Unable to save details.");
+                }
+                saveMsg.style.color = "#0a7d28";
+                saveMsg.textContent = "Customer details saved successfully.";
+                saveBtn.textContent = "Details Saved";
+            })
+            .catch(function (err) {
+                saveMsg.style.color = "#b00020";
+                saveMsg.textContent = "Unable to save customer details: " + err.message;
+                saveBtn.disabled = false;
+                saveBtn.textContent = "Save Customer Details";
+            });
         });
     }
 
-    /*
-     * If a reservation number already exists,
-     * simply load it.
-     */
-
-    const existing =
-        (
-            params.get("reservation") ||
-            ""
-        ).trim();
-
-    if (existing) {
-
-        loadReservation(existing);
-
-        return;
-    }
-
-    /*
-     * NEW RESERVATION
-     *
-     * Create it immediately.
-     */
-
-    createReservation();
-
-});
-</script>
-
-
-
-
-
-
-
-
-<section id="customer-save-section" style="
-    margin-top:25px;
-    padding:22px;
-    border:1px solid #ddd;
-    border-radius:14px;
-    background:#f8fafc;
-">
-
-    <h2>Complete Your Reservation</h2>
-
-    <p>
-        Your reservation number has already been created.
-        Please enter your contact details below so we can associate
-        the reservation with you.
-    </p>
-
-    <div style="margin-top:18px;">
-
-        <label for="reservation-client-name">
-            Full Name
-        </label>
-
-        <input
-            id="reservation-client-name"
-            type="text"
-            autocomplete="name"
-            placeholder="Enter your full name"
-            style="width:100%;padding:12px;margin:7px 0 15px;
-                   box-sizing:border-box;border:1px solid #ccc;
-                   border-radius:8px;"
-        >
-
-        <label for="reservation-client-phone">
-            Phone Number
-        </label>
-
-        <input
-            id="reservation-client-phone"
-            type="tel"
-            autocomplete="tel"
-            placeholder="Enter your phone number"
-            style="width:100%;padding:12px;margin:7px 0 15px;
-                   box-sizing:border-box;border:1px solid #ccc;
-                   border-radius:8px;"
-        >
-
-        <label for="reservation-client-email">
-            Email Address
-        </label>
-
-        <input
-            id="reservation-client-email"
-            type="email"
-            autocomplete="email"
-            placeholder="Enter your email address"
-            style="width:100%;padding:12px;margin:7px 0 15px;
-                   box-sizing:border-box;border:1px solid #ccc;
-                   border-radius:8px;"
-        >
-
-        <button
-            id="save-customer-details"
-            type="button"
-            style="
-                width:100%;
-                padding:14px;
-                border:0;
-                border-radius:9px;
-                cursor:pointer;
-                font-weight:bold;
-                font-size:16px;
-            "
-        >
-            Save Customer Details
-        </button>
-
-        <div
-            id="customer-save-message"
-            style="margin-top:12px;font-weight:bold;"
-        ></div>
-
-    </div>
-</section>
-
-<section id="payment-request-section" style="
-    margin-top:25px;
-    padding:22px;
-    border:1px solid #b7dfe5;
-    border-radius:14px;
-    background:linear-gradient(135deg,#f0fbfc,#ffffff);
-">
-
-    <h2 style="margin-top:0;color:#006d77;">
-        Request Payment Details
-    </h2>
-
-    <p style="line-height:1.6;">
-        Once you have entered and saved your contact information,
-        you can send a payment request to Exuma Sport Coast Service.
-        The company will review your reservation and reply to your
-        email with the payment instructions.
-    </p>
-
-    <button
-        id="request-payment-details"
-        type="button"
-        style="
-            width:100%;
-            padding:15px;
-            border:0;
-            border-radius:10px;
-            background:#006d77;
-            color:white;
-            cursor:pointer;
-            font-weight:bold;
-            font-size:16px;
-        "
-    >
-        Send Payment Request
-    </button>
-
-    <div
-        id="payment-request-message"
-        style="
-            margin-top:14px;
-            font-weight:bold;
-            line-height:1.5;
-        "
-    ></div>
-
-</section>
-
-
-
-
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-    const API_BASE = "https://exuma-cays-guide-api-gnhl.onrender.com";
-
-    const reservationNumberElement =
-        document.getElementById("reservation-number");
-
-    const paymentReference =
-        document.getElementById("payment-reference");
-
-    const saveButton =
-        document.getElementById("save-customer-details");
-
-    const message =
-        document.getElementById("customer-save-message");
-
-    if (!reservationNumberElement) {
-        return;
-    }
-
-    let reservationNumber =
-        reservationNumberElement.textContent.trim();
-
-    /*
-     * The reservation number may initially say Loading...
-     * because the page loads the reservation data through JavaScript.
-     */
-    async function loadReservation() {
-
-        let attempts = 0;
-
-        while (
-            (!reservationNumber ||
-             reservationNumber === "Loading...") &&
-            attempts < 30
-        ) {
-            await new Promise(resolve =>
-                setTimeout(resolve, 300)
-            );
-
-            reservationNumber =
-                reservationNumberElement.textContent.trim();
-
-            attempts++;
-        }
-
-        if (
-            reservationNumber &&
-            reservationNumber !== "Loading..."
-        ) {
-            if (paymentReference) {
-                paymentReference.textContent =
-                    reservationNumber;
+    if (requestBtn) {
+        requestBtn.addEventListener("click", function () {
+            if (!currentNumber) {
+                requestMsg.style.color = "#b00020";
+                requestMsg.textContent = "Please wait for the reservation number to load.";
+                return;
             }
 
-            /*
-             * Load existing customer details if they already exist.
-             */
-            try {
-                const response = await fetch(
-                    API_BASE + "/reservation-data/" +
-                    encodeURIComponent(reservationNumber)
-                );
+            var name  = nameInput  ? nameInput.value.trim()  : "";
+            var phone = phoneInput ? phoneInput.value.trim() : "";
+            var email = emailInput ? emailInput.value.trim() : "";
 
-                if (response.ok) {
-                    const data = await response.json();
-
-                    const name =
-                        document.getElementById(
-                            "reservation-client-name"
-                        );
-
-                    const phone =
-                        document.getElementById(
-                            "reservation-client-phone"
-                        );
-
-                    const email =
-                        document.getElementById(
-                            "reservation-client-email"
-                        );
-
-                    if (name && data.client_name) {
-                        name.value = data.client_name;
-                    }
-
-                    if (phone && data.client_phone) {
-                        phone.value = data.client_phone;
-                    }
-
-                    if (email && data.client_email) {
-                        email.value = data.client_email;
-                    }
-                }
-            } catch (error) {
-                console.log(
-                    "Could not load customer details",
-                    error
-                );
+            if (!name || !phone || !email) {
+                requestMsg.style.color = "#b00020";
+                requestMsg.textContent =
+                    "Please enter your name, phone number and email before requesting payment details.";
+                return;
             }
-        }
-    }
 
-    loadReservation();
+            requestBtn.disabled = true;
+            requestBtn.textContent = "Saving Details...";
+            requestMsg.textContent = "";
 
+            var fd = new URLSearchParams();
+            fd.set("client_name", name);
+            fd.set("client_phone", phone);
+            fd.set("client_email", email);
 
-    if (saveButton) {
-
-        saveButton.addEventListener(
-            "click",
-            async function () {
-
-                /*
-                 * Reservation itself does NOT depend on these fields.
-                 * They are saved afterwards.
-                 */
-
-                if (
-                    !reservationNumber ||
-                    reservationNumber === "Loading..."
-                ) {
-                    message.textContent =
-                        "Please wait for the reservation number to load.";
-
-                    return;
-                }
-
-                const name =
-                    document.getElementById(
-                        "reservation-client-name"
-                    ).value.trim();
-
-                const phone =
-                    document.getElementById(
-                        "reservation-client-phone"
-                    ).value.trim();
-
-                const email =
-                    document.getElementById(
-                        "reservation-client-email"
-                    ).value.trim();
-
-                if (!name || !phone || !email) {
-
-                    message.textContent =
-                        "Please enter your name, phone number and email.";
-
-                    return;
-                }
-
-                saveButton.disabled = true;
-                saveButton.textContent =
-                    "Saving...";
-
-                try {
-
-                    const formData =
-                        new URLSearchParams();
-
-                    formData.append(
-                        "client_name",
-                        name
-                    );
-
-                    formData.append(
-                        "client_phone",
-                        phone
-                    );
-
-                    formData.append(
-                        "client_email",
-                        email
-                    );
-
-                    const response =
-                        await fetch(
-                            API_BASE +
-                            "/update-customer/" +
-                            encodeURIComponent(
-                                reservationNumber
-                            ),
-                            {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type":
-                                        "application/x-www-form-urlencoded"
-                                },
-                                body: formData.toString()
-                            }
-                        );
-
-                    const result =
-                        await response.json();
-
-                    if (!response.ok || !result.success) {
-                        throw new Error(
-                            result.error ||
-                            "Unable to save details."
-                        );
-                    }
-
-                    message.textContent =
-                        "Customer details saved successfully.";
-
-                    saveButton.textContent =
-                        "Details Saved";
-
-                } catch (error) {
-
-                    message.textContent =
-                        "Unable to save customer details: " +
-                        error.message;
-
-                    saveButton.disabled = false;
-                    saveButton.textContent =
-                        "Save Customer Details";
-                }
-            }
-        );
-    }
-
-});
-</script>
-
-
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const API_BASE = "https://exuma-cays-guide-api-gnhl.onrender.com";
-
-    const button =
-        document.getElementById("request-payment-details");
-
-    const message =
-        document.getElementById("payment-request-message");
-
-    const reservationElement =
-        document.getElementById("reservation-number");
-
-    const nameInput =
-        document.getElementById("reservation-client-name");
-
-    const phoneInput =
-        document.getElementById("reservation-client-phone");
-
-    const emailInput =
-        document.getElementById("reservation-client-email");
-
-    if (!button || !reservationElement) {
-        return;
-    }
-
-    button.addEventListener("click", async function () {
-
-        const reservationNumber =
-            reservationElement.textContent.trim();
-
-        if (
-            !reservationNumber ||
-            reservationNumber === "Loading..." ||
-            reservationNumber === "—"
-        ) {
-            message.textContent =
-                "Please wait for your reservation number to load.";
-            message.style.color = "#b42318";
-            return;
-        }
-
-        const name =
-            nameInput ? nameInput.value.trim() : "";
-
-        const phone =
-            phoneInput ? phoneInput.value.trim() : "";
-
-        const email =
-            emailInput ? emailInput.value.trim() : "";
-
-        if (!name || !phone || !email) {
-            message.textContent =
-                "Please enter your name, phone number and email before requesting payment details.";
-            message.style.color = "#b42318";
-            return;
-        }
-
-        button.disabled = true;
-        button.textContent = "Saving Details...";
-        message.textContent = "";
-        message.style.color = "";
-
-        try {
-
-            /* STEP 1: Save customer details */
-
-            const formData = new URLSearchParams();
-
-            formData.append("client_name", name);
-            formData.append("client_phone", phone);
-            formData.append("client_email", email);
-
-            const saveResponse = await fetch(
-                API_BASE +
-                "/update-customer/" +
-                encodeURIComponent(reservationNumber),
+            fetch(
+                API_BASE + "/update-customer/" + encodeURIComponent(currentNumber),
                 {
                     method: "POST",
-                    headers: {
-                        "Content-Type":
-                            "application/x-www-form-urlencoded"
-                    },
-                    body: formData.toString()
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: fd.toString()
                 }
-            );
-
-            const saveResult =
-                await saveResponse.json();
-
-            if (
-                !saveResponse.ok ||
-                !saveResult.success
-            ) {
-                throw new Error(
-                    saveResult.error ||
-                    "Unable to save customer details."
-                );
-            }
-
-            /* STEP 2: Send payment request */
-
-            button.textContent =
-                "Sending Request...";
-
-            const paymentResponse = await fetch(
-                API_BASE +
-                "/request-payment-details/" +
-                encodeURIComponent(reservationNumber),
-                {
-                    method: "POST"
+            )
+            .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+            .then(function (res) {
+                if (!res.ok || !res.body.success) {
+                    throw new Error(res.body.error || "Unable to save customer details.");
                 }
-            );
 
-            const paymentResult =
-                await paymentResponse.json();
+                requestBtn.textContent = "Sending Request...";
 
-            if (
-                !paymentResponse.ok ||
-                !paymentResult.success
-            ) {
-                throw new Error(
-                    paymentResult.error ||
-                    "Unable to send payment request."
+                return fetch(
+                    API_BASE + "/request-payment-details/" + encodeURIComponent(currentNumber),
+                    { method: "POST" }
                 );
-            }
+            })
+            .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
+            .then(function (res) {
+                if (!res.ok || !res.body.success) {
+                    throw new Error(res.body.error || "Unable to send payment request.");
+                }
 
-            /* STEP 3: Success */
+                requestMsg.style.color = "#087f5b";
+                requestMsg.textContent =
+                    "✓ Payment request sent successfully. The company will " +
+                    "review your reservation and reply with payment details.";
+                requestBtn.textContent = "Request Sent";
+            })
+            .catch(function (err) {
+                console.error("PAYMENT REQUEST ERROR:", err);
+                requestMsg.style.color = "#b00020";
+                requestMsg.textContent = "Unable to send the payment request. " + err.message;
+                requestBtn.disabled = false;
+                requestBtn.textContent = "Send Payment Request";
+            });
+        });
+    }
 
-            message.textContent =
-                "✓ Payment request sent successfully. " +
-                "The company will review your reservation " +
-                "and reply with payment details.";
+    var existing =
+        (params.get("reservation") ||
+         params.get("ref") ||
+         params.get("reference") || "").trim();
 
-            message.style.color = "#087f5b";
+    if (existing) {
+        loadReservation(existing);
+        return;
+    }
 
-            button.textContent =
-                "Request Sent";
-
-        } catch (error) {
-
-            console.error(
-                "PAYMENT REQUEST ERROR:",
-                error
-            );
-
-            message.textContent =
-                "Unable to send the payment request. " +
-                error.message;
-
-            message.style.color = "#b42318";
-
-            button.disabled = false;
-
-            button.textContent =
-                "Send Payment Request";
-        }
-    });
+    createReservation();
 });
 </script>
-
-
-
-<div class="footer">
-© 2026 Exuma Sport Coast Service · Exuma, Bahamas<br>
-<a href="mailto:exumaaccomodations@gmail.com">Help / Support</a>
-</div>
 
 </body>
 </html>
