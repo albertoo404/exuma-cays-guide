@@ -264,6 +264,70 @@ header a { color: white; text-decoration: none; font-weight: bold; }
     .lightbox-next { right: 8px; }
     .lightbox-caption { bottom: 14px; padding: 0 50px; font-size: 12px; }
 }
+
+
+/* Refined, consistent spacing for a polished hospitality-business layout */
+:root {
+    --page-gutter: clamp(18px, 4vw, 42px);
+    --section-space: clamp(34px, 5vw, 56px);
+    --card-radius: 14px;
+}
+body { line-height: 1.55; }
+.company-intro { padding: clamp(34px, 5vw, 58px) var(--page-gutter); }
+.company-intro-inner { max-width: 1120px; }
+.company-intro h1 { margin-bottom: 18px; letter-spacing: -0.025em; }
+.company-intro p { max-width: 900px; margin-bottom: 14px; }
+header { padding: 16px var(--page-gutter); }
+header nav { min-height: 34px; gap: 22px; }
+header nav a { display: inline-flex; align-items: center; min-height: 42px; }
+.container { max-width: 1280px; padding: clamp(28px, 4vw, 48px) var(--page-gutter) 64px; }
+.page-title { max-width: 760px; margin: 0 auto 42px; }
+.page-title h1 { line-height: 1.2; margin: 0 0 12px; letter-spacing: -0.025em; }
+.region { margin-bottom: var(--section-space); }
+.region-title { padding: 20px 24px; border-radius: 12px; margin-bottom: 24px; }
+.region-title h2 { line-height: 1.25; letter-spacing: -0.01em; }
+.region-title p { line-height: 1.55; margin-top: 8px; }
+.region-map-wrap { margin-bottom: 28px; padding: 16px; border-radius: 14px; }
+.region-map-title { margin: 0 0 14px; line-height: 1.4; }
+.region-map { height: clamp(240px, 30vw, 340px); border-radius: 10px; }
+.grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 28px; align-items: stretch; }
+.card { display: flex; flex-direction: column; min-width: 0; border-radius: var(--card-radius); box-shadow: 0 5px 22px rgba(20, 48, 62, 0.08); border-color: #e3eaee; transition: box-shadow .2s ease, transform .2s ease; }
+.card:hover { box-shadow: 0 10px 28px rgba(20, 48, 62, 0.13); transform: translateY(-2px); }
+.card h3 { padding: 20px 20px 7px; font-size: 19px; line-height: 1.35; }
+.card-location { padding: 0 20px 14px; font-size: 13px; line-height: 1.45; }
+.accommodation-description { margin: 0; padding: 4px 20px 18px; font-size: 14px; line-height: 1.75; color: #53616a; white-space: pre-line; flex: 1 0 auto; }
+.info { padding: 18px 20px 20px; margin-top: auto; border-top: 1px solid #edf1f3; }
+.price { font-size: 18px; line-height: 1.4; letter-spacing: -0.01em; }
+.gallery img { height: clamp(240px, 27vw, 340px); }
+.reserve-btn { min-height: 48px; display: flex; align-items: center; justify-content: center; padding: 13px 18px; margin-top: 16px; border-radius: 8px; letter-spacing: .01em; }
+.company-footnote { margin-top: 0; padding: 30px var(--page-gutter) 26px; line-height: 1.7; }
+@media (min-width: 1100px) {
+    .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+    .grid { gap: 20px; }
+    .region-title { padding: 18px 20px; }
+    .region-map-wrap { padding: 10px; }
+    .card h3 { padding: 18px 18px 6px; }
+    .card-location { padding: 0 18px 12px; }
+    .accommodation-description { padding: 4px 18px 16px; }
+    .info { padding: 16px 18px 18px; }
+    .gallery img { height: clamp(230px, 62vw, 320px); }
+}
+@media (max-width: 600px) {
+    header nav { gap: 8px; }
+    .container { padding-top: 26px; padding-bottom: 42px; }
+    .page-title { margin-bottom: 30px; }
+    .region { margin-bottom: 38px; }
+    .company-intro { padding: 30px 20px; }
+    .company-intro h1 { font-size: 26px; }
+    .company-intro p { line-height: 1.75; }
+    .region-map { height: 240px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+
 </style>
 </head>
 
@@ -293,7 +357,7 @@ header a { color: white; text-decoration: none; font-weight: bold; }
 
 <header>
     <nav>
-        <a href="index.html">â† Back to Home</a>
+        <a href="index.html">Ã¢â€ Â Back to Home</a>
         <strong>Exuma Accommodations</strong>
     </nav>
 </header>
@@ -360,7 +424,7 @@ header a { color: white; text-decoration: none; font-weight: bold; }
 <!-- Small white footnote -->
 <section class="company-footnote">
     <p>
-        <strong>Exuma Sport Coast Service</strong> Â· Exuma, Bahamas Â·
+        <strong>Exuma Sport Coast Service</strong> Ã‚Â· Exuma, Bahamas Ã‚Â·
         <a href="mailto:exumaaccomodations@gmail.com">
             exumaaccomodations@gmail.com
         </a>
@@ -429,36 +493,37 @@ header a { color: white; text-decoration: none; font-weight: bold; }
                 "6 Bedroom George Town Estate"
             ],
             descriptions: [
-                `A comfortable two-bedroom retreat in George Town, ideal for couples or small families looking for an affordable and convenient Great Exuma stay.
+                `Discover an inviting one-bedroom retreat in George Town, thoughtfully suited to couples or solo travellers seeking a comfortable island base. Enjoy an easy-going Exuma stay with room to unwind after a day exploring the island.
 
-Bedroom
+1 Bedroom
 Beachfront
 Wi-Fi included`,
-                `A premium two-bedroom retreat offering additional comfort and stylish spaces for guests seeking a more elevated George Town experience.
+                `A polished two-bedroom retreat offering a little more space for couples, friends or a small family. Settle into the relaxed rhythm of George Town and enjoy a comfortable base for your Great Exuma getaway.
 
-Bedroom
+2 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A spacious three-bedroom villa providing extra room for families and groups while keeping guests close to George Town's attractions.
+                `This three-bedroom villa offers a welcoming balance of shared space and personal comfort for families or friends travelling together. Make it your home base for discovering George Town and the wider island.
 
-Bedroom
+3 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A generous four-bedroom executive villa designed for larger families and groups seeking comfortable accommodation in George Town.
+                `Designed for groups who appreciate room to spread out, this four-bedroom executive villa brings everyone together while leaving space to relax. A considered choice for a family holiday or a getaway with friends in Great Exuma.
 
-Bedroom
+4 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A substantial five-bedroom grand villa offering plenty of space for larger families and groups enjoying an extended Great Exuma stay.
+                `With five bedrooms and generous accommodation capacity, this grand villa is well suited to multi-generational families and larger groups. Enjoy the freedom to share the experience while keeping a comfortable place to retreat.
 
-Bedroom
+5 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A six-bedroom estate providing maximum accommodation capacity for large families and groups seeking space, comfort and privacy in George Town.
+                `A spacious six-bedroom estate for larger gatherings, family celebrations or group escapes. Make the most of time together with a comfortable George Town base and the laid-back appeal of Great Exuma.
 
-Bedroom
+6 Bedrooms
 Beachfront
 Wi-Fi included`
+            
             ],
             images: {
                 living: function (i) {
@@ -485,36 +550,37 @@ Wi-Fi included`
                 "6 Bedroom Luxury Estate"
             ],
             descriptions: [
-                `A refined two-bedroom retreat combining modern comfort and island style, ideal for couples or small families seeking an upscale Exuma stay.
+                `An elegant one-bedroom escape for guests who value a calm, refined setting. Ideal for a couple or solo traveller, this retreat offers a comfortable base from which to enjoy the natural beauty and easy pace of Exuma.
 
-Bedroom
+1 Bedroom
 Beachfront
 Wi-Fi included`,
-                `A premium two-bedroom retreat offering enhanced comfort, stylish living spaces and additional amenities for guests seeking a more exclusive island experience.
+                `A sophisticated two-bedroom retreat with space for a couple, friends or a small family to relax in comfort. Enjoy an elevated island stay with the freedom to explore Exuma at your own pace.
 
-Bedroom
+2 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A spacious three-bedroom luxury villa providing extra room for families and groups while maintaining a relaxing upscale island atmosphere.
+                `This three-bedroom luxury villa offers a gracious setting for families or friends travelling together. With room to gather and unwind, it provides a welcoming home base for an Exuma escape.
 
-Bedroom
+3 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A generous four-bedroom executive villa designed for larger families and groups seeking comfortable accommodation and a premium Exuma vacation setting.
+                `A four-bedroom executive villa for guests who appreciate generous space and a polished holiday setting. Well suited to families and groups, it makes sharing an Exuma getaway feel effortless.
 
-Bedroom
+4 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A substantial five-bedroom grand villa offering extensive space, comfortable shared areas and plenty of room for larger families and groups.
+                `Created for larger parties, this five-bedroom grand villa offers room to reconnect, celebrate and enjoy an extended island stay. A considered choice for families or friends seeking a more spacious Exuma retreat.
 
-Bedroom
+5 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A six-bedroom luxury estate providing the greatest accommodation capacity in the collection, ideal for large families and groups seeking maximum space, privacy and comfort.
+                `A six-bedroom luxury estate offering generous accommodation for larger families and groups. Enjoy the flexibility of a spacious shared retreat while making lasting memories in the distinctive setting of Exuma.
 
-Bedroom
+6 Bedrooms
 Beachfront
 Wi-Fi included`
+            
             ],
             images: {
                 living: function (i) { return "images/accommodations/luxurylivingroom" + i + ".jpg"; },
@@ -537,36 +603,37 @@ Wi-Fi included`
                 "6 Bedroom Coastal Estate"
             ],
             descriptions: [
-                `A welcoming two-bedroom coastal retreat around Michelson and Roker's Point, suitable for couples or small families seeking an affordable coastal stay.
+                `A welcoming one-bedroom coastal retreat for couples or solo travellers seeking a relaxed base in the Michelson and Roker's Point area. Unwind at your own pace and enjoy the easy-going character of Exuma.
 
-Bedroom
+1 Bedroom
 Beachfront
 Wi-Fi included`,
-                `A premium two-bedroom coastal retreat offering enhanced comfort and additional space for guests looking for a more exclusive stay.
+                `This two-bedroom coastal retreat offers extra room for friends or a small family. With a relaxed island feel and a convenient Michelson-area base, it is a lovely setting for a restorative Exuma stay.
 
-Bedroom
+2 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A comfortable three-bedroom coastal villa offering additional room for families and groups while keeping the relaxed coastal atmosphere.
+                `A three-bedroom coastal villa with space for families and friends to spend quality time together. Enjoy a comfortable base in the Michelson area while discovering the surrounding island communities.
 
-Bedroom
+3 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A spacious four-bedroom ocean villa designed for larger families and groups seeking generous accommodation near the coast.
+                `This four-bedroom ocean villa is suited to larger families or groups who want space to relax between island adventures. Settle into a coastal escape with room for everyone to feel at home.
 
-Bedroom
+4 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A large five-bedroom grand ocean villa offering extensive space for families and groups seeking a memorable coastal getaway.
+                `A five-bedroom grand ocean villa offering generous room for group getaways and family holidays. Share the experience of Exuma together, with space to gather and unwind after a day out.
 
-Bedroom
+5 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A six-bedroom coastal estate providing maximum accommodation capacity, privacy and comfort for larger families and groups.
+                `With six bedrooms, this coastal estate is designed for larger groups seeking generous space and a comfortable shared base. Ideal for bringing family or friends together for a memorable stay in Exuma.
 
-Bedroom
+6 Bedrooms
 Beachfront
 Wi-Fi included`
+            
             ],
             images: {
                 living: function (i) { return "images/accommodations/michelsonlivingroom" + i + ".jpg"; },
@@ -589,36 +656,37 @@ Wi-Fi included`
                 "6 Bedroom Moss Town Estate"
             ],
             descriptions: [
-                `A comfortable two-bedroom retreat in Moss Town, ideal for couples or small families looking for an affordable Great Exuma stay.
+                `A charming one-bedroom retreat for couples or solo travellers looking for a comfortable base in Moss Town. Enjoy a slower island pace and the freedom to shape your own Great Exuma getaway.
 
-Bedroom
+1 Bedroom
 Beachfront
 Wi-Fi included`,
-                `A premium two-bedroom retreat offering enhanced comfort and additional space for guests seeking a more refined Moss Town experience.
+                `This two-bedroom retreat combines a welcoming atmosphere with added room for friends or a small family. A comfortable choice for guests who want to experience Moss Town and the wider island at their own pace.
 
-Bedroom
+2 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A welcoming three-bedroom villa providing extra room for families and groups while maintaining a relaxed island atmosphere.
+                `A three-bedroom villa offering a relaxed setting for families or friends travelling together. Enjoy space to reconnect and a welcoming home base for your time in Great Exuma.
 
-Bedroom
+3 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A spacious four-bedroom executive villa designed for larger families and groups seeking comfortable accommodation in Moss Town.
+                `With four bedrooms, this executive villa gives larger families and groups room to settle in comfortably. Make it the starting point for an easy-going Moss Town holiday filled with time together and island discovery.
 
-Bedroom
+4 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A large five-bedroom grand villa offering generous living space for families and groups planning a memorable Great Exuma holiday.
+                `This five-bedroom grand villa is well suited to larger families and groups seeking generous accommodation. Enjoy the convenience of sharing one base while making the most of a Great Exuma escape.
 
-Bedroom
+5 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A six-bedroom estate providing maximum sleeping capacity and spacious accommodation for larger groups seeking comfort and privacy.
+                `A six-bedroom estate offering ample accommodation for larger gatherings and group holidays. With room for everyone, it is a welcoming setting for shared moments and a relaxed stay in Moss Town.
 
-Bedroom
+6 Bedrooms
 Beachfront
 Wi-Fi included`
+            
             ],
             images: {
                 living: function (i) { return "images/accommodations/mosslivingroom" + i + ".jpg"; },
@@ -641,36 +709,37 @@ Wi-Fi included`
                 "6 Bedroom Staniel Cay Estate"
             ],
             descriptions: [
-                `A cozy two-bedroom accommodation for couples or small families wanting to experience the beauty and relaxed atmosphere of Staniel Cay.
+                `A comfortable two-bedroom island retreat for couples, friends or a small family eager to experience Staniel Cay. Enjoy a relaxed home base for discovering the character and natural beauty of the Exuma Cays.
 
-Bedroom
+2 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A premium two-bedroom retreat offering additional comfort and space for guests seeking an elevated Staniel Cay experience.
+                `This premium two-bedroom retreat offers a refined, welcoming setting for guests seeking extra comfort during their Staniel Cay stay. Ideal for a couple or small family looking to explore the surrounding cays at an unhurried pace.
 
-Bedroom
+2 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A comfortable three-bedroom villa offering more room for families and groups exploring the Exuma Cays.
+                `A three-bedroom villa with space for families or friends to share an island escape. Return to a comfortable base after exploring the distinctive scenery and waters of the Exuma Cays.
 
-Bedroom
+3 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A spacious four-bedroom island villa suited to groups wanting comfortable accommodation while enjoying the attractions and waters around Staniel Cay.
+                `This four-bedroom island villa is suited to families and groups who want to experience Staniel Cay together. With room to gather and unwind, it offers a welcoming base for your time in the Exuma Cays.
 
-Bedroom
+4 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A large five-bedroom grand villa designed for families and groups seeking plenty of space during their Exuma Cays adventure.
+                `A five-bedroom grand villa with generous accommodation for larger families or groups. Share the pleasures of an island getaway while enjoying space to relax and reconnect on Staniel Cay.
 
-Bedroom
+5 Bedrooms
 Beachfront
 Wi-Fi included`,
-                `A six-bedroom estate offering maximum accommodation capacity for larger families and groups seeking comfort, privacy and an unforgettable Staniel Cay stay.
+                `With six bedrooms, this island estate provides generous accommodation for larger groups and family gatherings. Make time together the centre of your stay while exploring the remarkable setting of the Exuma Cays.
 
-Bedroom
+6 Bedrooms
 Beachfront
 Wi-Fi included`
+            
             ],
             images: {
                 living: function (i) { return "images/accommodations/stanielcaylivingroom" + i + ".jpg"; },
