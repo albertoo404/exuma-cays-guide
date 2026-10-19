@@ -357,7 +357,7 @@ header nav a { display: inline-flex; align-items: center; min-height: 42px; }
 
 <header>
     <nav>
-        <a href="index.html">Ã¢â€ Â Back to Home</a>
+        <a href="index.html">← Back to Home</a>
         <strong>Exuma Accommodations</strong>
     </nav>
 </header>
@@ -424,7 +424,7 @@ header nav a { display: inline-flex; align-items: center; min-height: 42px; }
 <!-- Small white footnote -->
 <section class="company-footnote">
     <p>
-        <strong>Exuma Sport Coast Service</strong> Ã‚Â· Exuma, Bahamas Ã‚Â·
+        <strong>Exuma Sport Coast Service</strong> · Exuma, Bahamas ·
         <a href="mailto:exumaaccomodations@gmail.com">
             exumaaccomodations@gmail.com
         </a>
@@ -800,6 +800,34 @@ Wi-Fi included`
         return html + '</div>';
     }
 
+    /*
+       Build the reservation URL expected by reserve.html.
+       Keep the dates and guest counts chosen on index.html, when available.
+       URLSearchParams safely encodes accommodation names and other values.
+    */
+    function buildReserveUrl(region, accommodation, price) {
+        var params = new URLSearchParams();
+        params.set("region", region.id);
+        params.set("accommodation", accommodation);
+        params.set("price", String(price));
+
+        var savedKeys = {
+            checkin: "checkin",
+            checkout: "checkout",
+            adults: "adults",
+            children: "children"
+        };
+
+        Object.keys(savedKeys).forEach(function (param) {
+            var value = localStorage.getItem(savedKeys[param]);
+            if (value !== null && value !== "") {
+                params.set(param, value);
+            }
+        });
+
+        return "reserve.html?" + params.toString();
+    }
+
     function renderCards() {
         REGIONS.forEach(function (region) {
             var grid = document.getElementById(region.gridId);
@@ -813,7 +841,7 @@ Wi-Fi included`
                     '<div class="card-location">' + escapeHtml(region.location) + '</div>' +
                     '<p class="accommodation-description">' + escapeHtml(region.descriptions[i] || "Comfortable accommodation in Exuma, Bahamas.") + '</p>' +
                     '<div class="info"><div class="price">From $' + price + ' per night</div>' +
-                    '<a class="reserve-btn" href="mailto:exumaaccomodations@gmail.com?subject=' + encodeURIComponent("Accommodation enquiry: " + name) + '&body=' + encodeURIComponent("Hello, I would like to enquire about " + name + " in " + region.location + ".") + '">Enquire / Reserve</a></div>' +
+                    '<a class="reserve-btn" href="' + buildReserveUrl(region, name, price) + '">Reserve Now</a></div>' +
                     '</article>';
             });
             grid.innerHTML = cards;
