@@ -801,27 +801,69 @@ Wi-Fi included`
     }
 
     /*
-       Build the reservation URL expected by reserve.html.
-       Keep the dates and guest counts chosen on index.html, when available.
-       URLSearchParams safely encodes accommodation names and other values.
+       Build a complete reservation URL.
+       First use booking details passed into accommodations.html in its URL;
+       then fall back to values saved by index.html in localStorage.
+       This matters because the search form can pass dates in the query string
+       without storing them under the same localStorage keys.
     */
+    function getBookingValue(queryKeys, storageKeys, fallback) {
+        var pageParams = new URLSearchParams(window.location.search);
+
+        for (var i = 0; i < queryKeys.length; i++) {
+            var queryValue = pageParams.get(queryKeys[i]);
+            if (queryValue !== null && queryValue.trim() !== "") {
+                return queryValue.trim();
+            }
+        }
+
+        for (var j = 0; j < storageKeys.length; j++) {
+            var storedValue = null;
+            try { storedValue = localStorage.getItem(storageKeys[j]); } catch (e) {}
+            if (storedValue !== null && String(storedValue).trim() !== "") {
+                return String(storedValue).trim();
+            }
+        }
+
+        return fallback == null ? "" : String(fallback);
+    }
+
     function buildReserveUrl(region, accommodation, price) {
         var params = new URLSearchParams();
         params.set("region", region.id);
         params.set("accommodation", accommodation);
         params.set("price", String(price));
 
-        var savedKeys = {
-            checkin: "checkin",
-            checkout: "checkout",
-            adults: "adults",
-            children: "children"
-        };
+        var bookingFields = [
+            {
+                name: "checkin",
+                queryKeys: ["checkin", "check_in", "check-in"],
+                storageKeys: ["checkin", "check_in", "check-in", "exuma_checkin", "exuma_check_in", "exuma_search_checkin"]
+            },
+            {
+                name: "checkout",
+                queryKeys: ["checkout", "check_out", "check-out"],
+                storageKeys: ["checkout", "check_out", "check-out", "exuma_checkout", "exuma_check_out", "exuma_search_checkout"]
+            },
+            {
+                name: "adults",
+                queryKeys: ["adults"],
+                storageKeys: ["adults", "exuma_adults", "exuma_search_adults"],
+                fallback: "2"
+            },
+            {
+                name: "children",
+                queryKeys: ["children"],
+                storageKeys: ["children", "exuma_children", "exuma_search_children"],
+                fallback: "0"
+            }
+        ];
 
-        Object.keys(savedKeys).forEach(function (param) {
-            var value = localStorage.getItem(savedKeys[param]);
-            if (value !== null && value !== "") {
-                params.set(param, value);
+        bookingFields.forEach(function (field) {
+            var value = getBookingValue(field.queryKeys, field.storageKeys, field.fallback);
+            if (value !== "") {
+                params.set(field.name, value);
+                try { localStorage.setItem(field.name, value); } catch (e) {}
             }
         });
 
