@@ -437,11 +437,71 @@ body { color:var(--ink); background:#fff; font-family:"Aptos","Segoe UI",Arial,s
 .meta-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border:1px solid #dce9e4;background:#f6faf8;color:#31565b;font-size:.68rem;font-weight:800;letter-spacing:.015em}
 @media(max-width:760px){.card-meta{padding-left:18px;padding-right:18px}}
 
+
+/* Premium finish: brand-consistent navigation, property cards, footer and responsive controls */
+.skip-link{position:absolute;left:-9999px;top:10px;z-index:1000;padding:10px 14px;background:#fff;color:var(--ocean);border:2px solid var(--teal)}
+.skip-link:focus{left:12px}
+.site-header{box-shadow:0 8px 28px rgba(6,47,59,.045)}
+.brand-mark{background:#fff;border:1px solid #e0e9e5;border-radius:50%;overflow:hidden}
+.brand-mark img{display:block;width:100%;height:100%;object-fit:contain;padding:3px}
+.brand-tag{letter-spacing:.11em}
+.menu-toggle{display:none;border:1px solid var(--line);background:#fff;color:var(--ocean);border-radius:7px;padding:9px 12px;font-weight:800;cursor:pointer}
+.hero{min-height:540px}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(transparent,rgba(6,47,59,.16));pointer-events:none}
+.hero-content{position:relative;z-index:1}
+.hero h1{max-width:760px}
+.page-title{padding-top:10px}
+.region-title{box-shadow:0 12px 32px rgba(6,47,59,.10)}
+.region-map-wrap{background:linear-gradient(135deg,#fff,#f4faf8)}
+.card{box-shadow:0 8px 28px rgba(6,47,59,.065)}
+.card:hover{transform:translateY(-4px);box-shadow:0 18px 38px rgba(6,47,59,.13)}
+.gallery img{transition:transform .45s ease,filter .3s ease}
+.card:hover .gallery img{filter:saturate(1.04)}
+.reserve-btn{box-shadow:0 5px 14px rgba(6,47,59,.12)}
+.boat-feature{border-radius:16px}
+.boat-photo{position:relative;min-height:420px}
+.boat-photo img{min-height:420px;object-position:center 58%;transition:transform .65s ease}
+.boat-photo:hover img{transform:scale(1.025)}
+.photo-credit{position:absolute;right:12px;bottom:12px;padding:6px 9px;border-radius:3px;background:rgba(4,38,48,.74);color:#fff;text-decoration:none;font-size:.66rem;letter-spacing:.02em}
+.photo-credit:hover{background:rgba(4,38,48,.92)}
+.boat-price strong{color:var(--ocean)}
+.site-footer{padding:52px 0 20px;background:#042630;color:#d2e2e1}
+.footer-container{width:min(1180px,calc(100% - 48px));margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:1.5fr .8fr 1fr;gap:45px;padding-bottom:34px}
+.footer-title{color:#fff;font-weight:850;font-size:1rem}
+.site-footer p{max-width:410px;color:#a9c2c4;font-size:.86rem}
+.site-footer h3{margin:0 0 13px;color:#fff;font-size:.79rem;text-transform:uppercase;letter-spacing:.12em}
+.footer-links{display:grid;gap:9px}
+.footer-links a{color:#c5d8d8;font-size:.86rem;text-decoration:none;overflow-wrap:anywhere}
+.footer-links a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.copyright{border-top:1px solid rgba(255,255,255,.14);padding-top:17px;color:#91adaf;text-align:center;font-size:.76rem}
+@media(max-width:760px){
+ .nav{min-height:72px;gap:12px}
+ .menu-toggle{display:block;flex-shrink:0}
+ .nav-links{display:none;position:absolute;top:72px;left:0;right:0;padding:19px 24px 23px;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 16px 25px rgba(6,47,59,.09);flex-direction:column;align-items:stretch;gap:15px}
+ .nav-links.open{display:flex}
+ .nav-links a{padding:5px 0}
+ .nav-links .nav-cta{text-align:center;padding:12px 16px}
+ .hero{min-height:520px;padding:58px 22px}
+ .hero-caption{display:none}
+ .boat-photo,.boat-photo img{min-height:290px}
+ .footer-container{width:min(100% - 32px,600px)}
+ .footer-grid{grid-template-columns:1fr 1fr;gap:26px}
+ .footer-grid>div:first-child{grid-column:1/-1}
+}
+@media(max-width:430px){
+ .brand{gap:8px}.brand-mark{width:40px;height:40px;flex-basis:40px}.brand-name{font-size:.79rem}.brand-tag{font-size:.53rem;letter-spacing:.07em}
+ .hero h1{font-size:clamp(2.65rem,13vw,3.6rem)}
+ .hero-actions .btn{width:100%}
+ .footer-grid{grid-template-columns:1fr}.footer-grid>div:first-child{grid-column:auto}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.gallery img,.boat-photo img,.card{transition:none!important}}
+
 </style>
 </head>
 
 <body>
-
+<a class="skip-link" href="#available-stays">Skip to accommodation listings</a>
 <div class="topline">
   <div class="topline-inner">
     <span>EXUMA, BAHAMAS · ISLAND STAYS & BOAT EXPERIENCES</span>
@@ -451,10 +511,11 @@ body { color:var(--ink); background:#fff; font-family:"Aptos","Segoe UI",Arial,s
 <header class="site-header">
   <nav class="nav">
     <a class="brand" href="index.html" aria-label="Exuma Sport Coast Service home">
-      <span class="brand-mark" aria-hidden="true">ESC</span>
-      <span><span class="brand-name">Exuma Sport Coast Service</span><span class="brand-tag">Stay well. Explore freely.</span></span>
+      <span class="brand-mark"><img src="images/exumalogo.jpg" alt="Exuma Sport Coast Service logo" onerror="this.parentElement.style.display='none'"></span>
+      <span><span class="brand-name">Exuma Sport Coast Service</span><span class="brand-tag">Stay · Explore · Set Sail</span></span>
     </a>
-    <div class="nav-links">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu ☰</button>
+    <div class="nav-links" id="primary-nav" aria-label="Main navigation">
       <a href="index.html">Home</a>
       <a href="#available-stays">Accommodations</a>
       <a href="#boat-rentals">Boat Rentals</a>
@@ -464,9 +525,9 @@ body { color:var(--ink); background:#fff; font-family:"Aptos","Segoe UI",Arial,s
 </header>
 <section class="hero">
   <div class="hero-content">
-    <span class="overline">YOUR EXUMA ESCAPE BEGINS HERE</span>
-    <h1>Find your place<br>in <em>paradise.</em></h1>
-    <p>Discover a considered collection of island stays across Exuma, from intimate retreats to spacious villas for families and friends. Explore each destination, review the living-room, bedroom and bathroom galleries, and find a setting that complements the way you want to experience the Bahamas.</p>
+    <span class="overline">PREMIUM STAYS IN EXUMA</span>
+    <h1>Exceptional stays.<br><em>Island living.</em></h1>
+    <p>Explore accommodation options across George Town, Luxury Villas, Michelson, Moss Town and Staniel Cay. Discover each property through its photo gallery, read the details, view the location map and choose a stay that suits your Exuma escape.</p>
     <div class="hero-actions">
       <a class="btn btn-gold" href="#available-stays">Explore Accommodations <span aria-hidden="true">↓</span></a>
       <a class="btn btn-outline" href="#boat-rentals">Discover Boat Rentals</a>
@@ -542,7 +603,8 @@ body { color:var(--ink); background:#fff; font-family:"Aptos","Segoe UI",Arial,s
 
 <section class="boat-feature" id="boat-rentals" aria-labelledby="boat-rental-title">
   <div class="boat-photo">
-    <img src="images/boat-rental-ai.jpg" alt="Private motorboat cruising through the clear turquoise waters of Exuma" loading="lazy">
+    <img src="https://images.pexels.com/photos/34123151/pexels-photo-34123151.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1800" alt="A speedboat cruising across turquoise Bahamian waters" loading="lazy" referrerpolicy="no-referrer">
+    <a class="photo-credit" href="https://www.pexels.com/photo/speedboat-on-turquoise-waters-in-the-bahamas-34123151/" target="_blank" rel="noopener noreferrer">Photo: Maryna / Pexels</a>
   </div>
   <div class="boat-copy">
     <span class="overline">PRIVATE BOAT RENTALS</span>
@@ -586,15 +648,34 @@ body { color:var(--ink); background:#fff; font-family:"Aptos","Segoe UI",Arial,s
 
 </main>
 
-<!-- Small white footnote -->
-<section class="company-footnote">
-    <p>
-        <strong>Exuma Sport Coast Service</strong> · Exuma, Bahamas ·
-        <a href="mailto:exumaaccomodations@gmail.com">
-            exumaaccomodations@gmail.com
-        </a>
-    </p>
-</section>
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-title">Exuma Sport Coast Service</div>
+        <p>Accommodation options, island destination guides and boat-rental enquiries for visitors planning their time in Exuma, Bahamas.</p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <div class="footer-links">
+          <a href="#available-stays">Accommodations</a>
+          <a href="#boat-rentals">Boat Rentals</a>
+          <a href="index.html#destinations">Destinations</a>
+          <a href="index.html#how-it-works">How It Works</a>
+        </div>
+      </div>
+      <div>
+        <h3>Get in touch</h3>
+        <div class="footer-links">
+          <a href="mailto:exumaaccomodations@gmail.com">exumaaccomodations@gmail.com</a>
+          <a href="mailto:exumaaccomodations@gmail.com?subject=Exuma%20Accommodation%20Enquiry">Plan your stay</a>
+        </div>
+        <p>Exuma, The Bahamas</p>
+      </div>
+    </div>
+    <div class="copyright">© <span id="footer-year"></span> Exuma Sport Coast Service. All rights reserved.</div>
+  </div>
+</footer>
 
 
 <!-- Image lightbox -->
@@ -635,6 +716,24 @@ body { color:var(--ink); background:#fff; font-family:"Aptos","Segoe UI",Arial,s
 <script>
 (function () {
     "use strict";
+    var menuButton = document.querySelector('.menu-toggle');
+    var navLinks = document.querySelector('#primary-nav');
+    if (menuButton && navLinks) {
+        menuButton.addEventListener('click', function () {
+            var isOpen = navLinks.classList.toggle('open');
+            menuButton.setAttribute('aria-expanded', String(isOpen));
+            menuButton.textContent = isOpen ? 'Close ×' : 'Menu ☰';
+        });
+        navLinks.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                navLinks.classList.remove('open');
+                menuButton.setAttribute('aria-expanded', 'false');
+                menuButton.textContent = 'Menu ☰';
+            });
+        });
+    }
+    var footerYear = document.getElementById('footer-year');
+    if (footerYear) footerYear.textContent = new Date().getFullYear();
 
     /* ============================================================
        1. ACCOMMODATION DATA
