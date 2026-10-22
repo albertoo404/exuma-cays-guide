@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Exuma Accommodations</title>
+<meta name="theme-color" content="#062f3b">
+<meta name="description" content="Discover carefully selected accommodation options across Exuma, Bahamas, with photo galleries, location maps and easy reservation enquiries.">
+<title>Exuma Accommodations | Exuma Sport Coast Service</title>
 
 <!-- Leaflet map styles -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
@@ -328,45 +330,164 @@ header nav a { display: inline-flex; align-items: center; min-height: 42px; }
     *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
 
+
+
+/* Premium visual system aligned with the Exuma Sport Coast homepage */
+:root { --ink:#102f38; --ocean:#062f3b; --ocean-2:#0b4652; --teal:#168b8d; --mint:#c7e7df; --foam:#f5f8f5; --sand:#f0e8d9; --gold:#d9a34a; --muted:#64777a; --line:#e1e9e6; --shadow:0 22px 60px rgba(6,47,59,.12); --page-gutter:clamp(20px,4vw,48px); }
+html { scroll-padding-top:100px; }
+body { color:var(--ink); background:#fff; font-family:"Aptos","Segoe UI",Arial,sans-serif; line-height:1.65; }
+.topline { background:var(--ocean); color:#d8e9e6; font-size:.72rem; letter-spacing:.07em; }
+.topline-inner { width:min(1180px,calc(100% - 48px)); min-height:35px; margin:auto; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.topline a { color:#fff; text-decoration:none; letter-spacing:0; }
+.site-header { position:sticky; top:0; z-index:50; padding:0 var(--page-gutter); background:rgba(255,255,255,.96); backdrop-filter:blur(14px); border-bottom:1px solid rgba(6,47,59,.08); }
+.nav { max-width:1180px; min-height:82px; margin:auto; display:flex; align-items:center; justify-content:space-between; gap:26px; }
+.brand { display:flex; align-items:center; gap:12px; min-width:0; text-decoration:none; }
+.brand-mark { width:48px; height:48px; flex:0 0 48px; display:grid; place-items:center; border-radius:12px; background:var(--ocean); color:#fff; font-size:.78rem; font-weight:900; letter-spacing:-.04em; }
+.brand-name { display:block; color:var(--ocean); font-size:.95rem; font-weight:850; line-height:1.15; letter-spacing:-.025em; }
+.brand-tag { display:block; margin-top:5px; color:var(--muted); font-size:.64rem; font-weight:800; text-transform:uppercase; letter-spacing:.13em; }
+.nav-links { display:flex; align-items:center; gap:24px; }
+.nav-links a { color:#36545a; text-decoration:none; font-size:.84rem; font-weight:750; }
+.nav-links a:hover { color:var(--teal); }
+.nav-links .nav-cta { padding:11px 16px; background:var(--ocean); color:#fff; border-radius:4px; }
+.nav-links .nav-cta:hover { background:var(--teal); color:#fff; }
+.hero { position:relative; isolation:isolate; display:flex; align-items:center; min-height:520px; padding:70px max(24px,calc((100% - 1180px)/2)); color:#fff; background:var(--ocean) url("exuma.jpg") center 52%/cover no-repeat; }
+.hero::before { content:""; position:absolute; z-index:-1; inset:0; background:linear-gradient(90deg,rgba(3,34,43,.92) 0%,rgba(3,45,55,.74) 49%,rgba(3,45,55,.14) 100%),linear-gradient(0deg,rgba(3,34,43,.24),transparent 45%); }
+.hero-content { max-width:740px; }
+.overline { display:inline-flex; align-items:center; gap:10px; color:var(--teal); font-size:.7rem; font-weight:850; text-transform:uppercase; letter-spacing:.16em; }
+.overline::before { content:""; width:24px; height:2px; background:var(--gold); }
+.hero .overline { color:#d2ebe5; }
+.hero h1 { margin:20px 0 18px; max-width:700px; color:#fff; font-family:Georgia,"Times New Roman",serif; font-size:clamp(3rem,6.2vw,5.4rem); font-weight:500; line-height:.99; letter-spacing:-.045em; }
+.hero h1 em { color:#bce6dc; font-weight:500; }
+.hero p { max-width:600px; margin:0; color:rgba(255,255,255,.88); font-size:1rem; }
+.hero-actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:28px; }
+.btn { min-height:48px; display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:12px 19px; border:1px solid transparent; border-radius:4px; text-decoration:none; text-align:center; font-size:.85rem; font-weight:850; transition:transform .18s,background .18s,border-color .18s; }
+.btn:hover { transform:translateY(-2px); }
+.btn-gold { background:var(--gold); color:#172e32; }
+.btn-gold:hover { background:#e9b765; }
+.btn-outline { color:#fff; border-color:rgba(255,255,255,.65); background:rgba(255,255,255,.06); }
+.btn-outline:hover { background:rgba(255,255,255,.15); }
+.hero-caption { position:absolute; right:max(24px,calc((100% - 1180px)/2)); bottom:44px; display:flex; align-items:center; gap:12px; color:#fff; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; writing-mode:vertical-rl; }
+.hero-caption::before { content:""; width:1px; height:36px; background:var(--gold); }
+.benefit-bar { background:var(--foam); border-bottom:1px solid var(--line); }
+.benefit-grid { width:min(1180px,100%); margin:auto; display:grid; grid-template-columns:repeat(3,1fr); }
+.benefit { display:flex; align-items:center; justify-content:center; gap:12px; padding:21px 15px; color:var(--ocean); font-size:.8rem; font-weight:750; }
+.benefit + .benefit { border-left:1px solid var(--line); }
+.benefit-icon { width:36px; height:36px; flex:0 0 36px; display:grid; place-items:center; border:1px solid #c5dfd8; border-radius:50%; color:var(--teal); font-size:1.05rem; }
+.container { max-width:1280px; padding:clamp(48px,6vw,78px) var(--page-gutter) 68px; }
+.page-title { max-width:760px; margin:0 auto 48px; text-align:center; }
+.page-title .overline { justify-content:center; }
+.page-title h1 { margin:13px 0 14px; color:var(--ocean); font-family:Georgia,"Times New Roman",serif; font-size:clamp(2.25rem,4vw,3.25rem); font-weight:500; line-height:1.08; letter-spacing:-.035em; }
+.page-title p { max-width:650px; margin:auto; color:var(--muted); font-size:.95rem; }
+.region { margin-bottom:clamp(44px,6vw,72px); }
+.region-title { position:relative; overflow:hidden; padding:24px 28px; margin-bottom:22px; border-radius:0; background:var(--ocean); color:#fff; }
+.region-title::after { content:""; position:absolute; right:-28px; top:-70px; width:190px; height:190px; border:1px solid rgba(199,231,223,.22); border-radius:50%; box-shadow:0 0 0 24px rgba(199,231,223,.05),0 0 0 48px rgba(199,231,223,.035); pointer-events:none; }
+.region-title h2 { position:relative; z-index:1; margin:0; font-family:Georgia,"Times New Roman",serif; font-size:clamp(1.55rem,2.5vw,2.1rem); font-weight:500; }
+.region-title p { position:relative; z-index:1; margin:7px 0 0; color:#d2e4e3; font-size:.9rem; }
+.region-map-wrap { margin-bottom:26px; padding:14px; border:1px solid var(--line); border-radius:8px; box-shadow:0 8px 25px rgba(20,48,62,.055); }
+.region-map-title { color:var(--ocean); font-size:.83rem; font-weight:850; text-transform:uppercase; letter-spacing:.08em; }
+.region-map { height:clamp(230px,28vw,330px); border-radius:4px; }
+.grid { grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:25px; }
+.card { border:1px solid var(--line); border-radius:4px; box-shadow:0 8px 26px rgba(20,48,62,.065); }
+.card:hover { box-shadow:0 14px 32px rgba(20,48,62,.13); }
+.card h3 { color:var(--ocean); font-family:Georgia,"Times New Roman",serif; font-size:1.25rem; font-weight:500; }
+.card-location { color:var(--muted); }
+.accommodation-description { color:#52666a; }
+.info { border-top:1px solid #edf1f3; }
+.price { color:var(--ocean); font-size:1.02rem; }
+.reserve-btn { min-height:48px; border-radius:4px; background:var(--ocean); color:#fff; letter-spacing:.015em; }
+.reserve-btn:hover { background:var(--teal); }
+/* Dedicated boat-rental feature */
+.boat-feature{display:grid;grid-template-columns:minmax(260px,1.05fr) minmax(240px,.9fr) minmax(285px,.9fr);gap:0;align-items:stretch;margin:clamp(36px,5vw,64px) 0 0;background:#f0f7f5;border:1px solid #dce9e5;box-shadow:var(--shadow);overflow:hidden}
+.boat-photo{min-height:390px;background:#0a5664;overflow:hidden}
+.boat-photo img{display:block;width:100%;height:100%;min-height:390px;object-fit:cover}
+.boat-copy{align-self:center;padding:clamp(24px,3vw,42px);color:var(--ink)}
+.boat-copy .overline{color:var(--teal)}
+.boat-copy h2{margin:12px 0 14px;color:var(--ocean);font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.9rem,3vw,2.7rem);font-weight:500;line-height:1.08;letter-spacing:-.03em}
+.boat-copy p{margin:0 0 18px;color:#52666a;font-size:.9rem}
+.boat-price{display:flex;align-items:baseline;gap:8px;margin:18px 0 20px;color:var(--ocean)}
+.boat-price strong{font-family:Georgia,"Times New Roman",serif;font-size:2.25rem;font-weight:500;letter-spacing:-.04em}
+.boat-price span{font-size:.85rem;color:var(--muted)}
+.boat-benefits{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.boat-benefits span{padding:7px 9px;border:1px solid #d7e7e2;background:rgba(255,255,255,.7);color:#385b60;font-size:.7rem;font-weight:750}
+.boat-form-panel{align-self:center;margin:18px;padding:clamp(20px,2vw,28px);background:#fff;border:1px solid #e0e9e5;box-shadow:0 8px 24px rgba(6,47,59,.06)}
+.boat-form-panel h3{margin:0 0 5px;color:var(--ocean);font-family:Georgia,"Times New Roman",serif;font-size:1.6rem;font-weight:500}
+.boat-form-panel>p{margin:0 0 20px;color:var(--muted);font-size:.8rem}
+.boat-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px 12px}
+.boat-form-field label{display:block;margin-bottom:6px;color:#456166;font-size:.72rem;font-weight:800;letter-spacing:.035em}
+.boat-form-field input,.boat-form-field select{width:100%;min-height:45px;padding:10px 11px;border:1px solid #d4e1dd;border-radius:4px;background:#fff;color:var(--ink);font:inherit;font-size:.86rem}
+.boat-form-field input:focus,.boat-form-field select:focus{outline:2px solid rgba(22,139,141,.22);border-color:var(--teal)}
+.boat-form-field.duration-count{grid-column:1/-1}
+.boat-estimate{margin:14px 0 12px;padding:12px;background:#f3f8f6;color:#425d60;font-size:.78rem;line-height:1.5}
+.boat-estimate strong{display:block;margin-bottom:2px;color:var(--ocean);font-size:1rem}
+.boat-submit{width:100%;min-height:48px;border:0;border-radius:4px;background:var(--ocean);color:#fff;font:inherit;font-size:.85rem;font-weight:800;cursor:pointer;transition:background .2s,transform .2s}
+.boat-submit:hover{background:var(--teal);transform:translateY(-1px)}
+.boat-form-note{margin:11px 0 0!important;text-align:center;font-size:.7rem!important}
+@media(max-width:1050px){.boat-feature{grid-template-columns:1fr 1fr}.boat-photo{min-height:300px}.boat-photo img{min-height:300px}.boat-form-panel{grid-column:1/-1;margin:0;border-width:1px 0 0}}
+@media(max-width:700px){.boat-feature{grid-template-columns:1fr}.boat-photo{min-height:240px}.boat-photo img{min-height:240px}.boat-form-panel{grid-column:auto;margin:14px;border-width:1px}.boat-copy{padding:27px 22px}.boat-form-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.boat-form-grid{grid-template-columns:1fr}.boat-form-field.duration-count{grid-column:auto}}
+@media(max-width:420px){.brand-name{font-size:.85rem}.brand-tag{font-size:.58rem}.nav-links{gap:10px 13px}.hero-actions .btn{width:100%}}
+
+
+/* Premium discovery tools and card details */
+.card-gallery-wrap{position:relative}
+.save-property{position:absolute;z-index:3;top:12px;right:12px;display:grid;place-items:center;width:42px;height:42px;border:1px solid rgba(255,255,255,.75);border-radius:50%;background:rgba(255,255,255,.94);color:var(--ocean);font-size:1.25rem;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.13)}
+.save-property[aria-pressed="true"]{color:#b87922;background:#fff7e9}
+.save-property:hover{transform:scale(1.04)}
+.card-meta{display:flex;flex-wrap:wrap;gap:7px;padding:0 20px 14px}
+.meta-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border:1px solid #dce9e4;background:#f6faf8;color:#31565b;font-size:.68rem;font-weight:800;letter-spacing:.015em}
+@media(max-width:760px){.card-meta{padding-left:18px;padding-right:18px}}
+
 </style>
 </head>
 
 <body>
 
-<section class="company-intro">
-    <div class="company-intro-inner">
-        <h1>Exuma Sport Coast Service</h1>
-        <p>
-            <strong>Exuma Sport Coast Service</strong> is the accommodation
-            service featured on this platform, helping visitors discover
-            comfortable places to stay while exploring the beautiful islands
-            and communities of Exuma, Bahamas. Our accommodation selection
-            covers areas including George Town, Moss Town, Staniel Cay,
-            Michelson/Roker's Point and other destinations throughout Exuma.
-        </p>
-        <p>
-            Whether you are visiting for a relaxing beach holiday, an island
-            adventure, water activities or a longer stay, Exuma Sport Coast
-            Service provides accommodation options designed to make your
-            Exuma experience convenient and enjoyable. Browse available
-            properties, view their living rooms, bedrooms and bathrooms, and
-            choose the accommodation that best suits your trip.
-        </p>
+<div class="topline">
+  <div class="topline-inner">
+    <span>EXUMA, BAHAMAS · ISLAND STAYS & BOAT EXPERIENCES</span>
+    <a href="mailto:exumaaccomodations@gmail.com">exumaaccomodations@gmail.com</a>
+  </div>
+</div>
+<header class="site-header">
+  <nav class="nav">
+    <a class="brand" href="index.html" aria-label="Exuma Sport Coast Service home">
+      <span class="brand-mark" aria-hidden="true">ESC</span>
+      <span><span class="brand-name">Exuma Sport Coast Service</span><span class="brand-tag">Stay well. Explore freely.</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="#available-stays">Accommodations</a>
+      <a href="#boat-rentals">Boat Rentals</a>
+      <a class="nav-cta" href="mailto:exumaaccomodations@gmail.com?subject=Exuma%20Accommodation%20Enquiry">Plan Your Stay</a>
     </div>
-</section>
-
-<header>
-    <nav>
-        <a href="index.html">← Back to Home</a>
-        <strong>Exuma Accommodations</strong>
-    </nav>
+  </nav>
 </header>
+<section class="hero">
+  <div class="hero-content">
+    <span class="overline">YOUR EXUMA ESCAPE BEGINS HERE</span>
+    <h1>Find your place<br>in <em>paradise.</em></h1>
+    <p>Discover a considered collection of island stays across Exuma, from intimate retreats to spacious villas for families and friends. Explore each destination, review the living-room, bedroom and bathroom galleries, and find a setting that complements the way you want to experience the Bahamas.</p>
+    <div class="hero-actions">
+      <a class="btn btn-gold" href="#available-stays">Explore Accommodations <span aria-hidden="true">↓</span></a>
+      <a class="btn btn-outline" href="#boat-rentals">Discover Boat Rentals</a>
+    </div>
+  </div>
+  <div class="hero-caption">THE EXUMA ISLANDS · BAHAMAS</div>
+</section>
+<div class="benefit-bar">
+  <div class="benefit-grid">
+    <div class="benefit"><span class="benefit-icon">⌂</span><span>Stays across key Exuma locations</span></div>
+    <div class="benefit"><span class="benefit-icon">◎</span><span>Photo galleries & location maps</span></div>
+    <div class="benefit"><span class="benefit-icon">↗</span><span>Simple reservation enquiries</span></div>
+  </div>
+</div>
 
-<main class="container">
+<main class="container" id="available-stays">
 
 <div class="page-title">
-    <h1>Available Accommodations</h1>
-    <p>Explore comfortable stays across beautiful Exuma.</p>
+    <span class="overline">EXPLORE THE COLLECTION</span>
+    <h1>Accommodation for every kind of escape</h1>
+    <p>Explore our accommodation collection across five distinctive Exuma destinations. Each listing includes a photo gallery, location details and a clear nightly rate to help you make a confident reservation enquiry.</p>
 </div>
 
 <!-- GEORGE TOWN -->
@@ -417,6 +538,50 @@ header nav a { display: inline-flex; align-items: center; min-height: 42px; }
 </div>
 <div class="region-map-wrap"><h3 class="region-map-title">Staniel Cay location</h3><div class="region-map" id="map-staniel" aria-label="Map showing Staniel Cay, Exuma Cays"></div></div>
 <div class="grid" id="grid-staniel"></div>
+</section>
+
+<section class="boat-feature" id="boat-rentals" aria-labelledby="boat-rental-title">
+  <div class="boat-photo">
+    <img src="images/boat-rental-ai.jpg" alt="Private motorboat cruising through the clear turquoise waters of Exuma" loading="lazy">
+  </div>
+  <div class="boat-copy">
+    <span class="overline">PRIVATE BOAT RENTALS</span>
+    <h2 id="boat-rental-title">Exuma is even better from the water.</h2>
+    <p>Discover hidden beaches, sheltered coves and brilliant turquoise water at your own pace. A private boat gives your group the freedom to shape an island day around swimming, exploring and taking in the scenery.</p>
+    <div class="boat-price"><strong>$120</strong><span>per hour</span></div>
+    <p>Tell us how long you would like to go out and how many guests will be aboard. We’ll follow up to confirm availability and the final details.</p>
+    <div class="boat-benefits"><span>Private experience</span><span>Flexible duration</span><span>Island exploration</span></div>
+  </div>
+  <div class="boat-form-panel">
+    <h3>Plan your boat trip</h3>
+    <p>Share your preferred duration and group size to request a quote.</p>
+    <form id="boat-enquiry-form">
+      <div class="boat-form-grid">
+        <div class="boat-form-field">
+          <label for="boat-duration-unit">Duration type</label>
+          <select id="boat-duration-unit" name="durationUnit">
+            <option value="hours">Hours</option>
+            <option value="days">Days</option>
+          </select>
+        </div>
+        <div class="boat-form-field">
+          <label for="boat-duration-count">Number of hours/days</label>
+          <input id="boat-duration-count" name="durationCount" type="number" min="1" max="30" value="2" required>
+        </div>
+        <div class="boat-form-field">
+          <label for="boat-adults">Adults</label>
+          <input id="boat-adults" name="adults" type="number" min="1" max="30" value="2" required>
+        </div>
+        <div class="boat-form-field">
+          <label for="boat-kids">Children</label>
+          <input id="boat-kids" name="kids" type="number" min="0" max="30" value="0" required>
+        </div>
+      </div>
+      <div class="boat-estimate" id="boat-estimate" aria-live="polite"><strong>Estimated boat rate: $240</strong>Based on 2 hours at $120 per hour. Final availability and charges are confirmed by email.</div>
+      <button class="boat-submit" type="submit">Request Boat Availability <span aria-hidden="true">→</span></button>
+      <p class="boat-form-note">No payment is taken on this page. We’ll confirm your enquiry by email.</p>
+    </form>
+  </div>
 </section>
 
 </main>
@@ -475,6 +640,31 @@ header nav a { display: inline-flex; align-items: center; min-height: 42px; }
        1. ACCOMMODATION DATA
        ============================================================ */
 
+    function buildPremiumDescriptions(regionName, areaName, designDirection, settingDirection, customBedroomCounts) {
+        var bedroomCopy = [
+            "An intimate layout is ideal for a solo traveller or couple, with a private bedroom and a shared living area that offers a comfortable place to slow down after a day out.",
+            "Two bedrooms create a thoughtful balance between time together and individual space, making the layout well suited to couples travelling together, friends or a small family.",
+            "Three bedrooms provide a flexible base for a family or a small group, with the opportunity to gather in shared spaces while keeping sleeping arrangements comfortably separate.",
+            "Four bedrooms give a larger party more room to organise its stay, combining shared time with the privacy that makes a multi-day island visit feel relaxed.",
+            "Five bedrooms are well suited to an extended family or group of friends who want to share one island base while maintaining separate places to retreat.",
+            "Six bedrooms offer the most generous group format in this collection, providing flexibility for reunions, multi-generational travel or a larger party exploring Exuma together."
+        ];
+        var layoutCopy = [
+            "The design concept favours a welcoming, uncluttered flow between the main living space and private sleeping quarters.",
+            "The intended design balance is between an inviting communal lounge and quieter bedroom spaces, helping the accommodation feel organised rather than crowded.",
+            "The layout concept places emphasis on a comfortable shared setting, with separate bedrooms giving each guest room to settle into their own rhythm.",
+            "For a larger travel party, the design approach centres on practical shared areas and personal space, making it easier to relax together without spending every moment in the same room.",
+            "The overall design direction is hospitality-led: a central place to gather, complemented by individual rooms for privacy and rest.",
+            "The design concept is intended to make group travel feel seamless, with room for conversation, downtime and a more private end to the day."
+        ];
+        var bedroomCounts = customBedroomCounts || [1, 2, 3, 4, 5, 6];
+        return bedroomCounts.map(function (bedrooms, index) {
+            var guestFit = bedroomCopy[Math.max(0, Math.min(5, bedrooms - 1))];
+            var layoutDetail = layoutCopy[Math.max(0, Math.min(5, bedrooms - 1))];
+            return "Set in " + regionName + ", " + areaName + ", this " + bedrooms + "-bedroom accommodation offers a considered base for discovering the island at your own pace. " + designDirection + " " + guestFit + " " + layoutDetail + " Its setting makes it a useful starting point for enjoying " + settingDirection + ". Review the living-room, bedroom and bathroom photographs to assess the actual interiors, furnishings and finishes before making your reservation enquiry.";
+        });
+    }
+
     var PRICES = [180, 240, 370, 430, 560, 670];
 
     var REGIONS = [
@@ -492,39 +682,7 @@ header nav a { display: inline-flex; align-items: center; min-height: 42px; }
                 "5 Bedroom George Town Grand Villa",
                 "6 Bedroom George Town Estate"
             ],
-            descriptions: [
-                `Discover an inviting one-bedroom retreat in George Town, thoughtfully suited to couples or solo travellers seeking a comfortable island base. Enjoy an easy-going Exuma stay with room to unwind after a day exploring the island.
-
-1 Bedroom
-Beachfront
-Wi-Fi included`,
-                `A polished two-bedroom retreat offering a little more space for couples, friends or a small family. Settle into the relaxed rhythm of George Town and enjoy a comfortable base for your Great Exuma getaway.
-
-2 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `This three-bedroom villa offers a welcoming balance of shared space and personal comfort for families or friends travelling together. Make it your home base for discovering George Town and the wider island.
-
-3 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `Designed for groups who appreciate room to spread out, this four-bedroom executive villa brings everyone together while leaving space to relax. A considered choice for a family holiday or a getaway with friends in Great Exuma.
-
-4 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `With five bedrooms and generous accommodation capacity, this grand villa is well suited to multi-generational families and larger groups. Enjoy the freedom to share the experience while keeping a comfortable place to retreat.
-
-5 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `A spacious six-bedroom estate for larger gatherings, family celebrations or group escapes. Make the most of time together with a comfortable George Town base and the laid-back appeal of Great Exuma.
-
-6 Bedrooms
-Beachfront
-Wi-Fi included`
-            
-            ],
+            descriptions: buildPremiumDescriptions('George Town', 'Great Exuma', 'The styling direction is relaxed and coastal, with a welcoming island-home character rather than a formal hotel atmosphere.', 'the town’s local character, dining, shops and nearby island experiences'),
             images: {
                 living: function (i) {
                     return i === 1
@@ -549,39 +707,7 @@ Wi-Fi included`
                 "5 Bedroom Grand Luxury Villa",
                 "6 Bedroom Luxury Estate"
             ],
-            descriptions: [
-                `An elegant one-bedroom escape for guests who value a calm, refined setting. Ideal for a couple or solo traveller, this retreat offers a comfortable base from which to enjoy the natural beauty and easy pace of Exuma.
-
-1 Bedroom
-Beachfront
-Wi-Fi included`,
-                `A sophisticated two-bedroom retreat with space for a couple, friends or a small family to relax in comfort. Enjoy an elevated island stay with the freedom to explore Exuma at your own pace.
-
-2 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `This three-bedroom luxury villa offers a gracious setting for families or friends travelling together. With room to gather and unwind, it provides a welcoming home base for an Exuma escape.
-
-3 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `A four-bedroom executive villa for guests who appreciate generous space and a polished holiday setting. Well suited to families and groups, it makes sharing an Exuma getaway feel effortless.
-
-4 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `Created for larger parties, this five-bedroom grand villa offers room to reconnect, celebrate and enjoy an extended island stay. A considered choice for families or friends seeking a more spacious Exuma retreat.
-
-5 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `A six-bedroom luxury estate offering generous accommodation for larger families and groups. Enjoy the flexibility of a spacious shared retreat while making lasting memories in the distinctive setting of Exuma.
-
-6 Bedrooms
-Beachfront
-Wi-Fi included`
-            
-            ],
+            descriptions: buildPremiumDescriptions('Luxury Villas', 'Exuma, Bahamas', 'The collection is presented with a more elevated villa sensibility, favouring a calm visual rhythm, generous-feeling shared spaces and an understated sense of occasion.', 'the beauty of Exuma, whether your plans centre on slow mornings or full days exploring'),
             images: {
                 living: function (i) { return "images/accommodations/luxurylivingroom" + i + ".jpg"; },
                 bedroom: function (i) { return "images/accommodations/luxurybedroom" + i + ".jpg"; },
@@ -602,39 +728,7 @@ Wi-Fi included`
                 "5 Bedroom Grand Ocean Villa",
                 "6 Bedroom Coastal Estate"
             ],
-            descriptions: [
-                `A welcoming one-bedroom coastal retreat for couples or solo travellers seeking a relaxed base in the Michelson and Roker's Point area. Unwind at your own pace and enjoy the easy-going character of Exuma.
-
-1 Bedroom
-Beachfront
-Wi-Fi included`,
-                `This two-bedroom coastal retreat offers extra room for friends or a small family. With a relaxed island feel and a convenient Michelson-area base, it is a lovely setting for a restorative Exuma stay.
-
-2 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `A three-bedroom coastal villa with space for families and friends to spend quality time together. Enjoy a comfortable base in the Michelson area while discovering the surrounding island communities.
-
-3 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `This four-bedroom ocean villa is suited to larger families or groups who want space to relax between island adventures. Settle into a coastal escape with room for everyone to feel at home.
-
-4 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `A five-bedroom grand ocean villa offering generous room for group getaways and family holidays. Share the experience of Exuma together, with space to gather and unwind after a day out.
-
-5 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `With six bedrooms, this coastal estate is designed for larger groups seeking generous space and a comfortable shared base. Ideal for bringing family or friends together for a memorable stay in Exuma.
-
-6 Bedrooms
-Beachfront
-Wi-Fi included`
-            
-            ],
+            descriptions: buildPremiumDescriptions('Michelson', 'the Michelson area of Great Exuma', 'The design direction is understated and tranquil, suited to guests who value an easy-going island atmosphere and a restful place to return to.', 'the quieter side of Exuma, its coastal scenery and a more unhurried island pace'),
             images: {
                 living: function (i) { return "images/accommodations/michelsonlivingroom" + i + ".jpg"; },
                 bedroom: function (i) { return "images/accommodations/michelsonbedroom" + i + ".jpg"; },
@@ -655,39 +749,7 @@ Wi-Fi included`
                 "5 Bedroom Moss Town Grand Villa",
                 "6 Bedroom Moss Town Estate"
             ],
-            descriptions: [
-                `A charming one-bedroom retreat for couples or solo travellers looking for a comfortable base in Moss Town. Enjoy a slower island pace and the freedom to shape your own Great Exuma getaway.
-
-1 Bedroom
-Beachfront
-Wi-Fi included`,
-                `This two-bedroom retreat combines a welcoming atmosphere with added room for friends or a small family. A comfortable choice for guests who want to experience Moss Town and the wider island at their own pace.
-
-2 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `A three-bedroom villa offering a relaxed setting for families or friends travelling together. Enjoy space to reconnect and a welcoming home base for your time in Great Exuma.
-
-3 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `With four bedrooms, this executive villa gives larger families and groups room to settle in comfortably. Make it the starting point for an easy-going Moss Town holiday filled with time together and island discovery.
-
-4 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `This five-bedroom grand villa is well suited to larger families and groups seeking generous accommodation. Enjoy the convenience of sharing one base while making the most of a Great Exuma escape.
-
-5 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `A six-bedroom estate offering ample accommodation for larger gatherings and group holidays. With room for everyone, it is a welcoming setting for shared moments and a relaxed stay in Moss Town.
-
-6 Bedrooms
-Beachfront
-Wi-Fi included`
-            
-            ],
+            descriptions: buildPremiumDescriptions('Moss Town', 'Great Exuma', 'The design concept leans into casual Bahamian living, with comfort, practicality and a relaxed sense of welcome at its centre.', 'Moss Town’s local atmosphere and the wider Great Exuma coastline'),
             images: {
                 living: function (i) { return "images/accommodations/mosslivingroom" + i + ".jpg"; },
                 bedroom: function (i) { return "images/accommodations/mossbedroom" + i + ".jpg"; },
@@ -708,39 +770,7 @@ Wi-Fi included`
                 "5 Bedroom Staniel Cay Grand Villa",
                 "6 Bedroom Staniel Cay Estate"
             ],
-            descriptions: [
-                `A comfortable two-bedroom island retreat for couples, friends or a small family eager to experience Staniel Cay. Enjoy a relaxed home base for discovering the character and natural beauty of the Exuma Cays.
-
-2 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `This premium two-bedroom retreat offers a refined, welcoming setting for guests seeking extra comfort during their Staniel Cay stay. Ideal for a couple or small family looking to explore the surrounding cays at an unhurried pace.
-
-2 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `A three-bedroom villa with space for families or friends to share an island escape. Return to a comfortable base after exploring the distinctive scenery and waters of the Exuma Cays.
-
-3 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `This four-bedroom island villa is suited to families and groups who want to experience Staniel Cay together. With room to gather and unwind, it offers a welcoming base for your time in the Exuma Cays.
-
-4 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `A five-bedroom grand villa with generous accommodation for larger families or groups. Share the pleasures of an island getaway while enjoying space to relax and reconnect on Staniel Cay.
-
-5 Bedrooms
-Beachfront
-Wi-Fi included`,
-                `With six bedrooms, this island estate provides generous accommodation for larger groups and family gatherings. Make time together the centre of your stay while exploring the remarkable setting of the Exuma Cays.
-
-6 Bedrooms
-Beachfront
-Wi-Fi included`
-            
-            ],
+            descriptions: buildPremiumDescriptions('Staniel Cay', 'the Exuma Cays', 'The intended aesthetic is a laid-back cays retreat, made for guests who want their accommodation to complement days spent discovering the surrounding waters and islands.', 'the distinctive scenery, clear waters and island-hopping experiences of the Exuma Cays', [2, 2, 3, 4, 5, 6]),
             images: {
                 living: function (i) { return "images/accommodations/stanielcaylivingroom" + i + ".jpg"; },
                 bedroom: function (i) { return "images/accommodations/stanielcaybedroom" + i + ".jpg"; },
@@ -877,13 +907,16 @@ Wi-Fi included`
             var cards = "";
             region.names.forEach(function (name, i) {
                 var price = PRICES[i] || PRICES[0];
-                cards += '<article class="card">' +
-                    createGallery(region, i, name) +
+                var bedroomMatch = name.match(/(\d+)\s*Bedroom/i);
+                var bedrooms = bedroomMatch ? Number(bedroomMatch[1]) : i + 1;
+                cards += '<article class="card" data-region="' + escapeHtml(region.id) + '" data-name="' + escapeHtml(name.toLowerCase()) + '" data-bedrooms="' + bedrooms + '" data-price="' + price + '">' +
+                    '<div class="card-gallery-wrap">' + createGallery(region, i, name) + '<button class="save-property" type="button" aria-label="Save ' + escapeHtml(name) + ' to saved stays" aria-pressed="false" data-save-id="' + escapeHtml(region.id + '|' + name) + '">♡</button></div>' +
                     '<h3>' + escapeHtml(name) + '</h3>' +
                     '<div class="card-location">' + escapeHtml(region.location) + '</div>' +
+                    '<div class="card-meta"><span class="meta-chip">' + bedrooms + (bedrooms === 1 ? ' bedroom' : ' bedrooms') + '</span><span class="meta-chip">Beachfront</span><span class="meta-chip">Wi-Fi included</span></div>' +
                     '<p class="accommodation-description">' + escapeHtml(region.descriptions[i] || "Comfortable accommodation in Exuma, Bahamas.") + '</p>' +
-                    '<div class="info"><div class="price">From $' + price + ' per night</div>' +
-                    '<a class="reserve-btn" href="' + buildReserveUrl(region, name, price) + '">Reserve Now</a></div>' +
+                    '<div class="info"><div class="price">From $' + price + ' <span style="font-size:.76rem;font-weight:600;color:var(--muted)">/ night</span></div>' +
+                    '<a class="reserve-btn" href="' + buildReserveUrl(region, name, price) + '">Reserve Now <span aria-hidden="true">→</span></a></div>' +
                     '</article>';
             });
             grid.innerHTML = cards;
@@ -891,7 +924,41 @@ Wi-Fi included`
     }
 
     /* ============================================================
-       4. IMAGE LIGHTBOX
+       4. SAVED STAYS
+       Guests can save properties locally on this browser.
+       ============================================================ */
+    var savedStayIds = [];
+    try { savedStayIds = JSON.parse(localStorage.getItem("exuma_saved_stays") || "[]"); } catch (e) { savedStayIds = []; }
+    if (!Array.isArray(savedStayIds)) savedStayIds = [];
+
+    function persistSavedStays() {
+        try { localStorage.setItem("exuma_saved_stays", JSON.stringify(savedStayIds)); } catch (e) {}
+    }
+
+    function syncSaveButtons() {
+        document.querySelectorAll("[data-save-id]").forEach(function (button) {
+            var isSaved = savedStayIds.indexOf(button.getAttribute("data-save-id")) !== -1;
+            button.setAttribute("aria-pressed", isSaved ? "true" : "false");
+            button.textContent = isSaved ? "♥" : "♡";
+            var card = button.closest(".card");
+            var heading = card ? card.querySelector("h3") : null;
+            button.setAttribute("aria-label", (isSaved ? "Remove " : "Save ") + (heading ? heading.textContent : "property") + (isSaved ? " from saved stays" : " to saved stays"));
+        });
+    }
+
+    document.addEventListener("click", function (event) {
+        var saveButton = event.target.closest("[data-save-id]");
+        if (!saveButton) return;
+        var id = saveButton.getAttribute("data-save-id");
+        var position = savedStayIds.indexOf(id);
+        if (position === -1) savedStayIds.push(id);
+        else savedStayIds.splice(position, 1);
+        persistSavedStays();
+        syncSaveButtons();
+    });
+
+    /* ============================================================
+       5. IMAGE LIGHTBOX
        ============================================================ */
     var currentLightboxIndex = 0;
     var lightbox = document.getElementById("lightbox");
@@ -937,8 +1004,61 @@ Wi-Fi included`
         if (event.key === "ArrowRight") showLightboxImage(currentLightboxIndex + 1);
     });
 
+    /* ============================================================
+       6. BOAT RENTAL ENQUIRY
+       $120/hour is displayed as the current indicative rate. Day requests
+       are sent for a quote because a separate day rate has not been set.
+       ============================================================ */
+    var boatForm = document.getElementById("boat-enquiry-form");
+    var boatDurationUnit = document.getElementById("boat-duration-unit");
+    var boatDurationCount = document.getElementById("boat-duration-count");
+    var boatAdults = document.getElementById("boat-adults");
+    var boatKids = document.getElementById("boat-kids");
+    var boatEstimate = document.getElementById("boat-estimate");
+
+    function updateBoatEstimate() {
+        if (!boatForm) return;
+        var unit = boatDurationUnit.value;
+        var count = Math.max(1, Number(boatDurationCount.value) || 1);
+        if (unit === "hours") {
+            var total = count * 120;
+            boatEstimate.innerHTML = "<strong>Estimated boat rate: $" + total.toLocaleString("en-US") + "</strong>Based on " + count + (count === 1 ? " hour" : " hours") + " at $120 per hour. Final availability and charges are confirmed by email.";
+        } else {
+            boatEstimate.innerHTML = "<strong>Day-based quote requested</strong>The current published rate is $120 per hour. We’ll confirm the appropriate rate for " + count + (count === 1 ? " day" : " days") + " by email.";
+        }
+    }
+    if (boatForm) {
+        [boatDurationUnit, boatDurationCount].forEach(function (field) { field.addEventListener("input", updateBoatEstimate); field.addEventListener("change", updateBoatEstimate); });
+        boatForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            var unit = boatDurationUnit.value;
+            var count = Math.max(1, Number(boatDurationCount.value) || 1);
+            var adults = Math.max(1, Number(boatAdults.value) || 1);
+            var kids = Math.max(0, Number(boatKids.value) || 0);
+            var rateLine = unit === "hours" ? "Estimated rate: $" + (count * 120).toLocaleString("en-US") + " (" + count + " hour(s) at $120/hour)" : "Please quote for " + count + " day(s); published indicative rate is $120/hour.";
+            var subject = "Boat Rental Enquiry - Exuma Sport Coast Service";
+            var body = [
+                "Hello Exuma Sport Coast Service,",
+                "",
+                "I would like to enquire about a boat rental in Exuma.",
+                "",
+                "Duration: " + count + " " + unit,
+                "Adults: " + adults,
+                "Children: " + kids,
+                rateLine,
+                "",
+                "Please confirm availability and the final cost.",
+                "",
+                "Thank you."
+            ].join("\n");
+            window.location.href = "mailto:exumaaccomodations@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+        });
+        updateBoatEstimate();
+    }
+
     renderCards();
     applyRegionFilter();
+    syncSaveButtons();
 })();
 </script>
 
