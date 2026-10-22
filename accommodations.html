@@ -491,6 +491,54 @@ body { color:var(--ink); background:#fff; font-family:"Aptos","Segoe UI",Arial,s
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.gallery img,.boat-photo img,.card{transition:none!important}}
 
+
+/* Header alignment: logo stays at the far left and navigation at the far right */
+.site-header .nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: min(1180px, calc(100% - 48px));
+    margin-inline: auto;
+    gap: 20px;
+}
+.site-header .brand {
+    flex: 0 1 auto;
+    margin-right: auto;
+}
+.site-header .nav-links {
+    flex: 0 0 auto;
+    margin-left: auto;
+    justify-content: flex-end;
+}
+.site-header .menu-toggle {
+    margin-left: auto;
+}
+@media (max-width: 760px) {
+    .site-header .nav {
+        width: calc(100% - 32px);
+        min-height: 72px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+    .site-header .brand {
+        margin-right: auto;
+    }
+    .site-header .menu-toggle {
+        display: block;
+        flex: 0 0 auto;
+        margin-left: auto;
+    }
+    .site-header .nav-links {
+        margin-left: 0;
+        left: 0;
+        right: 0;
+        align-items: stretch;
+    }
+}
+
 </style>
 </head>
 
