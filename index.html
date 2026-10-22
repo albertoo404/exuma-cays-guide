@@ -329,7 +329,7 @@
     <div class="container nav">
       <a class="brand" href="index.html" aria-label="Exuma Sport Coast Service home">
         <span class="brand-mark"><img src="images/exumalogo.jpg" alt="Exuma Sport Coast Service logo" onerror="this.parentElement.style.display='none'"></span>
-        <span><span class="brand-name">Exuma Sport Coast Service</span><span class="brand-tag">Stay · Explore · Set Sail</span></span>
+        <span><span class="brand-name">Exuma Spot Coast Service</span><span class="brand-tag">Stay · Explore · Set Sail</span></span>
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">Menu ☰</button>
       <nav class="nav-links" id="primary-nav" aria-label="Main navigation">
@@ -403,15 +403,15 @@
         <div class="stay-grid">
           <article class="stay-card">
             <div class="stay-image"><img src="exuma.jpg" alt="Bahamian shoreline and turquoise sea" loading="lazy"></div>
-            <div class="stay-body"><span class="card-label">Island hub</span><h3>George Town</h3><p>Explore stays near local services, island activities and the centre of life in Exuma.</p><a class="arrow-link" href="accommodations.html?region=george-town">Explore stays <span aria-hidden="true">→</span></a></div>
+            <div class="stay-body"><span class="card-label">Island hub</span><h3>George Town</h3><p>Explore stays near local services, island activities and the centre of life in Exuma.</p><a class="arrow-link" href="#find-stay" data-requires-booking-form>Explore stays <span aria-hidden="true">→</span></a></div>
           </article>
           <article class="stay-card">
             <div class="stay-image"><img src="stanielcay.jpg" alt="Staniel Cay in the Exuma Cays" loading="lazy"></div>
-            <div class="stay-body"><span class="card-label">Northern Exuma</span><h3>Staniel Cay & the Cays</h3><p>Discover accommodation options for a trip centred on the cays and the surrounding waters.</p><a class="arrow-link" href="accommodations.html?region=staniel-cay-exuma-cays">Explore stays <span aria-hidden="true">→</span></a></div>
+            <div class="stay-body"><span class="card-label">Northern Exuma</span><h3>Staniel Cay & the Cays</h3><p>Discover accommodation options for a trip centred on the cays and the surrounding waters.</p><a class="arrow-link" href="#find-stay" data-requires-booking-form>Explore stays <span aria-hidden="true">→</span></a></div>
           </article>
           <article class="stay-card">
             <div class="stay-image"><img src="majorcay.jpg" alt="Island scenery around the Exuma Cays" loading="lazy"></div>
-            <div class="stay-body"><span class="card-label">Find your fit</span><h3>Villas & Other Stays</h3><p>Browse the available listings and compare the details to find a stay that suits your plans.</p><a class="arrow-link" href="accommodations.html?region=luxury-villas">View available stays <span aria-hidden="true">→</span></a></div>
+            <div class="stay-body"><span class="card-label">Find your fit</span><h3>Villas & Other Stays</h3><p>Browse the available listings and compare the details to find a stay that suits your plans.</p><a class="arrow-link" href="#find-stay" data-requires-booking-form>View available stays <span aria-hidden="true">→</span></a></div>
           </article>
         </div>
       </div>
@@ -534,6 +534,31 @@
       checkin.addEventListener('change', function () {
         checkout.min = checkin.value || today;
         if (checkout.value && checkin.value && checkout.value <= checkin.value) checkout.value = '';
+      });
+
+      document.querySelectorAll('[data-requires-booking-form]').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          event.preventDefault();
+
+          // Bring the visitor to the search form first.
+          document.querySelector('#find-stay').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+          // Do not open accommodations.html unless all five GET fields are valid.
+          if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+          }
+
+          if (!checkin.value || !checkout.value || checkout.value <= checkin.value) {
+            checkout.setCustomValidity('Please choose a check-out date after your check-in date.');
+            checkout.reportValidity();
+            checkout.setCustomValidity('');
+            return;
+          }
+
+          // Submit the normal GET form so all five fields are included in the URL.
+          form.requestSubmit();
+        });
       });
 
       form.addEventListener('submit', function (event) {
