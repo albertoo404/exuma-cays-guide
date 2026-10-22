@@ -3,486 +3,239 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102f38">
+<meta name="description" content="Complete your Exuma Sport Coast Service accommodation reservation or submit a boat-rental enquiry.">
 <title>Complete Reservation | Exuma Sport Coast Service</title>
 <style>
-:root{--ocean:#102f38;--ocean-2:#1d4850;--sea:#477b78;--sea-pale:#edf3ef;--sand:#c9a66b;--sand-light:#f5efe4;--ink:#1e3032;--muted:#687879;--line:#e2e6e1;--paper:#f7f6f2;--white:#fff;--danger:#a83c36;--shadow:0 24px 65px rgba(24,48,49,.075)}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
+:root{--ocean:#102f38;--ocean-2:#1d4850;--sea:#477b78;--sea-pale:#edf3ef;--sand:#c9a66b;--ink:#1e3032;--muted:#687879;--line:#e2e6e1;--paper:#f7f6f2;--white:#fff;--danger:#a83c36;--success:#087f5b;--shadow:0 24px 65px rgba(24,48,49,.075)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;padding:0 22px 30px;background:var(--paper);color:var(--ink);font-family:Inter,"Avenir Next",Avenir,"Segoe UI",sans-serif;font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
-body:before{content:"";display:block;height:5px;background:linear-gradient(90deg,var(--ocean) 0%,var(--sea) 65%,var(--sand) 100%)}
-.container{width:min(100%,840px);margin:0 auto;padding-top:42px}
-.card{background:var(--white);border:1px solid var(--line);border-radius:3px;padding:clamp(25px,5vw,46px);margin:0 0 20px;box-shadow:0 7px 25px rgba(25,48,47,.025)}
-.header{position:relative;overflow:hidden;padding:35px clamp(25px,5vw,46px) 32px;background:var(--ocean);color:#fff;border:0;border-radius:3px;box-shadow:var(--shadow)}
-.header:after{content:"";position:absolute;right:-80px;top:-145px;width:340px;height:340px;border:1px solid rgba(255,255,255,.10);border-radius:50%;box-shadow:0 0 0 34px rgba(255,255,255,.025),0 0 0 68px rgba(255,255,255,.02);pointer-events:none}
+body:before{content:"";display:block;height:5px;background:linear-gradient(90deg,var(--ocean),var(--sea) 65%,var(--sand))}
+.container{width:min(100%,840px);margin:0 auto;padding-top:42px}.card{background:#fff;border:1px solid var(--line);border-radius:3px;padding:clamp(25px,5vw,46px);margin:0 0 20px;box-shadow:0 7px 25px rgba(25,48,47,.025)}
+.header{position:relative;overflow:hidden;padding:35px clamp(25px,5vw,46px) 32px;background:var(--ocean);color:#fff;border:0;box-shadow:var(--shadow)}
+.header:after{content:"";position:absolute;right:-80px;top:-145px;width:340px;height:340px;border:1px solid #ffffff1a;border-radius:50%;box-shadow:0 0 0 34px #ffffff08,0 0 0 68px #ffffff05;pointer-events:none}
 .header img{width:70px;height:70px;object-fit:contain;display:block;margin:0 0 22px;background:#fff;border-radius:2px;padding:5px;position:relative;z-index:1}
-.header .eyebrow{color:#e3c998;margin:0 0 10px}
-.eyebrow{display:block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.22em;margin:0 0 12px}
+.eyebrow{display:block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.22em;margin:0 0 12px;color:#e3c998;position:relative;z-index:1}
 .header h1{position:relative;z-index:1;color:#fff;margin:0;max-width:590px;font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:clamp(32px,5vw,46px);line-height:1.12;letter-spacing:-.025em}
 .header>p{position:relative;z-index:1;color:#d0dedd;margin:12px 0 0;font-size:13px;letter-spacing:.04em}
-.reference{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:18px;text-align:left;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.19);padding:15px 18px;border-radius:2px;margin-top:28px;color:#dce7e5;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
+.reference{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:18px;background:#ffffff12;border:1px solid #ffffff30;padding:15px 18px;margin-top:28px;color:#dce7e5;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
 .reference strong{color:#f0d7a8;font-size:14px;letter-spacing:.08em;text-align:right;overflow-wrap:anywhere}
 .section-kicker{margin:0 0 7px;color:var(--sea);font-size:10px;font-weight:800;letter-spacing:.19em;text-transform:uppercase}
 h2{font-family:Georgia,"Times New Roman",serif;font-size:29px;line-height:1.2;font-weight:400;letter-spacing:-.02em;color:var(--ocean);margin:0 0 24px}
-.detail{display:grid;grid-template-columns:minmax(0,1fr) minmax(120px,1fr);align-items:start;gap:24px;padding:15px 0;border-bottom:1px solid var(--line)}
-.detail:last-of-type{border-bottom:0}
-.label{color:var(--muted);font-size:14px}
-.detail strong{text-align:right;overflow-wrap:anywhere;font-weight:650;color:var(--ocean)}
-.total-box{margin-top:28px;padding:20px 22px;background:var(--sea-pale);border:1px solid #dce7df;border-radius:2px}
-.total-row{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:9px 0;color:#526563;font-size:14px}
-.total-row+.total-row{border-top:1px solid #d9e4dc}
-.total{font-size:25px;font-weight:750;color:var(--ocean);letter-spacing:-.025em}
-.deposit{font-size:21px;font-weight:750;color:var(--sea)}
-.notice{margin-top:24px;padding:14px 17px;background:#faf7f0;border:1px solid #eee4d1;border-left:3px solid var(--sand);border-radius:1px;font-size:13px;line-height:1.7;color:#5e6259}
-.loading{text-align:center;padding:40px;color:var(--muted);font-size:14px}
-.error{text-align:left;border-top:3px solid var(--danger)}
-.error h2{color:var(--danger);margin-bottom:10px}
-.client-details{margin:20px 0;padding:clamp(25px,5vw,42px);background:#fff;border:1px solid var(--line);border-radius:3px;box-shadow:0 7px 25px rgba(25,48,47,.025)}
-.client-details h2{margin-bottom:9px}
-.client-details .field{margin:22px 0}
-.client-details .field:last-of-type{margin-bottom:0}
-.client-details label{display:block;margin-bottom:8px;font-size:12px;font-weight:750;letter-spacing:.025em;color:var(--ocean)}
-.client-details input{display:block;width:100%;min-height:53px;padding:14px 15px;background:#fcfcfa;color:var(--ink);border:1px solid #d8dfd9;border-radius:2px;font-family:inherit;font-size:15px;line-height:1.4;outline:none;transition:border-color .2s,box-shadow .2s}
-.client-details input::placeholder{color:#9ba7a1}
-.client-details input:focus{background:#fff;border-color:var(--sea);box-shadow:0 0 0 3px rgba(71,123,120,.12)}
-.save-btn,.request-btn{display:inline-flex;justify-content:center;align-items:center;width:100%;min-height:54px;padding:15px 20px;border:1px solid var(--ocean);border-radius:2px;cursor:pointer;font-family:inherit;font-size:12px;font-weight:800;letter-spacing:.105em;text-transform:uppercase;color:#fff;background:var(--ocean);box-shadow:none;transition:background .2s,border-color .2s,transform .2s}
-.save-btn:hover,.request-btn:hover{background:var(--ocean-2);border-color:var(--ocean-2);transform:translateY(-1px)}
-.save-btn:focus-visible,.request-btn:focus-visible{outline:3px solid rgba(71,123,120,.4);outline-offset:3px}
-.save-btn:disabled,.request-btn:disabled{opacity:.58;cursor:default;transform:none}
-.payment-request-section{margin:20px 0 0;padding:clamp(25px,5vw,42px);border:1px solid #d9e4dc;border-radius:3px;background:var(--sea-pale)}
-.payment-request-section h2{margin-bottom:12px}
-.payment-request-section p:not(.section-kicker){line-height:1.8;color:#596b68;margin:0 0 24px;max-width:650px}
-.payment-request-section .request-btn{background:var(--sea);border-color:var(--sea)}
-.payment-request-section .request-btn:hover{background:var(--ocean-2);border-color:var(--ocean-2)}
-.support-line{margin-top:20px;font-size:12px;color:var(--muted);text-align:center}
+.detail{display:grid;grid-template-columns:minmax(0,1fr) minmax(120px,1fr);align-items:start;gap:24px;padding:15px 0;border-bottom:1px solid var(--line)}.label{color:var(--muted);font-size:14px}.detail strong{text-align:right;overflow-wrap:anywhere;font-weight:650;color:var(--ocean)}
+.total-box{margin-top:28px;padding:20px 22px;background:var(--sea-pale);border:1px solid #dce7df}.total-row{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:9px 0;color:#526563;font-size:14px}.total-row+.total-row{border-top:1px solid #d9e4dc}.total{font-size:25px;font-weight:750;color:var(--ocean)}.deposit{font-size:21px;font-weight:750;color:var(--sea)}
+.notice{margin-top:24px;padding:14px 17px;background:#faf7f0;border:1px solid #eee4d1;border-left:3px solid var(--sand);font-size:13px;line-height:1.7;color:#5e6259}
+.loading{text-align:center;padding:40px;color:var(--muted);font-size:14px}.error{text-align:left;border-top:3px solid var(--danger)}.error h2{color:var(--danger);margin-bottom:10px}
+.client-details{margin:20px 0;padding:clamp(25px,5vw,42px);background:#fff;border:1px solid var(--line);box-shadow:0 7px 25px rgba(25,48,47,.025)}.client-details h2{margin-bottom:9px}.client-details .field{margin:22px 0}.client-details label{display:block;margin-bottom:8px;font-size:12px;font-weight:750;letter-spacing:.025em;color:var(--ocean)}
+.client-details input{display:block;width:100%;min-height:53px;padding:14px 15px;background:#fcfcfa;color:var(--ink);border:1px solid #d8dfd9;font-family:inherit;font-size:15px;outline:none}.client-details input:focus{background:#fff;border-color:var(--sea);box-shadow:0 0 0 3px #477b781f}
+.save-btn,.request-btn{display:inline-flex;justify-content:center;align-items:center;width:100%;min-height:54px;padding:15px 20px;border:1px solid var(--ocean);cursor:pointer;font-family:inherit;font-size:12px;font-weight:800;letter-spacing:.105em;text-transform:uppercase;color:#fff;background:var(--ocean);transition:background .2s}
+.save-btn:hover,.request-btn:hover{background:var(--ocean-2)}.save-btn:disabled,.request-btn:disabled{opacity:.58;cursor:default}
+.payment-request-section{margin:20px 0 0;padding:clamp(25px,5vw,42px);border:1px solid #d9e4dc;background:var(--sea-pale)}.payment-request-section h2{margin-bottom:12px}.payment-request-section p:not(.section-kicker){line-height:1.8;color:#596b68;margin:0 0 24px;max-width:650px}.payment-request-section .request-btn{background:var(--sea);border-color:var(--sea)}.support-line{margin-top:20px;font-size:12px;color:var(--muted);text-align:center}.support-line a,.footer a{color:var(--sea);text-decoration:none;font-weight:750}.fallback-link{display:inline-block;margin-top:10px;color:var(--ocean);font-weight:750;text-decoration:underline}
 .footer{text-align:center;color:#78837d;font-size:11px;letter-spacing:.025em;padding:22px 12px 10px}
-.footer a{color:var(--sea);text-decoration:none;font-weight:750}
-.footer a:hover{text-decoration:underline}
-@media(max-width:560px){body{padding:0 13px 20px}.container{padding-top:20px}.header{padding:26px 22px 23px}.header img{width:60px;height:60px;margin-bottom:19px}.header h1{font-size:34px}.reference{align-items:flex-start;flex-direction:column;gap:5px}.reference strong{text-align:left}.card{padding:24px 21px}.detail{grid-template-columns:1fr;gap:3px;padding:13px 0}.detail strong{text-align:left}.total-row{align-items:flex-start;flex-direction:column;gap:3px}.total{font-size:23px}.deposit{font-size:20px}h2{font-size:26px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
-@media print{body{background:#fff;padding:0}.container{padding-top:0}.card,.client-details,.payment-request-section{box-shadow:none;border:1px solid #ddd}}
+@media(max-width:560px){body{padding:0 13px 20px}.container{padding-top:20px}.header{padding:26px 22px 23px}.header img{width:60px;height:60px;margin-bottom:19px}.header h1{font-size:34px}.reference{align-items:flex-start;flex-direction:column;gap:5px}.reference strong{text-align:left}.card{padding:24px 21px}.detail{grid-template-columns:1fr;gap:3px;padding:13px 0}.detail strong{text-align:left}.total-row{align-items:flex-start;flex-direction:column;gap:3px}h2{font-size:26px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}@media print{body{background:#fff;padding:0}.container{padding-top:0}.card,.client-details,.payment-request-section{box-shadow:none;border:1px solid #ddd}}
 </style>
 </head>
 <body>
-
 <div class="container">
-
-<div class="card header">
-<img src="/images/exumalogo.jpg" alt="Exuma Sport Coast Service">
-<div class="eyebrow">Exuma · Bahamas</div>
-<h1 id="page-title">Complete Your Reservation</h1>
-<p class="header-intro">Thoughtfully arranged stays and boat-rental enquiries across the Exuma Cays, with personal assistance from our team at every step.</p>
-<div class="reference">
-Reservation Number<br>
-<strong id="reservation-number">Loading...</strong>
+  <div class="card header">
+    <img src="/images/exumalogo.jpg" alt="Exuma Sport Coast Service">
+    <div class="eyebrow">Exuma · Bahamas</div>
+    <h1 id="page-title">Complete Your Reservation</h1>
+    <p>Thoughtfully arranged stays and boat-rental enquiries across the Exuma Cays, with personal assistance from our team at every step.</p>
+    <div class="reference">Reservation Number<br><strong id="reservation-number">Loading...</strong></div>
+  </div>
+  <div id="loading" class="card loading" role="status" aria-live="polite">Loading reservation details...</div>
+  <div id="reservation-content" style="display:none">
+    <div class="card">
+      <p class="section-kicker">Your booking summary</p><h2 id="details-title">Reservation Details</h2>
+      <div class="detail"><span class="label">Region</span><strong id="region">—</strong></div>
+      <div class="detail"><span class="label">Accommodation</span><strong id="accommodation">—</strong></div>
+      <div class="detail"><span class="label">Check-in</span><strong id="check-in">—</strong></div>
+      <div class="detail"><span class="label">Check-out</span><strong id="check-out">—</strong></div>
+      <div class="detail"><span class="label">Number of Nights</span><strong id="nights">—</strong></div>
+      <div class="detail"><span class="label">Adults</span><strong id="adults">—</strong></div>
+      <div class="detail"><span class="label">Children</span><strong id="children">—</strong></div>
+      <div class="detail" id="duration-row" style="display:none"><span class="label">Rental Duration</span><strong id="boat-duration">—</strong></div>
+      <div class="total-box"><div class="total-row"><span>Total Bill</span><strong class="total" id="total">USD 0.00</strong></div><div class="total-row"><span>50% Reservation Deposit</span><strong class="deposit" id="deposit">USD 0.00</strong></div></div>
+      <div class="notice">Your booking reference is ready. Please review your reservation details and provide accurate contact information so our team can assist you with the next steps.</div>
+    </div>
+    <section class="client-details" id="customer-save-section">
+      <p class="section-kicker">One last step</p><h2 id="contact-title">Your Contact Details</h2>
+      <div class="field"><label for="reservation-client-name">Full Name</label><input id="reservation-client-name" type="text" autocomplete="name" placeholder="Enter your full name" required></div>
+      <div class="field"><label for="reservation-client-phone">Phone Number</label><input id="reservation-client-phone" type="tel" autocomplete="tel" placeholder="Enter your phone number" required></div>
+      <div class="field"><label for="reservation-client-email">Email Address</label><input id="reservation-client-email" type="email" autocomplete="email" placeholder="Enter your email address" required></div>
+      <button id="save-customer-details" type="button" class="save-btn" style="margin-top:18px">Save Customer Details</button>
+      <div id="customer-save-message" role="status" aria-live="polite" style="margin-top:12px;font-weight:bold"></div>
+    </section>
+    <section class="payment-request-section" id="payment-request-section">
+      <p class="section-kicker">Next step</p><h2 id="next-step-title">Request Payment Details</h2>
+      <p id="request-description">After saving your contact information, submit a payment-details request. Our team will review your reservation and contact you by email with the next steps and payment instructions. Your reservation is not fully confirmed until availability and arrangements have been reviewed by our team.</p>
+      <button id="request-payment-details" type="button" class="request-btn">Send Payment Request</button>
+      <div id="payment-request-message" role="status" aria-live="polite" style="margin-top:14px;font-weight:bold;line-height:1.5"></div>
+      <div class="support-line">Need assistance? <a href="mailto:exumaaccomodations@gmail.com">Contact our team</a></div>
+    </section>
+  </div>
+  <div id="error" class="card error" style="display:none"><h2>Reservation Not Found</h2><p id="error-message">We could not locate the reservation details associated with this link. Please return to the accommodation listing and start the reservation again, or contact our team for assistance.</p><p style="margin-top:18px"><a href="index.html" style="color:#006d77;font-weight:600;text-decoration:none">← Return to accommodations</a></p></div>
+  <div class="footer">© 2026 Exuma Sport Coast Service · Exuma, Bahamas<br><a href="mailto:exumaaccomodations@gmail.com">Help / Support</a></div>
 </div>
-</div>
-
-<div id="loading" class="card loading">Loading reservation details...</div>
-
-<div id="reservation-content" style="display:none;">
-
-<div class="card">
-<p class="section-kicker">Your booking summary</p>
-<h2 id="details-title">Reservation Details</h2>
-<div class="detail"><span class="label">Region</span><strong id="region">—</strong></div>
-<div class="detail"><span class="label">Accommodation</span><strong id="accommodation">—</strong></div>
-<div class="detail"><span class="label">Check-in</span><strong id="check-in">—</strong></div>
-<div class="detail"><span class="label">Check-out</span><strong id="check-out">—</strong></div>
-<div class="detail"><span class="label">Number of Nights</span><strong id="nights">—</strong></div>
-<div class="detail"><span class="label">Adults</span><strong id="adults">—</strong></div>
-<div class="detail"><span class="label">Children</span><strong id="children">—</strong></div>
-<div class="detail" id="duration-row" style="display:none"><span class="label">Rental Duration</span><strong id="boat-duration">—</strong></div>
-<div class="total-box">
-<div class="total-row"><span>Total Bill</span><strong class="total" id="total">USD 0.00</strong></div>
-<div class="total-row"><span>50% Reservation Deposit</span><strong class="deposit" id="deposit">USD 0.00</strong></div>
-</div>
-<div class="notice">Your booking reference is ready. Please review your reservation details and provide accurate contact information so our team can assist you with the next steps.</div>
-</div>
-
-<section class="client-details" id="customer-save-section">
-<p class="section-kicker">One last step</p>
-<h2 id="contact-title">Your Contact Details</h2>
-<div class="field">
-<label for="reservation-client-name">Full Name</label>
-<input id="reservation-client-name" type="text" autocomplete="name" placeholder="Enter your full name">
-</div>
-<div class="field">
-<label for="reservation-client-phone">Phone Number</label>
-<input id="reservation-client-phone" type="tel" autocomplete="tel" placeholder="Enter your phone number">
-</div>
-<div class="field">
-<label for="reservation-client-email">Email Address</label>
-<input id="reservation-client-email" type="email" autocomplete="email" placeholder="Enter your email address">
-</div>
-<button id="save-customer-details" type="button" class="save-btn" style="margin-top:18px;">Save Customer Details</button>
-<div id="customer-save-message" style="margin-top:12px;font-weight:bold;"></div>
-</section>
-
-<section class="payment-request-section" id="payment-request-section">
-<p class="section-kicker">Next step</p>
-<h2 id="next-step-title">Request Payment Details</h2>
-<p>After saving your contact information, submit a payment-details request. Our team will review your reservation and contact you by email with the next steps and payment instructions. Your reservation is not fully confirmed until availability and arrangements have been reviewed by our team.</p>
-<button id="request-payment-details" type="button" class="request-btn">Send Payment Request</button>
-<div id="payment-request-message" style="margin-top:14px;font-weight:bold;line-height:1.5;"></div>
-<div class="support-line">Need assistance? <a href="mailto:exumaaccomodations@gmail.com" style="color:var(--teal);text-decoration:none;font-weight:700">Contact our team</a></div>
-</section>
-
-</div>
-
-<div id="error" class="card error" style="display:none;">
-<h2>Reservation Not Found</h2>
-<p id="error-message">We could not locate the reservation details associated with this link. Please return to the accommodation listing and start the reservation again, or contact our team for assistance.</p>
-<p style="margin-top:18px;"><a href="index.html" style="color:#006d77;font-weight:600;text-decoration:none;">← Return to accommodations</a></p>
-</div>
-
-<div class="footer">
-© 2026 Exuma Sport Coast Service · Exuma, Bahamas<br>
-<a href="mailto:exumaaccomodations@gmail.com">Help / Support</a>
-</div>
-
-</div>
-
 <script>
-const API_BASE = "https://exuma-cays-guide-api-gnhl.onrender.com";
-</script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
 "use strict";
+const API_BASE = "https://exuma-cays-guide-api-gnhl.onrender.com";
+document.addEventListener("DOMContentLoaded", function () {
+  var params = new URLSearchParams(window.location.search);
+  var loading = document.getElementById("loading"), content = document.getElementById("reservation-content");
+  var errorBox = document.getElementById("error"), errorMsg = document.getElementById("error-message");
+  var nameInput = document.getElementById("reservation-client-name"), phoneInput = document.getElementById("reservation-client-phone");
+  var emailInput = document.getElementById("reservation-client-email"), saveBtn = document.getElementById("save-customer-details");
+  var saveMsg = document.getElementById("customer-save-message"), requestBtn = document.getElementById("request-payment-details");
+  var requestMsg = document.getElementById("payment-request-message"), currentNumber = "", creating = false;
+  var isBoat = pick("type").toLowerCase() === "boat" || pick("accommodation").toLowerCase() === "boat rental";
 
-var params = new URLSearchParams(window.location.search);
-
-var loading = document.getElementById("loading");
-var content = document.getElementById("reservation-content");
-var errorBox = document.getElementById("error");
-var errorMsg = document.getElementById("error-message");
-
-var nameInput  = document.getElementById("reservation-client-name");
-var phoneInput = document.getElementById("reservation-client-phone");
-var emailInput = document.getElementById("reservation-client-email");
-
-var saveBtn    = document.getElementById("save-customer-details");
-var saveMsg    = document.getElementById("customer-save-message");
-var requestBtn = document.getElementById("request-payment-details");
-var requestMsg = document.getElementById("payment-request-message");
-
-var currentNumber = "";
-var creating = false;
-var isBoat = (params.get("type") || "").toLowerCase() === "boat" ||
-             (params.get("accommodation") || "").toLowerCase() === "boat rental";
-
-function pick() {
-    for (var i = 0; i < arguments.length; i++) {
-        var v = params.get(arguments[i]);
-        if (v && v.trim()) return v.trim();
-    }
+  function pick() {
+    for (var i=0;i<arguments.length;i++) { var v=params.get(arguments[i]); if(v && v.trim()) return v.trim(); }
     return "";
-}
+  }
+  var urlName=pick("name","client_name","fullname","full_name"), urlPhone=pick("phone","client_phone","telephone","mobile"), urlEmail=pick("email","client_email","e-mail");
+  if(urlName) nameInput.value=urlName; if(urlPhone) phoneInput.value=urlPhone; if(urlEmail) emailInput.value=urlEmail;
 
-/* Info the user already typed on reserve.html */
-var urlName  = pick("name", "client_name", "fullname", "full_name");
-var urlPhone = pick("phone", "client_phone", "telephone", "mobile");
-var urlEmail = pick("email", "client_email", "e-mail");
+  function setText(id,value) { var el=document.getElementById(id); if(el) el.textContent=(value===undefined||value===null||value==="")?"—":String(value); }
+  function showLoading(message) { loading.textContent=message||"Loading..."; loading.style.display="block"; errorBox.style.display="none"; content.style.display="none"; }
+  function showError(message,heading) { console.error("RESERVATION ERROR:",message); loading.style.display="none"; content.style.display="none"; errorBox.style.display="block"; var h=errorBox.querySelector("h2"); if(h&&heading) h.textContent=heading; errorMsg.textContent=message; }
 
-/* Pre-fill the form immediately, before the API responds */
-if (nameInput  && urlName)  nameInput.value  = urlName;
-if (phoneInput && urlPhone) phoneInput.value = urlPhone;
-if (emailInput && urlEmail) emailInput.value = urlEmail;
-
-function setText(id, value) {
-    var el = document.getElementById(id);
-    if (!el) return;
-    el.textContent = (value === undefined || value === null || value === "") ? "—" : String(value);
-}
-
-function showLoading(msg) {
-    if (loading) { loading.textContent = msg || "Loading..."; loading.style.display = "block"; }
-    if (errorBox) errorBox.style.display = "none";
-    if (content) content.style.display = "none";
-}
-
-function showError(msg, heading) {
-    console.error("RESERVATION ERROR:", msg);
-    if (loading) loading.style.display = "none";
-    if (content) content.style.display = "none";
-    if (errorBox) {
-        errorBox.style.display = "block";
-        var h = errorBox.querySelector("h2");
-        if (h && heading) h.textContent = heading;
-        if (errorMsg) errorMsg.textContent = msg;
+  async function readResponse(response,context) {
+    var raw=await response.text(), body;
+    try { body=raw?JSON.parse(raw):{}; }
+    catch(e) {
+      console.error(context+": server returned non-JSON",{status:response.status,url:response.url,contentType:response.headers.get("content-type"),responsePreview:raw.slice(0,500)});
+      throw new Error("The server returned an unexpected page instead of JSON (HTTP "+response.status+").");
     }
-}
-
-function fillFields(name, phone, email) {
-    if (nameInput  && name  && !nameInput.value)  nameInput.value  = name;
-    if (phoneInput && phone && !phoneInput.value) phoneInput.value = phone;
-    if (emailInput && email && !emailInput.value) emailInput.value = email;
-}
-
-function displayReservation(data) {
-    console.log("RESERVATION DATA:", data);
-    currentNumber = data.reservation_number || "";
-
-    setText("reservation-number", data.reservation_number);
-    setText("region", data.region);
-    setText("accommodation", data.accommodation);
-    setText("check-in", data.check_in);
-    setText("check-out", data.check_out);
-    setText("nights", data.nights);
-    setText("adults", data.adults);
-    setText("children", data.children);
-
-    var total = Number(data.price) || 0;
-    setText("total", "USD " + total.toFixed(2));
-    setText("deposit", "USD " + (total * 0.50).toFixed(2));
-
-    /* Fill form from API (only if the field is still empty) */
-    fillFields(data.client_name, data.client_phone, data.client_email);
-
-    if (loading) loading.style.display = "none";
-    if (errorBox) errorBox.style.display = "none";
-    if (content) content.style.display = "block";
-}
-
-function loadReservation(number) {
+    if(!response.ok) throw new Error(body.error||body.message||context+" failed (HTTP "+response.status+").");
+    return body;
+  }
+  function fillFields(name,phone,email) { if(name&&!nameInput.value)nameInput.value=name; if(phone&&!phoneInput.value)phoneInput.value=phone; if(email&&!emailInput.value)emailInput.value=email; }
+  function displayReservation(data) {
+    console.log("RESERVATION DATA:",data); currentNumber=data.reservation_number||"";
+    setText("reservation-number",data.reservation_number); setText("region",data.region); setText("accommodation",data.accommodation);
+    setText("check-in",data.check_in); setText("check-out",data.check_out); setText("nights",data.nights); setText("adults",data.adults); setText("children",data.children);
+    var total=Number(data.price)||0; setText("total","USD "+total.toFixed(2)); setText("deposit","USD "+(total*.5).toFixed(2));
+    fillFields(data.client_name,data.client_phone,data.client_email); loading.style.display="none"; errorBox.style.display="none"; content.style.display="block";
+  }
+  async function loadReservation(number) {
     showLoading("Loading reservation details...");
-    fetch(API_BASE + "/reservation-data/" + encodeURIComponent(number) + "?t=" + Date.now(),
-        { method: "GET", cache: "no-store", headers: { "Accept": "application/json" } })
-    .then(function (r) {
-        if (!r.ok) throw new Error("Reservation could not be found (HTTP " + r.status + ")");
-        return r.json();
-    })
-    .then(displayReservation)
-    .catch(function (err) { showError(err.message, "Reservation Not Found"); });
-}
+    var r=await fetch(API_BASE+"/reservation-data/"+encodeURIComponent(number)+"?t="+Date.now(),{method:"GET",cache:"no-store",headers:{"Accept":"application/json"}});
+    displayReservation(await readResponse(r,"Loading reservation"));
+  }
+  async function createReservation() {
+    if(creating)return;
+    var region=pick("region"), accommodation=pick("accommodation"), checkIn=pick("checkin","check_in","check-in"), checkOut=pick("checkout","check_out","check-out");
+    var nightlyPrice=Number(params.get("price"))||0, adults=Number(params.get("adults"))||1, children=Number(params.get("children"))||0;
+    if(!region||!accommodation||!checkIn||!checkOut) { showError("We could not find booking information in this link. Please start your booking from the accommodation page using the Reserve Accommodation button.","Reservation Information Missing"); return; }
+    var start=new Date(checkIn+"T00:00:00"), end=new Date(checkOut+"T00:00:00"), nights=Math.round((end-start)/86400000);
+    if(!Number.isFinite(nights)||nights<=0) { showError("Check-out must be after check-in.","Invalid Dates"); return; }
+    var fd=new URLSearchParams();
+    fd.set("region",region); fd.set("accommodation",accommodation); fd.set("check_in",checkIn); fd.set("check_out",checkOut);
+    fd.set("adults",String(adults)); fd.set("children",String(children)); fd.set("price",(nightlyPrice*nights).toFixed(2));
+    if(urlName)fd.set("client_name",urlName); if(urlPhone)fd.set("client_phone",urlPhone); if(urlEmail)fd.set("client_email",urlEmail);
+    creating=true; showLoading("Creating your reservation...");
+    try {
+      var response=await fetch(API_BASE+"/reserve",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded","Accept":"application/json"},body:fd.toString()});
+      if(!response.ok)throw new Error("Reservation server returned HTTP "+response.status+".");
+      var match=response.url.match(/\/reservation\/([^/?#]+)/i);
+      if(!match)throw new Error("The server did not return a reservation number. Please contact our team before submitting again.");
+      var number=decodeURIComponent(match[1]);
+      var detailResponse=await fetch(API_BASE+"/reservation-data/"+encodeURIComponent(number)+"?t="+Date.now(),{method:"GET",cache:"no-store",headers:{"Accept":"application/json"}});
+      displayReservation(await readResponse(detailResponse,"Loading newly created reservation"));
+    } catch(err) { showError(err.message||"An unexpected error occurred.","Could Not Create Reservation"); }
+    finally { creating=false; }
+  }
+  function getCustomerDetails(){return{name:nameInput.value.trim(),phone:phoneInput.value.trim(),email:emailInput.value.trim()};}
+  function postForm(url,fd,context){return fetch(url,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded","Accept":"application/json"},body:fd.toString()}).then(function(r){return readResponse(r,context);}).then(function(body){if(body.success===false)throw new Error(body.error||body.message||context+" failed.");return body;});}
 
-function createReservation() {
-    if (creating) return;
+  saveBtn.addEventListener("click",async function(){
+    if(!currentNumber){saveMsg.style.color="#b00020";saveMsg.textContent="Please wait for the reservation number to load.";return;}
+    var d=getCustomerDetails();
+    if(!d.name||!d.phone||!d.email||!emailInput.checkValidity()){saveMsg.style.color="#b00020";saveMsg.textContent="Please enter your name, phone number and a valid email address.";return;}
+    var fd=new URLSearchParams();fd.set("client_name",d.name);fd.set("client_phone",d.phone);fd.set("client_email",d.email);
+    saveBtn.disabled=true;saveBtn.textContent="Saving...";saveMsg.textContent="";
+    try{var body=await postForm(API_BASE+"/update-customer/"+encodeURIComponent(currentNumber),fd,"Saving customer details");saveMsg.style.color="#0a7d28";saveMsg.textContent=body.message||"Customer details saved successfully.";saveBtn.textContent="Details Saved";}
+    catch(err){saveMsg.style.color="#b00020";saveMsg.textContent="Unable to save customer details: "+err.message;saveBtn.disabled=false;saveBtn.textContent="Save Customer Details";}
+  });
 
-    var region        = pick("region");
-    var accommodation = pick("accommodation");
-    var checkIn       = pick("checkin", "check_in", "check-in");
-    var checkOut      = pick("checkout", "check_out", "check-out");
-    var nightlyPrice  = Number(params.get("price")) || 0;
-    var adults        = Number(params.get("adults"))   || 1;
-    var children      = Number(params.get("children")) || 0;
+  function boatInfo(){
+    var unit=pick("duration_unit")||"hours",duration=Math.max(1,Number(pick("duration"))||1),adults=Math.max(1,Number(pick("adults"))||1),children=Math.max(0,Number(pick("children"))||0);
+    return{boat:pick("boat","boat_type")||"Boat rental (type to be confirmed)",region:pick("region")||"Exuma",
+      startDate:pick("start_date","date","checkin","check_in")||"Not specified",endDate:pick("end_date","checkout","check_out")||"Not specified",
+      duration:duration,unit:unit,adults:adults,children:children,guests:adults+children,pickup:pick("pickup_location","location")||pick("region")||"Exuma"};
+  }
+  function boatMailto(d,b){
+    var subject="Boat Rental Enquiry - Exuma Sport Coast Service";
+    var message=["Hello Exuma Sport Coast Service,","","I would like to enquire about a boat rental.","Name: "+d.name,"Phone: "+d.phone,"Email: "+d.email,
+      "Boat: "+b.boat,"Region: "+b.region,"Preferred start date: "+b.startDate,"Preferred end date: "+b.endDate,
+      "Duration: "+b.duration+" "+b.unit,"Adults: "+b.adults,"Children: "+b.children,"Pickup location: "+b.pickup,"",
+      "Please confirm availability and provide a quotation."].join("\n");
+    return"mailto:exumaaccomodations@gmail.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(message);
+  }
 
-    if (!region || !accommodation || !checkIn || !checkOut) {
-        showError("We could not find any booking information in your link. Please start your booking from the accommodation page by clicking the \u201CReserve Accommodation\u201D button.", "Reservation Information Missing");
-        return;
+  requestBtn.addEventListener("click",async function(){
+    var d=getCustomerDetails();
+    if(!d.name||!d.phone||!d.email||!emailInput.checkValidity()){
+      requestMsg.style.color="#b42332";requestMsg.textContent="Please enter your name, phone number and a valid email address before continuing.";return;
     }
+    if(isBoat){
+      var b=boatInfo();requestBtn.disabled=true;requestBtn.textContent="Sending Enquiry...";
+      requestMsg.style.color="#023047";requestMsg.textContent="Sending your enquiry. Please wait...";
+      try{
+        var response=await fetch(API_BASE+"/boat-enquiry",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},
+          body:JSON.stringify({name:d.name,phone:d.phone,email:d.email,boat:b.boat,region:b.region,start_date:b.startDate,end_date:b.endDate,
+            duration:b.duration+" "+b.unit,guests:String(b.guests),pickup_location:b.pickup,
+            message:"Adults: "+b.adults+"; Children: "+b.children+"; Requested duration: "+b.duration+" "+b.unit+". Please confirm availability and provide a quotation."})});
+        var body=await readResponse(response,"Sending boat enquiry");
+        if(body.success===false)throw new Error(body.error||body.message||"The server could not send your enquiry.");
+        requestMsg.style.color="var(--success)";requestMsg.textContent=body.message||"Your boat rental enquiry has been sent. Our team will contact you soon.";
+        requestBtn.textContent="Enquiry Sent";return;
+      }catch(err){
+        console.error("BOAT ENQUIRY ERROR:",err);requestMsg.style.color="#b42332";
+        requestMsg.textContent="Online submission failed: "+(err.message||"Unknown error")+". You can send your enquiry by email instead.";
+        var link=document.createElement("a");link.className="fallback-link";link.href=boatMailto(d,b);link.textContent="Send your enquiry by email";
+        requestMsg.appendChild(document.createElement("br"));requestMsg.appendChild(link);
+        requestBtn.disabled=false;requestBtn.textContent="Try Boat Enquiry Again";return;
+      }
+    }
+    if(!currentNumber){requestMsg.style.color="#b00020";requestMsg.textContent="Please wait for the reservation number to load.";return;}
+    requestBtn.disabled=true;requestBtn.textContent="Saving Details...";requestMsg.textContent="";
+    var fd=new URLSearchParams();fd.set("client_name",d.name);fd.set("client_phone",d.phone);fd.set("client_email",d.email);
+    try{
+      await postForm(API_BASE+"/update-customer/"+encodeURIComponent(currentNumber),fd,"Saving customer details");
+      requestBtn.textContent="Sending Request...";
+      var r=await fetch(API_BASE+"/request-payment-details/"+encodeURIComponent(currentNumber),{method:"POST",headers:{"Accept":"application/json"}});
+      var body=await readResponse(r,"Sending payment request");
+      if(body.success===false)throw new Error(body.error||body.message||"Unable to send payment request.");
+      requestMsg.style.color="var(--success)";requestMsg.textContent=body.message||"Payment request sent successfully. The company will review your reservation and reply with payment details.";
+      requestBtn.textContent="Request Sent";
+    }catch(err){console.error("PAYMENT REQUEST ERROR:",err);requestMsg.style.color="#b00020";requestMsg.textContent="Unable to send the payment request: "+err.message;requestBtn.disabled=false;requestBtn.textContent="Send Payment Request";}
+  });
 
-    var start  = new Date(checkIn + "T00:00:00");
-    var end    = new Date(checkOut + "T00:00:00");
-    var nights = Math.round((end - start) / (1000 * 60 * 60 * 24));
-    if (nights <= 0) { showError("Check-out must be after check-in.", "Invalid Dates"); return; }
-
-    var total = nightlyPrice * nights;
-
-    var fd = new URLSearchParams();
-    fd.set("region", region);
-    fd.set("accommodation", accommodation);
-    fd.set("check_in", checkIn);
-    fd.set("check_out", checkOut);
-    fd.set("adults", adults);
-    fd.set("children", children);
-    fd.set("price", total.toFixed(2));
-
-    /* Send the customer info the user already typed */
-    if (urlName)  fd.set("client_name", urlName);
-    if (urlPhone) fd.set("client_phone", urlPhone);
-    if (urlEmail) fd.set("client_email", urlEmail);
-
-    creating = true;
-    showLoading("Creating your reservation...");
-
-    fetch(API_BASE + "/reserve", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: fd.toString()
-    })
-    .then(function (response) {
-        if (!response.ok) throw new Error("Server returned HTTP " + response.status);
-        var match = response.url.match(/\/reservation\/([^/?#]+)/i);
-        if (!match) throw new Error("Reservation number was not returned by the server.");
-        var number = decodeURIComponent(match[1]);
-        console.log("RESERVATION CREATED:", number);
-        return fetch(API_BASE + "/reservation-data/" + encodeURIComponent(number) + "?t=" + Date.now(),
-            { method: "GET", cache: "no-store", headers: { "Accept": "application/json" } });
-    })
-    .then(function (r) {
-        if (!r.ok) throw new Error("Reservation was created, but details could not be loaded.");
-        return r.json();
-    })
-    .then(displayReservation)
-    .catch(function (err) { showError(err.message, "Could Not Create Reservation"); })
-    .finally(function () { creating = false; });
-}
-
-if (saveBtn) {
-    saveBtn.addEventListener("click", function () {
-        if (!currentNumber) { saveMsg.style.color = "#b00020"; saveMsg.textContent = "Please wait for the reservation number to load."; return; }
-        var name  = nameInput  ? nameInput.value.trim()  : "";
-        var phone = phoneInput ? phoneInput.value.trim() : "";
-        var email = emailInput ? emailInput.value.trim() : "";
-        if (!name || !phone || !email) { saveMsg.style.color = "#b00020"; saveMsg.textContent = "Please enter your name, phone number and email."; return; }
-
-        var fd = new URLSearchParams();
-        fd.set("client_name", name); fd.set("client_phone", phone); fd.set("client_email", email);
-
-        saveBtn.disabled = true; saveBtn.textContent = "Saving...";
-        saveMsg.style.color = "#023047"; saveMsg.textContent = "";
-
-        fetch(API_BASE + "/update-customer/" + encodeURIComponent(currentNumber),
-            { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: fd.toString() })
-        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
-        .then(function (res) {
-            if (!res.ok || !res.body.success) throw new Error(res.body.error || "Unable to save details.");
-            saveMsg.style.color = "#0a7d28";
-            saveMsg.textContent = "Customer details saved successfully.";
-            saveBtn.textContent = "Details Saved";
-        })
-        .catch(function (err) {
-            saveMsg.style.color = "#b00020";
-            saveMsg.textContent = "Unable to save customer details: " + err.message;
-            saveBtn.disabled = false; saveBtn.textContent = "Save Customer Details";
-        });
-    });
-}
-
-if (requestBtn) {
-    requestBtn.addEventListener("click", function () {
-        if (isBoat) {
-            var boatName = nameInput ? nameInput.value.trim() : "";
-            var boatPhone = phoneInput ? phoneInput.value.trim() : "";
-            var boatEmail = emailInput ? emailInput.value.trim() : "";
-            if (!boatName || !boatPhone || !boatEmail) {
-                requestMsg.style.color = "#b42332";
-                requestMsg.textContent = "Please enter your name, phone number and email before sending your enquiry.";
-                return;
-            }
-            var boatUnit = pick("duration_unit") || "hours";
-            var boatDuration = Math.max(1, Number(pick("duration")) || 1);
-            var boatGuests = Math.max(1, Number(pick("adults")) || 1) + Math.max(0, Number(pick("children")) || 0);
-
-            requestBtn.disabled = true;
-            requestBtn.textContent = "Sending Enquiry...";
-            requestMsg.style.color = "#023047";
-            requestMsg.textContent = "Sending your enquiry securely. Please wait...";
-
-            fetch(API_BASE + "/boat-enquiry", {
-                method: "POST",
-                headers: { "Content-Type": "application/json", "Accept": "application/json" },
-                body: JSON.stringify({
-                    name: boatName,
-                    phone: boatPhone,
-                    email: boatEmail,
-                    boat: pick("boat", "boat_type") || "Boat rental (type to be confirmed)",
-                    region: pick("region") || "Exuma",
-                    start_date: pick("start_date", "date", "checkin", "check_in") || "Not specified",
-                    end_date: pick("end_date", "checkout", "check_out") || "Not specified",
-                    duration: boatDuration + " " + boatUnit,
-                    guests: String(boatGuests),
-                    pickup_location: pick("pickup_location", "location") || pick("region") || "Exuma",
-                    message: "Adults: " + Math.max(1, Number(pick("adults")) || 1) +
-                        "; Children: " + Math.max(0, Number(pick("children")) || 0) +
-                        "; Requested duration: " + boatDuration + " " + boatUnit +
-                        ". Please confirm availability and provide a quotation."
-                })
-            })
-            .then(function (response) {
-                return response.json().then(function (body) {
-                    if (!response.ok || !body.success) {
-                        throw new Error(body.error || "The server could not send your enquiry.");
-                    }
-                    return body;
-                });
-            })
-            .then(function (body) {
-                requestMsg.style.color = "#087f5b";
-                requestMsg.textContent = body.message || "Your boat rental enquiry has been sent. Our team will contact you soon.";
-                requestBtn.textContent = "Enquiry Sent";
-            })
-            .catch(function (err) {
-                console.error("BOAT ENQUIRY ERROR:", err);
-                requestMsg.style.color = "#b42332";
-                requestMsg.textContent = "We could not send your enquiry. Please try again shortly. " + err.message;
-                requestBtn.disabled = false;
-                requestBtn.textContent = "Send Boat Rental Enquiry";
-            });
-            return;
-        }
-        if (!currentNumber) { requestMsg.style.color = "#b00020"; requestMsg.textContent = "Please wait for the reservation number to load."; return; }
-        var name  = nameInput  ? nameInput.value.trim()  : "";
-        var phone = phoneInput ? phoneInput.value.trim() : "";
-        var email = emailInput ? emailInput.value.trim() : "";
-        if (!name || !phone || !email) { requestMsg.style.color = "#b00020"; requestMsg.textContent = "Please enter your name, phone number and email before requesting payment details."; return; }
-
-        requestBtn.disabled = true; requestBtn.textContent = "Saving Details..."; requestMsg.textContent = "";
-
-        var fd = new URLSearchParams();
-        fd.set("client_name", name); fd.set("client_phone", phone); fd.set("client_email", email);
-
-        fetch(API_BASE + "/update-customer/" + encodeURIComponent(currentNumber),
-            { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: fd.toString() })
-        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
-        .then(function (res) {
-            if (!res.ok || !res.body.success) throw new Error(res.body.error || "Unable to save customer details.");
-            requestBtn.textContent = "Sending Request...";
-            return fetch(API_BASE + "/request-payment-details/" + encodeURIComponent(currentNumber), { method: "POST" });
-        })
-        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, body: j }; }); })
-        .then(function (res) {
-            if (!res.ok || !res.body.success) throw new Error(res.body.error || "Unable to send payment request.");
-            requestMsg.style.color = "#087f5b";
-            requestMsg.textContent = "✓ Payment request sent successfully. The company will review your reservation and reply with payment details.";
-            requestBtn.textContent = "Request Sent";
-        })
-        .catch(function (err) {
-            console.error("PAYMENT REQUEST ERROR:", err);
-            requestMsg.style.color = "#b00020";
-            requestMsg.textContent = "Unable to send the payment request. " + err.message;
-            requestBtn.disabled = false; requestBtn.textContent = "Send Payment Request";
-        });
-    });
-}
-
-isBoat = (pick("type").toLowerCase() === "boat") ||
-         (pick("accommodation").toLowerCase() === "boat rental");
-
-if (isBoat) {
-    var unit = pick("duration_unit") || "hours";
-    var duration = Math.max(1, Number(pick("duration")) || 1);
-    var regionName = pick("region").replace(/-/g, " ").replace(/\\b\\w/g, function (c) { return c.toUpperCase(); }) || "Exuma";
-    setText("reservation-number", "BOAT ENQUIRY");
-    setText("region", regionName);
-    setText("accommodation", "Boat Rental");
-    setText("adults", Math.max(1, Number(pick("adults")) || 1));
-    setText("children", Math.max(0, Number(pick("children")) || 0));
-    setText("boat-duration", duration + " " + unit + (duration === 1 ? "" : ""));
-    document.getElementById("duration-row").style.display = "flex";
-    document.getElementById("check-in").closest(".detail").style.display = "none";
-    document.getElementById("check-out").closest(".detail").style.display = "none";
-    document.getElementById("nights").closest(".detail").style.display = "none";
-    document.querySelector(".total-box").style.display = "none";
-    document.querySelector(".notice").textContent = "Your request is an enquiry only and does not constitute a confirmed boat booking. Please provide accurate contact details and submit your request. Our team will review the preferred region, rental duration and group size, then follow up regarding availability and a quotation.";
-    document.getElementById("page-title").textContent = "Your Boat Rental Enquiry";
-    document.getElementById("details-title").textContent = "Boat Rental Details";
-    document.getElementById("contact-title").textContent = "Your Contact Details";
-    document.getElementById("next-step-title").textContent = "Send Your Enquiry";
-    document.querySelector("#payment-request-section p").textContent = "Please review your boat-rental preferences and contact details before submitting your enquiry. Our team will assess your requested region, rental duration and group size, then follow up with availability, relevant details and a quotation. Submission does not guarantee availability or confirm a booking.";
-    saveBtn.style.display = "none";
-    requestBtn.textContent = "Send Boat Rental Enquiry";
-    content.style.display = "block";
-    loading.style.display = "none";
-    return;
-}
-
-var existing = (params.get("reservation") || params.get("ref") || params.get("reference") || "").trim();
-if (existing) { loadReservation(existing); return; }
-createReservation();
+  if(isBoat){
+    var b=boatInfo(),regionName=b.region.replace(/-/g," ").replace(/\b\w/g,function(c){return c.toUpperCase();});
+    setText("reservation-number","BOAT ENQUIRY");setText("region",regionName);setText("accommodation","Boat Rental");
+    setText("adults",b.adults);setText("children",b.children);setText("boat-duration",b.duration+" "+b.unit);
+    document.getElementById("duration-row").style.display="grid";
+    document.getElementById("check-in").closest(".detail").style.display="none";
+    document.getElementById("check-out").closest(".detail").style.display="none";
+    document.getElementById("nights").closest(".detail").style.display="none";
+    document.querySelector(".total-box").style.display="none";
+    document.querySelector(".notice").textContent="This is an enquiry only and does not constitute a confirmed boat booking. Our team will review your preferred region, rental duration and group size, then follow up regarding availability and a quotation.";
+    document.getElementById("page-title").textContent="Your Boat Rental Enquiry";
+    document.getElementById("details-title").textContent="Boat Rental Details";
+    document.getElementById("next-step-title").textContent="Send Your Enquiry";
+    document.getElementById("request-description").textContent="Review your boat-rental preferences and contact details before submitting. Our team will assess your requested region, rental duration and group size, then follow up with availability and a quotation. Submission does not guarantee availability or confirm a booking.";
+    saveBtn.style.display="none";requestBtn.textContent="Send Boat Rental Enquiry";content.style.display="block";loading.style.display="none";return;
+  }
+  var existing=(params.get("reservation")||params.get("ref")||params.get("reference")||"").trim();
+  if(existing){loadReservation(existing).catch(function(err){showError(err.message||"We could not load this reservation.","Reservation Not Found");});return;}
+  createReservation();
 });
 </script>
-
 </body>
 </html>
