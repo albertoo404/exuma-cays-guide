@@ -363,27 +363,53 @@ if (requestBtn) {
             }
             var boatUnit = pick("duration_unit") || "hours";
             var boatDuration = Math.max(1, Number(pick("duration")) || 1);
-            var boatSubject = "Boat Rental Enquiry - Exuma Sport Coast Service";
-            var boatBody = [
-                "Hello Exuma Sport Coast Service,",
-                "",
-                "I would like to enquire about renting a boat in Exuma.",
-                "",
-                "Name: " + boatName,
-                "Phone: " + boatPhone,
-                "Email: " + boatEmail,
-                "Region: " + (pick("region") || "Exuma"),
-                "Duration: " + boatDuration + " " + boatUnit,
-                "Adults: " + (Math.max(1, Number(pick("adults")) || 1)),
-                "Children: " + (Math.max(0, Number(pick("children")) || 0)),
-                "",
-                "Please confirm availability and provide a quote.",
-                "",
-                "Thank you."
-            ].join("\\n");
-            window.location.href = "mailto:exumaaccomodations@gmail.com?subject=" + encodeURIComponent(boatSubject) + "&body=" + encodeURIComponent(boatBody);
-            requestMsg.style.color = "#087f8c";
-            requestMsg.textContent = "Your email app should open with the enquiry prepared. Please review it and press Send to contact our team.";
+            var boatGuests = Math.max(1, Number(pick("adults")) || 1) + Math.max(0, Number(pick("children")) || 0);
+
+            requestBtn.disabled = true;
+            requestBtn.textContent = "Sending Enquiry...";
+            requestMsg.style.color = "#023047";
+            requestMsg.textContent = "Sending your enquiry securely. Please wait...";
+
+            fetch(API_BASE + "/boat-enquiry", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                body: JSON.stringify({
+                    name: boatName,
+                    phone: boatPhone,
+                    email: boatEmail,
+                    boat: pick("boat", "boat_type") || "Boat rental (type to be confirmed)",
+                    region: pick("region") || "Exuma",
+                    start_date: pick("start_date", "date", "checkin", "check_in") || "Not specified",
+                    end_date: pick("end_date", "checkout", "check_out") || "Not specified",
+                    duration: boatDuration + " " + boatUnit,
+                    guests: String(boatGuests),
+                    pickup_location: pick("pickup_location", "location") || pick("region") || "Exuma",
+                    message: "Adults: " + Math.max(1, Number(pick("adults")) || 1) +
+                        "; Children: " + Math.max(0, Number(pick("children")) || 0) +
+                        "; Requested duration: " + boatDuration + " " + boatUnit +
+                        ". Please confirm availability and provide a quotation."
+                })
+            })
+            .then(function (response) {
+                return response.json().then(function (body) {
+                    if (!response.ok || !body.success) {
+                        throw new Error(body.error || "The server could not send your enquiry.");
+                    }
+                    return body;
+                });
+            })
+            .then(function (body) {
+                requestMsg.style.color = "#087f5b";
+                requestMsg.textContent = body.message || "Your boat rental enquiry has been sent. Our team will contact you soon.";
+                requestBtn.textContent = "Enquiry Sent";
+            })
+            .catch(function (err) {
+                console.error("BOAT ENQUIRY ERROR:", err);
+                requestMsg.style.color = "#b42332";
+                requestMsg.textContent = "We could not send your enquiry. Please try again shortly. " + err.message;
+                requestBtn.disabled = false;
+                requestBtn.textContent = "Send Boat Rental Enquiry";
+            });
             return;
         }
         if (!currentNumber) { requestMsg.style.color = "#b00020"; requestMsg.textContent = "Please wait for the reservation number to load."; return; }
