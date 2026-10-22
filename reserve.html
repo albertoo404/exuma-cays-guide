@@ -70,7 +70,7 @@ h2{font-family:Georgia,"Times New Roman",serif;font-size:29px;line-height:1.2;fo
 <img src="/images/exumalogo.jpg" alt="Exuma Sport Coast Service">
 <div class="eyebrow">Exuma · Bahamas</div>
 <h1 id="page-title">Complete Your Reservation</h1>
-<p>Exuma Sport Coast Service</p>
+<p class="header-intro">Thoughtfully arranged stays and boat-rental enquiries across the Exuma Cays, with personal assistance from our team at every step.</p>
 <div class="reference">
 Reservation Number<br>
 <strong id="reservation-number">Loading...</strong>
@@ -96,7 +96,7 @@ Reservation Number<br>
 <div class="total-row"><span>Total Bill</span><strong class="total" id="total">USD 0.00</strong></div>
 <div class="total-row"><span>50% Reservation Deposit</span><strong class="deposit" id="deposit">USD 0.00</strong></div>
 </div>
-<div class="notice">Your reservation number has been created. Please review your contact details below.</div>
+<div class="notice">Your booking reference is ready. Please review your reservation details and provide accurate contact information so our team can assist you with the next steps.</div>
 </div>
 
 <section class="client-details" id="customer-save-section">
@@ -121,17 +121,17 @@ Reservation Number<br>
 <section class="payment-request-section" id="payment-request-section">
 <p class="section-kicker">Next step</p>
 <h2 id="next-step-title">Request Payment Details</h2>
-<p>Once you have entered and saved your contact information, you can send a payment request to Exuma Sport Coast Service. The company will review your reservation and reply to your email with the payment instructions.</p>
+<p>After saving your contact information, submit a payment-details request. Our team will review your reservation and contact you by email with the next steps and payment instructions. Your reservation is not fully confirmed until availability and arrangements have been reviewed by our team.</p>
 <button id="request-payment-details" type="button" class="request-btn">Send Payment Request</button>
 <div id="payment-request-message" style="margin-top:14px;font-weight:bold;line-height:1.5;"></div>
-<div class="support-line">Questions? <a href="mailto:exumaaccomodations@gmail.com" style="color:var(--teal);text-decoration:none;font-weight:700">Contact our team</a></div>
+<div class="support-line">Need assistance? <a href="mailto:exumaaccomodations@gmail.com" style="color:var(--teal);text-decoration:none;font-weight:700">Contact our team</a></div>
 </section>
 
 </div>
 
 <div id="error" class="card error" style="display:none;">
 <h2>Reservation Not Found</h2>
-<p id="error-message">Please check your reservation number and try again.</p>
+<p id="error-message">We could not locate the reservation details associated with this link. Please return to the accommodation listing and start the reservation again, or contact our team for assistance.</p>
 <p style="margin-top:18px;"><a href="index.html" style="color:#006d77;font-weight:600;text-decoration:none;">← Return to accommodations</a></p>
 </div>
 
@@ -439,12 +439,12 @@ if (isBoat) {
     document.getElementById("check-out").closest(".detail").style.display = "none";
     document.getElementById("nights").closest(".detail").style.display = "none";
     document.querySelector(".total-box").style.display = "none";
-    document.querySelector(".notice").textContent = "This is a boat-rental enquiry, not a confirmed booking. Share your contact details and send your enquiry so our team can confirm availability and provide a quote.";
+    document.querySelector(".notice").textContent = "Your request is an enquiry only and does not constitute a confirmed boat booking. Please provide accurate contact details and submit your request. Our team will review the preferred region, rental duration and group size, then follow up regarding availability and a quotation.";
     document.getElementById("page-title").textContent = "Your Boat Rental Enquiry";
     document.getElementById("details-title").textContent = "Boat Rental Details";
     document.getElementById("contact-title").textContent = "Your Contact Details";
     document.getElementById("next-step-title").textContent = "Send Your Enquiry";
-    document.querySelector("#payment-request-section p").textContent = "Send your boat-rental enquiry to Exuma Sport Coast Service. Our team will review your requested duration and group size, then respond with availability and a quote.";
+    document.querySelector("#payment-request-section p").textContent = "Please review your boat-rental preferences and contact details before submitting your enquiry. Our team will assess your requested region, rental duration and group size, then follow up with availability, relevant details and a quotation. Submission does not guarantee availability or confirm a booking.";
     saveBtn.style.display = "none";
     requestBtn.textContent = "Send Boat Rental Enquiry";
     content.style.display = "block";
