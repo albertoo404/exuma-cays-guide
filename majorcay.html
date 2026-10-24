@@ -1,326 +1,281 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Major Cay | Pig Beach Exuma</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; line-height: 1.6; color: #023047; background: #f8f9fa; }
-        header { background: #028090; color: white; padding: 2rem 5%; text-align: center; }
-        nav { background: #00a896; padding: 0.8rem 5%; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-        nav a { color: white; text-decoration: none; font-weight: 600; padding: 5px 10px; border-radius: 4px; }
-        nav a:hover, nav a.active { background: #023047; }
-        main { padding: 2rem 5%; max-width: 900px; margin: 0 auto; background: white; border-radius: 8px; margin-top: 1rem; }
-        footer { text-align: center; padding: 2rem; color: #6c757d; }
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#092f3b">
+<meta name="description" content="Discover Big Major Cay and Pig Beach in Exuma, Bahamas, famous for its swimming pigs and turquoise waters.">
+<title>Big Major Cay & Pig Beach | Exuma Sport Coast Service</title>
 <style>
-.company-intro {
-    width: 100%;
-    box-sizing: border-box;
-    background: linear-gradient(135deg, #087b89, #119ca3);
-    border-bottom: 1px solid #08727f;
-    padding: 28px 18px;
+:root{--navy:#092f3b;--teal:#087f8c;--aqua:#b9f4ec;--ink:#183640;--muted:#657a81;--paper:#fff;--pale:#edf7f5;--line:#dce8e6;--width:1180px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:#f7f9f8;color:var(--ink);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.container{width:min(var(--width),calc(100% - 48px));margin:auto}
+.announcement{background:#062731;color:#d8e9e8;font-size:.77rem;letter-spacing:.04em}
+.announcement-inner{min-height:36px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.announcement a{color:var(--aqua);text-decoration:none}
+.site-header{background:#fff;border-bottom:1px solid var(--line)}
+.header-inner{min-height:86px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0}
+.brand-mark{width:45px;height:45px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(145deg,#0c9ba0,var(--navy));color:white;font-size:24px}
+.brand-copy{display:grid;line-height:1.25}
+.brand-copy strong{color:var(--navy);font-size:.96rem;letter-spacing:-.025em}
+.brand-copy small{margin-top:5px;color:var(--muted);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase}
+nav{display:flex;align-items:center;justify-content:flex-end;gap:4px;flex-wrap:wrap}
+nav a{padding:8px 10px;border-radius:99px;text-decoration:none;color:#4e656d;font-size:.8rem;font-weight:650}
+nav a:hover,nav a.active{background:#e8f6f3;color:var(--navy)}
+nav a.cta{background:var(--teal);color:#fff;padding-inline:15px}
+.hero{min-height:490px;display:flex;align-items:flex-end;color:#fff;background:linear-gradient(90deg,rgba(3,28,37,.84),rgba(3,28,37,.37) 65%,rgba(3,28,37,.12)),linear-gradient(0deg,rgba(3,28,37,.5),transparent 70%),url("images/majorcay1.jpg") center 48%/cover no-repeat}
+.hero-content{padding-top:80px;padding-bottom:72px}
+.eyebrow,.kicker{display:block;color:#16828a;font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.hero .eyebrow{color:var(--aqua);margin:0 0 15px}
+.hero h1{max-width:800px;margin:0;font-size:clamp(2.7rem,6vw,5.3rem);line-height:1;letter-spacing:-.055em}
+.hero h1 span{color:var(--aqua)}
+.hero p{max-width:640px;margin:22px 0 0;color:#edf7f6;font-size:1.08rem}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:47px;padding:11px 19px;border-radius:99px;text-decoration:none;font-size:.88rem;font-weight:750;transition:transform .2s,background .2s}
+.button:hover{transform:translateY(-2px)}
+.button-primary{background:var(--aqua);color:var(--navy)}
+.button-ghost{border:1px solid #ffffff88;color:white;background:#ffffff12}
+.highlights{background:white;border-bottom:1px solid var(--line)}
+.highlight-row{display:grid;grid-template-columns:repeat(3,1fr)}
+.highlight{display:flex;align-items:center;gap:13px;padding:21px 24px;border-right:1px solid var(--line)}
+.highlight:first-child{padding-left:0}
+.highlight:last-child{border:0}
+.highlight-icon{width:42px;height:42px;display:grid;place-items:center;flex:0 0 42px;border-radius:14px;background:var(--pale);color:var(--teal);font-size:1.25rem}
+.highlight strong{display:block;color:var(--navy);font-size:.88rem}
+.highlight small{display:block;color:var(--muted);font-size:.77rem}
+main{flex:1}
+.intro{padding:78px 0 44px}
+.kicker{margin-bottom:12px}
+.section-heading{max-width:760px;margin-bottom:30px}
+.section-heading h2,.planning h2{margin:0;color:var(--navy);font-size:clamp(2rem,4vw,3.1rem);line-height:1.12;letter-spacing:-.045em}
+.section-heading>p{margin:16px 0 0;color:var(--muted);font-size:1rem}
+.intro-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:start}
+.intro-copy p{margin:0 0 16px;color:#526971}
+.tip-box{padding:27px;border:1px solid #dcebe8;border-radius:22px;background:linear-gradient(145deg,#edf9f6,#fff)}
+.tip-box h3{margin:0 0 15px;color:var(--navy)}
+.tip-box ul{list-style:none;padding:0;margin:0;display:grid;gap:13px}
+.tip-box li{display:flex;gap:10px;color:#4d666d;font-size:.9rem}
+.check{display:grid;place-items:center;width:22px;height:22px;flex:0 0 22px;border-radius:50%;background:var(--teal);color:white;font-size:.75rem;font-weight:bold}
+.gallery{padding:28px 0 82px}
+.gallery-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:28px}
+.gallery-heading .section-heading{margin:0}
+.gallery-note{max-width:260px;margin:0 0 5px;color:var(--muted);font-size:.84rem}
+.photo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.photo-card{overflow:hidden;border:1px solid #e1e9e7;border-radius:22px;background:white;box-shadow:0 10px 30px #092f3b0b;transition:transform .2s,box-shadow .2s}
+.photo-card:hover{transform:translateY(-4px);box-shadow:0 20px 45px #092f3b18}
+.photo-card img{display:block;width:100%;height:285px;object-fit:cover;background:#dcece9}
+.photo-copy{padding:21px 23px 24px}
+.tag{display:inline-block;padding:4px 9px;margin-bottom:9px;border-radius:99px;background:#e8f7f4;color:#08717a;font-size:.67rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.photo-card h3{margin:0 0 7px;color:var(--navy);font-size:1.2rem}
+.photo-card p{margin:0;color:var(--muted);font-size:.91rem}
+.planning{padding:0 0 82px}
+.planning-card{display:flex;justify-content:space-between;align-items:center;gap:28px;padding:39px 43px;border-radius:26px;background:var(--navy);color:white}
+.planning .kicker{color:var(--aqua)}
+.planning h2{color:white;font-size:clamp(1.8rem,3.5vw,2.55rem)}
+.planning p{max-width:680px;margin:13px 0 0;color:#c6d9db}
+.planning-card .button{white-space:nowrap;flex-shrink:0}
+.company-intro{padding:48px 0;background:#eaf5f3;border-top:1px solid #d9eae6}
+.company-intro h2{margin:0;color:var(--navy);font-size:1.6rem}
+.company-intro p{max-width:900px;margin:12px 0 0;color:#536d74;font-size:.91rem}
+footer{background:#062731;color:#d0e0e1}
+.footer-main{display:grid;grid-template-columns:1fr auto;gap:35px;padding:38px 0 30px}
+.footer-brand{font-weight:750;color:white}
+.footer-main p{margin:8px 0 0;font-size:.85rem}
+.footer-contact a{color:var(--aqua);text-decoration:none}
+.footer-bottom{border-top:1px solid #ffffff20;padding:15px 0;font-size:.75rem}
+.footer-bottom-inner{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+@media(max-width:1000px){
+.header-inner{align-items:flex-start;flex-direction:column;justify-content:center;padding:16px 0;gap:12px}
+nav{justify-content:flex-start}
+.intro-grid{gap:25px}
+.photo-card img{height:250px}
 }
-
-.company-intro-inner {
-    max-width: 1100px;
-    margin: 0 auto;
+@media(max-width:650px){
+.container{width:calc(100% - 32px)}
+.announcement-inner{justify-content:center;text-align:center;min-height:34px}
+.announcement-inner span:first-child{display:none}
+.header-inner{gap:14px}
+.brand-copy strong{font-size:.88rem}
+nav{gap:2px}
+nav a{padding:7px 8px;font-size:.74rem}
+nav a.cta{padding-inline:10px}
+.hero{min-height:490px;background-position:58% center}
+.hero-content{padding:66px 0 48px}
+.hero h1{font-size:clamp(2.65rem,12vw,4rem)}
+.hero p{font-size:.96rem}
+.highlight-row{grid-template-columns:1fr;padding:6px 0}
+.highlight,.highlight:first-child{padding:12px 0;border-right:0;border-bottom:1px solid var(--line)}
+.highlight:last-child{border-bottom:0}
+.intro{padding:58px 0 32px}
+.intro-grid{grid-template-columns:1fr;gap:22px}
+.tip-box{padding:22px}
+.gallery{padding:24px 0 58px}
+.gallery-heading{display:block}
+.gallery-note{margin-top:12px}
+.photo-grid{grid-template-columns:1fr;gap:16px}
+.photo-card img{height:235px}
+.photo-copy{padding:19px 20px 21px}
+.planning{padding-bottom:58px}
+.planning-card{align-items:flex-start;flex-direction:column;padding:28px 23px;gap:22px}
+.company-intro{padding:38px 0}
+.footer-main{grid-template-columns:1fr;gap:20px;padding:30px 0 24px}
+.footer-bottom-inner{display:block}
+.footer-bottom-inner span{display:block;margin-top:4px}
 }
-
-.company-intro h1 {
-    color: #ffffff;
-    margin: 0 0 14px;
-    font-size: 30px;
-    line-height: 1.2;
-}
-
-.company-intro p {
-    color: #ffffff;
-    margin: 0 0 12px;
-    font-size: 15px;
-    line-height: 1.7;
-}
-
-.company-intro p:last-child {
-    margin-bottom: 0;
-}
-
-@media (max-width: 600px) {
-    .company-intro {
-        padding: 22px 15px;
-    }
-
-    .company-intro h1 {
-    color: #ffffff;
-        font-size: 25px;
-    }
-
-    .company-intro p {
-    color: #ffffff;
-        font-size: 14px;
-        line-height: 1.65;
-    }
+@media(prefers-reduced-motion:reduce){
+html{scroll-behavior:auto}
+*,*::before,*::after{transition:none!important}
 }
 </style>
-
-
-<style>
-.major-photo-section {
-    max-width: 1200px;
-    margin: 35px auto;
-    padding: 0 18px;
-}
-
-.major-photo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-}
-
-.major-photo-card {
-    background: #fff;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0,0,0,.12);
-}
-
-.major-photo-card img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    display: block;
-}
-
-.major-photo-card h3 {
-    margin: 0;
-    padding: 16px 18px 6px;
-    color: #007c91;
-}
-
-.major-photo-card p {
-    margin: 0;
-    padding: 0 18px 20px;
-    color: #36515a;
-    line-height: 1.7;
-}
-</style>
-
-
-<style>
-.company-endnote {
-    width: 100%;
-    box-sizing: border-box;
-    background: #023047;
-    color: #ffffff;
-    padding: 40px 20px;
-    margin-top: 50px;
-}
-
-.company-endnote-inner {
-    max-width: 1000px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.company-endnote h2 {
-    margin: 0 0 15px;
-    color: #ffffff;
-    font-size: 27px;
-}
-
-.company-endnote p {
-    margin: 10px auto;
-    max-width: 800px;
-    line-height: 1.7;
-}
-
-.company-endnote a {
-    color: #90e0ef;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.company-endnote a:hover {
-    text-decoration: underline;
-}
-
-.company-endnote .copyright {
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,.25);
-    font-size: 14px;
-    color: #d8eef2;
-}
-</style>
-
-
-
-
-
-
-
-
-<style>
-html, body {
-    background: #ffffff !important;
-}
-
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-.company-footnote {
-    width: 100%;
-    background: #ffffff !important;
-    color: #666666 !important;
-    text-align: center;
-    padding: 12px 10px 8px;
-    margin-top: auto;
-    border-top: 1px solid #eeeeee;
-    font-size: 11px;
-    line-height: 1.45;
-}
-
-.company-footnote p {
-    margin: 2px 0;
-}
-
-.company-footnote strong {
-    color: #444444;
-}
-
-.company-footnote a {
-    color: #007c91;
-    text-decoration: none;
-}
-
-.company-footnote a:hover {
-    text-decoration: underline;
-}
-
-.company-footnote + footer,
-.company-footnote ~ footer {
-    background: #ffffff !important;
-    color: #666666 !important;
-    padding: 8px 10px;
-    margin-top: 0;
-    font-size: 11px;
-}
-</style>
-
 </head>
 <body>
-
-<!-- EXUMA SPORT COAST SERVICE -->
-<section class="company-intro">
-    <div class="company-intro-inner">
-        <h1>Exuma Sport Coast Service</h1>
-
-        <p>
-            <strong>Exuma Sport Coast Service</strong> is the accommodation
-            service featured on this platform, helping visitors discover
-            comfortable places to stay while exploring the beautiful islands
-            and communities of Exuma, Bahamas. Our accommodation selection
-            covers areas including George Town, Moss Town, Staniel Cay,
-            Michelson/Roker's Point and other destinations throughout Exuma.
-        </p>
-
-        <p>
-            Whether you are visiting for a relaxing beach holiday, an island
-            adventure, water activities or a longer stay, Exuma Sport Coast
-            Service provides accommodation options designed to make your
-            Exuma experience convenient and enjoyable. Browse available
-            properties, view their living rooms, bedrooms and bathrooms, and
-            choose the accommodation that best suits your trip.
-        </p>
-    </div>
+<div class="announcement"><div class="container announcement-inner"><span>EXUMA, BAHAMAS · ISLANDS WORTH DISCOVERING</span><span>Questions? <a href="mailto:exumaaccomodations@gmail.com">Contact our team</a></span></div></div>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="index.html" aria-label="Exuma Sport Coast Service home"><span class="brand-mark" aria-hidden="true">⌁</span><span class="brand-copy"><strong>Exuma Sport Coast Service</strong><small>Stay · Explore · Set Sail</small></span></a>
+<nav aria-label="Main navigation">
+<a href="index.html">Exuma Overview</a>
+<a href="majorcay.html" class="active" aria-current="page">Major Cay</a>
+<a href="compasscay.html">Compass Cay</a>
+<a href="stockingisland.html">Stocking Island</a>
+<a href="sandbars.html">Sandbars</a>
+<a href="stanielcay.html">Staniel Cay</a>
+<a href="seapark.html">Sea Park</a>
+<a href="grotto.html">Thunderball Grotto</a>
+<a class="cta" href="accommodations.html">Stay in Exuma ↗</a>
+</nav>
+</div></header>
+<section class="hero">
+<div class="container hero-content">
+<p class="eyebrow">A signature Exuma experience</p>
+<h1>Big Major Cay.<br><span>Unforgettable Pig Beach.</span></h1>
+<p>Meet one of the most famous sights in the Exuma Cays, where white sand, clear turquoise water and the island’s well-known swimming pigs create a memorable stop.</p>
+<div class="actions">
+<a class="button button-primary" href="#discover">Discover Pig Beach ↓</a>
+<a class="button button-ghost" href="accommodations.html">Explore places to stay ↗</a>
+</div>
+</div>
 </section>
-
-
-    <header><h1>Big Major Cay</h1><p>Home of the World-Famous Swimming Pigs</p></header>
-    <nav>
-        <a href="index.html">Exuma Overview</a>
-        <a href="majorcay.html" class="active">Major Cay</a>
-        <a href="compasscay.html">Compass Cay</a>
-        <a href="stockingisland.html">Stocking Island</a>
-        <a href="sandbars.html">Sandbars</a>
-        <a href="stanielcay.html">Staniel Cay</a>
-        <a href="seapark.html">Sea Park</a>
-        <a href="grotto.html">Thunderball Grotto</a>
-    </nav>
-    
+<section class="highlights" aria-label="Destination highlights">
+<div class="container highlight-row">
+<div class="highlight"><span class="highlight-icon">〰</span><div><strong>Turquoise shallows</strong><small>Clear, beautiful Exuma water</small></div></div>
+<div class="highlight"><span class="highlight-icon">⌂</span><div><strong>Iconic Pig Beach</strong><small>A memorable island landmark</small></div></div>
+<div class="highlight"><span class="highlight-icon">◷</span><div><strong>Island-hopping stop</strong><small>Often paired with nearby cays</small></div></div>
+</div>
+</section>
 <main>
-    <h2>Big Major Cay — Pig Beach</h2>
-
-    <p>
-        Big Major Cay is one of the most recognizable destinations in the
-        Exuma Cays. The island is best known for its famous swimming pigs,
-        which have become one of the most memorable attractions for visitors
-        exploring the turquoise waters of Exuma.
-    </p>
-
-    <p>
-        Visitors normally arrive by boat and can spend time around the
-        shoreline, enjoy the clear water, take photographs and observe the
-        pigs as they move along the beach and into the shallow sea.
-    </p>
-
-    <p>
-        The surrounding waters are also ideal for enjoying the natural beauty
-        of the Exuma Cays. A visit to Big Major Cay is commonly combined with
-        other nearby attractions such as Staniel Cay, sandbars and other
-        beautiful islands.
-    </p>
-
-    <section class="major-photo-section">
-        <div class="major-photo-grid">
-
-            <article class="major-photo-card">
-                <img src="images/majorcay1.jpg" alt="Big Major Cay">
-                <h3>Big Major Cay</h3>
-                <p>Discover the beautiful island and its famous shoreline surrounded by clear Exuma water.</p>
-            </article>
-
-            <article class="major-photo-card">
-                <img src="images/majorcay2.jpg" alt="Swimming pigs at Big Major Cay">
-                <h3>Swimming Pigs</h3>
-                <p>See the famous pigs that have made Big Major Cay one of Exuma's most popular attractions.</p>
-            </article>
-
-            <article class="major-photo-card">
-                <img src="images/majorcay3.jpg" alt="Big Major Cay beach">
-                <h3>Pig Beach</h3>
-                <p>Enjoy the white sandy shoreline and shallow turquoise water surrounding the island.</p>
-            </article>
-
-            <article class="major-photo-card">
-                <img src="images/majorcay4.jpg" alt="Big Major Cay turquoise waters">
-                <h3>Exuma Waters</h3>
-                <p>Experience the brilliant turquoise water and peaceful island scenery around Big Major Cay.</p>
-            </article>
-
-        </div>
-    </section>
-</main>
-
-    
-
-
-
-<!-- SMALL EXUMA SPORT COAST FOOTNOTE -->
-<section class="company-footnote">
-    <p>
-        <strong>Exuma Sport Coast Service</strong> · Exuma, Bahamas,
-        opposite the airport ·
-        <a href="mailto:exumaaccomodations@gmail.com">
-            exumaaccomodations@gmail.com
-        </a>
-    </p>
-    <p>© 2026 Exuma Sport Coast Service · All rights reserved.</p>
+<section class="intro" id="discover">
+<div class="container">
+<div class="section-heading">
+<span class="kicker">Discover the destination</span>
+<h2>A small island with a world-famous welcome.</h2>
+<p>Big Major Cay is one of the best-known destinations in the Exuma Cays, celebrated for its swimming pigs and the beautiful shoreline that surrounds them.</p>
+</div>
+<div class="intro-grid">
+<div class="intro-copy">
+<p>Visitors typically arrive by boat and spend time near the beach, enjoying the clear shallows, taking photographs and observing the pigs along the shoreline and in the water. The setting is naturally beautiful, with pale sand and vivid shades of blue stretching around the island.</p>
+<p>A visit to Big Major Cay can also be part of a wider day exploring the Exuma Cays. Many island-hopping routes include nearby Staniel Cay, sandbars and other scenic stops, making it easy to experience several sides of this remarkable island region.</p>
+<p>As with any wildlife encounter, enjoy the pigs respectfully, follow local guidance and avoid feeding them anything unless a qualified local guide confirms it is appropriate.</p>
+</div>
+<aside class="tip-box">
+<h3>Make the most of your visit</h3>
+<ul>
+<li><span class="check">✓</span><span><strong>Arrive by boat.</strong> Plan your visit as part of a guided excursion or suitable local boat trip.</span></li>
+<li><span class="check">✓</span><span><strong>Bring sun protection.</strong> Pack water, sunscreen and essentials for time outdoors.</span></li>
+<li><span class="check">✓</span><span><strong>Respect the wildlife.</strong> Keep a considerate distance and follow local instructions.</span></li>
+<li><span class="check">✓</span><span><strong>Explore nearby.</strong> Combine Pig Beach with other islands and sandbars when conditions allow.</span></li>
+</ul>
+</aside>
+</div>
+</div>
 </section>
-
-<footer><p>&copy; 2026 Exuma Travel Guide</p></footer>
+<section class="gallery">
+<div class="container">
+<div class="gallery-heading">
+<div class="section-heading">
+<span class="kicker">The island in pictures</span>
+<h2>A closer look at Pig Beach.</h2>
+</div>
+<p class="gallery-note">Explore the shoreline, the famous pigs and the striking waters around Big Major Cay.</p>
+</div>
+<div class="photo-grid">
+<article class="photo-card">
+<img src="images/majorcay3.jpg" alt="Island scenery and shoreline at Big Major Cay" loading="lazy">
+<div class="photo-copy">
+<span class="tag">The destination</span>
+<h3>Big Major Cay</h3>
+<p>Discover the natural charm of Big Major Cay, where a sweeping shoreline meets the luminous blues of the Exuma sea. The island’s quiet beauty, soft coastal sands and open seascapes offer a striking introduction to this celebrated corner of the Bahamas. Take a moment to appreciate the scenery and the peaceful rhythm of life among the cays.</p>
+</div>
+</article>
+<article class="photo-card">
+<img src="images/majorcay1.jpg" alt="The famous swimming pigs at Big Major Cay" loading="lazy">
+<div class="photo-copy">
+<span class="tag">A famous encounter</span>
+<h3>The Swimming Pigs</h3>
+<p>Meet the remarkable residents whose presence has made Big Major Cay famous around the world. Watching the pigs move along the beach and through the shallows is an unmistakably Exuma experience, bringing a playful character to the island’s extraordinary natural setting. Enjoy the encounter calmly and responsibly, giving the animals space and following local guidance.</p>
+</div>
+</article>
+<article class="photo-card">
+<img src="images/majorcay4.jpg" alt="White sandy beach and shallow water at Pig Beach" loading="lazy">
+<div class="photo-copy">
+<span class="tag">Sand &amp; sea</span>
+<h3>Pig Beach</h3>
+<p>At Pig Beach, pale sand curves beside clear, gently coloured shallows, creating the classic island scenery visitors come to experience. The meeting of beach and sea gives the shoreline its relaxed, inviting atmosphere and makes it a memorable place to pause, take photographs and enjoy the beauty of the Exuma Cays.</p>
+</div>
+</article>
+<article class="photo-card">
+<img src="images/majorcay2.jpg" alt="Bright turquoise sea around Big Major Cay in Exuma" loading="lazy">
+<div class="photo-copy">
+<span class="tag">The Exuma blues</span>
+<h3>Turquoise Waters</h3>
+<p>The waters surrounding Big Major Cay are celebrated for their vivid shades of turquoise, shifting from pale aquamarine in the shallows to deeper blue farther offshore. These clear seascapes frame the island beautifully and capture the distinctive coastal character of Exuma. Conditions and colours change with the light and weather, making every visit feel a little different.</p>
+</div>
+</article>
+</div>
+</div>
+</section>
+<section class="planning">
+<div class="container">
+<div class="planning-card">
+<div>
+<span class="kicker">Plan your Exuma escape</span>
+<h2>Turn your island discovery into a complete stay.</h2>
+<p>Find a comfortable base for your time in Exuma, then plan the boat trips and island experiences you want to remember.</p>
+</div>
+<a class="button button-primary" href="accommodations.html">Explore accommodations ↗</a>
+</div>
+</div>
+</section>
+<section class="company-intro">
+<div class="container">
+<span class="kicker">Your Exuma guide</span>
+<h2>Exuma Sport Coast Service</h2>
+<p>Exuma Sport Coast Service helps visitors discover accommodation options and memorable experiences across Exuma, Bahamas. From George Town and Moss Town to Staniel Cay and surrounding communities, explore destinations, plan your stay and make the most of your time among the islands.</p>
+</div>
+</section>
+</main>
+<footer>
+<div class="container footer-main">
+<div>
+<div class="footer-brand">Exuma Sport Coast Service</div>
+<p>Stay · Explore · Set Sail. Discover the islands, find your place to stay and make more of your Exuma experience.</p>
+</div>
+<div class="footer-contact">
+<strong>Get in touch</strong>
+<p>Exuma, Bahamas · Opposite the airport</p>
+<p><a href="mailto:exumaaccomodations@gmail.com">exumaaccomodations@gmail.com</a></p>
+</div>
+</div>
+<div class="footer-bottom">
+<div class="container footer-bottom-inner">
+<span>© 2026 Exuma Sport Coast Service. All rights reserved.</span>
+<span>Destination information for Big Major Cay · Exuma, Bahamas</span>
+</div>
+</div>
+</footer>
 </body>
 </html>
