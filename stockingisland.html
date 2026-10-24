@@ -1,234 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stocking Island | Chat 'N' Chill</title>
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; line-height: 1.6; color: #023047; background: #f8f9fa; }
-        header { background: #028090; color: white; padding: 2rem 5%; text-align: center; }
-        nav { background: #00a896; padding: 0.8rem 5%; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-        nav a { color: white; text-decoration: none; font-weight: 600; padding: 5px 10px; border-radius: 4px; }
-        nav a:hover, nav a.active { background: #023047; }
-        main { padding: 2rem 5%; max-width: 900px; margin: 0 auto; background: white; border-radius: 8px; margin-top: 1rem; }
-        footer { text-align: center; padding: 2rem; color: #6c757d; }
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Discover Stocking Island in Exuma, Bahamas, with beautiful beaches, scenic trails, clear water and the famous Chat 'N' Chill beach bar.">
+<title>Explore Stocking Island | Exuma Sport Coast Service</title>
 <style>
-.company-intro {
-    width: 100%;
-    box-sizing: border-box;
-    background: linear-gradient(135deg, #087b89, #119ca3);
-    border-bottom: 1px solid #08727f;
-    padding: 28px 18px;
-}
-
-.company-intro-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-.company-intro h1 {
-    color: #ffffff;
-    margin: 0 0 14px;
-    font-size: 30px;
-    line-height: 1.2;
-}
-
-.company-intro p {
-    color: #ffffff;
-    margin: 0 0 12px;
-    font-size: 15px;
-    line-height: 1.7;
-}
-
-.company-intro p:last-child {
-    margin-bottom: 0;
-}
-
-@media (max-width: 600px) {
-    .company-intro {
-        padding: 22px 15px;
-    }
-
-    .company-intro h1 {
-    color: #ffffff;
-        font-size: 25px;
-    }
-
-    .company-intro p {
-    color: #ffffff;
-        font-size: 14px;
-        line-height: 1.65;
-    }
-}
+:root{--navy:#102f46;--deep:#023047;--teal:#087f8c;--aqua:#00a896;--pale:#edf8f8;--ink:#183b49;--muted:#55717b;--white:#fff;--shadow:0 14px 38px rgba(10,55,70,.13)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:"Segoe UI",Arial,sans-serif;color:var(--ink);background:#f7fbfc;line-height:1.7}a{color:inherit}.announcement{background:var(--navy);color:#e8f8fa;text-align:center;padding:7px 15px;font-size:12px;letter-spacing:.04em}.brand{background:linear-gradient(120deg,#075b68,#078b92);color:white;padding:18px 5%}.brand-inner{max-width:1200px;margin:auto;display:flex;align-items:center;gap:16px}.brand img{width:62px;height:62px;object-fit:contain;border-radius:12px;background:rgba(255,255,255,.08)}.brand-copy h1{font-size:clamp(20px,3vw,28px);line-height:1.2;margin:0 0 4px}.brand-copy p{margin:0;font-size:13px;color:#e2fbfc}.nav-wrap{background:var(--deep);padding:9px 4%;position:relative;z-index:2}.nav-inner{max-width:1250px;margin:auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px}.nav-inner a{color:white;text-decoration:none;font-size:13px;font-weight:600;padding:8px 12px;border-radius:22px;transition:background .2s}.nav-inner a:hover,.nav-inner a.active{background:var(--aqua)}.hero{min-height:510px;display:flex;align-items:center;justify-content:center;text-align:center;padding:65px 20px;background:linear-gradient(90deg,rgba(3,35,50,.65),rgba(3,55,68,.25)),url('stockingisland.jpg') center/cover no-repeat;color:white}.hero-content{max-width:900px}.eyebrow{display:inline-block;border:1px solid rgba(255,255,255,.65);background:rgba(2,48,71,.28);padding:7px 15px;border-radius:30px;font-size:12px;letter-spacing:.13em;font-weight:700}.hero h2{font-size:clamp(40px,7vw,76px);line-height:1.05;margin:20px 0 14px;text-shadow:0 3px 18px rgba(0,0,0,.3)}.hero p{font-size:clamp(17px,2.4vw,22px);max-width:760px;margin:0 auto 25px}.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}.btn{display:inline-block;text-decoration:none;border-radius:28px;padding:12px 22px;font-weight:700;font-size:14px;transition:transform .2s,background .2s}.btn:hover{transform:translateY(-2px)}.btn-primary{background:var(--aqua);color:white}.btn-light{background:white;color:var(--deep)}.section{max-width:1160px;margin:0 auto;padding:68px 22px}.section-heading{text-align:center;max-width:800px;margin:0 auto 32px}.section-heading .kicker{color:var(--teal);text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:800}.section-heading h2{color:var(--deep);font-size:clamp(28px,4vw,40px);line-height:1.2;margin:8px 0 12px}.section-heading p{margin:0;color:var(--muted)}.intro-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center}.intro-copy h3{font-size:25px;color:var(--teal);margin-top:0}.intro-copy p{color:#47636d}.intro-image{width:100%;height:360px;object-fit:cover;border-radius:20px;box-shadow:var(--shadow)}.feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.feature{background:white;border-radius:17px;padding:26px 24px;box-shadow:0 7px 24px rgba(10,55,70,.08);border:1px solid #e6f0f2}.feature-icon{width:48px;height:48px;display:grid;place-items:center;background:#ddf6f4;border-radius:14px;font-size:23px;margin-bottom:16px}.feature h3{color:var(--teal);font-size:20px;margin:0 0 8px}.feature p{color:var(--muted);margin:0}.highlight{background:linear-gradient(120deg,#e1f7f5,#e8f5fb);border:1px solid #ccebe9;border-radius:20px;padding:30px 32px;margin-top:30px}.highlight h3{margin:0 0 8px;color:var(--deep);font-size:23px}.highlight p{margin:0;color:#42616b}.cta{max-width:1120px;margin:0 auto 65px;padding:44px 24px;border-radius:22px;background:linear-gradient(120deg,rgba(2,48,71,.94),rgba(7,127,140,.88)),url('stockingisland.jpg') center/cover;color:white;text-align:center}.cta h2{font-size:clamp(27px,4vw,38px);margin:0 0 10px}.cta p{max-width:750px;margin:0 auto 22px;color:#e4f5f7}.footnote{text-align:center;background:#fff;border-top:1px solid #e5edef;color:#63737a;padding:15px 12px;font-size:12px}.footnote p{margin:3px}.footnote strong{color:#354e57}.footnote a{color:var(--teal);text-decoration:none}.footer{background:var(--deep);color:white;text-align:center;padding:28px 18px}.footer h3{margin:0 0 6px}.footer p{margin:5px auto;color:#d5e8ec;font-size:14px}.footer .copyright{font-size:12px;color:#b6d1d8;margin-top:14px}
+@media(max-width:800px){.intro-grid{grid-template-columns:1fr}.intro-image{height:300px}.feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{min-height:440px}.section{padding:52px 18px}.cta{margin:0 14px 45px}}
+@media(max-width:540px){.brand-inner{align-items:flex-start}.brand img{width:49px;height:49px}.brand-copy p{font-size:12px}.nav-inner{gap:3px}.nav-inner a{font-size:12px;padding:7px 9px}.hero{min-height:390px;padding:48px 17px}.feature-grid{grid-template-columns:1fr}.intro-image{height:240px}.highlight{padding:23px 20px}.cta{padding:35px 19px}}
 </style>
-
-
-<style>
-.company-endnote {
-    width: 100%;
-    box-sizing: border-box;
-    background: #023047;
-    color: #ffffff;
-    padding: 40px 20px;
-    margin-top: 50px;
-}
-
-.company-endnote-inner {
-    max-width: 1000px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.company-endnote h2 {
-    margin: 0 0 15px;
-    color: #ffffff;
-    font-size: 27px;
-}
-
-.company-endnote p {
-    margin: 10px auto;
-    max-width: 800px;
-    line-height: 1.7;
-}
-
-.company-endnote a {
-    color: #90e0ef;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.company-endnote a:hover {
-    text-decoration: underline;
-}
-
-.company-endnote .copyright {
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,.25);
-    font-size: 14px;
-    color: #d8eef2;
-}
-</style>
-
-
-
-
-
-
-
-
-<style>
-html, body {
-    background: #ffffff !important;
-}
-
-body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-.company-footnote {
-    width: 100%;
-    background: #ffffff !important;
-    color: #666666 !important;
-    text-align: center;
-    padding: 12px 10px 8px;
-    margin-top: auto;
-    border-top: 1px solid #eeeeee;
-    font-size: 11px;
-    line-height: 1.45;
-}
-
-.company-footnote p {
-    margin: 2px 0;
-}
-
-.company-footnote strong {
-    color: #444444;
-}
-
-.company-footnote a {
-    color: #007c91;
-    text-decoration: none;
-}
-
-.company-footnote a:hover {
-    text-decoration: underline;
-}
-
-.company-footnote + footer,
-.company-footnote ~ footer {
-    background: #ffffff !important;
-    color: #666666 !important;
-    padding: 8px 10px;
-    margin-top: 0;
-    font-size: 11px;
-}
-</style>
-
 </head>
 <body>
-
-<!-- EXUMA SPORT COAST SERVICE -->
-<section class="company-intro">
-    <div class="company-intro-inner">
-        <h1>Exuma Sport Coast Service</h1>
-
-        <p>
-            <strong>Exuma Sport Coast Service</strong> is the accommodation
-            service featured on this platform, helping visitors discover
-            comfortable places to stay while exploring the beautiful islands
-            and communities of Exuma, Bahamas. Our accommodation selection
-            covers areas including George Town, Moss Town, Staniel Cay,
-            Michelson/Roker's Point and other destinations throughout Exuma.
-        </p>
-
-        <p>
-            Whether you are visiting for a relaxing beach holiday, an island
-            adventure, water activities or a longer stay, Exuma Sport Coast
-            Service provides accommodation options designed to make your
-            Exuma experience convenient and enjoyable. Browse available
-            properties, view their living rooms, bedrooms and bathrooms, and
-            choose the accommodation that best suits your trip.
-        </p>
-    </div>
+<div class="announcement">EXUMA, BAHAMAS &nbsp;·&nbsp; STAY · EXPLORE · SET SAIL</div>
+<header class="brand"><div class="brand-inner"><img src="images/exumalogo.jpg" alt="Exuma Sport Coast Service logo"><div class="brand-copy"><h1>Exuma Sport Coast Service</h1><p>Discover the islands, beaches and unforgettable experiences of Exuma</p></div></div></header>
+<nav class="nav-wrap" aria-label="Main navigation"><div class="nav-inner">
+<a href="index.html">Exuma Overview</a><a href="majorcay.html">Major Cay</a><a href="compasscay.html">Compass Cay</a><a class="active" href="stockingisland.html">Stocking Island</a><a href="sandbars.html">Sandbars</a><a href="stanielcay.html">Staniel Cay</a><a href="seapark.html">Sea Park</a><a href="grotto.html">Thunderball Grotto</a><a href="accommodations.html">Accommodations</a>
+</div></nav>
+<section class="hero"><div class="hero-content"><span class="eyebrow">A GEORGE TOWN FAVOURITE</span><h2>Discover Stocking Island</h2><p>Unwind on pristine beaches, explore scenic trails and experience the laid-back island atmosphere across Elizabeth Harbour.</p><div class="actions"><a class="btn btn-primary" href="#highlights">Explore the Island</a><a class="btn btn-light" href="boats.html">Explore Boat Rentals</a></div></div></section>
+<main>
+<section class="section" id="highlights"><div class="section-heading"><span class="kicker">Island escape</span><h2>Welcome to Stocking Island</h2><p>A beautiful natural retreat just across Elizabeth Harbour from George Town, known for its sandy shoreline, clear water and relaxed Bahamian character.</p></div>
+<div class="intro-grid"><div class="intro-copy"><h3>Natural beauty, island character</h3><p>Stocking Island offers a different pace from the busy parts of Exuma. Visitors can enjoy open views across the harbour, walk along the beach, explore the island’s natural landscape and spend time in the water.</p><p>The island is also known for Chat ’N’ Chill, a popular beachside gathering place where visitors can enjoy food, refreshments and the easy-going atmosphere of island life. Access is commonly by boat from the George Town area, so plan your crossing and return journey in advance.</p><a class="btn btn-primary" href="boats.html">Plan a Boat Trip</a></div><img class="intro-image" src="stockingisland.jpg" alt="Stocking Island with beautiful Bahamian coastal scenery"></div>
 </section>
-
-
-    <header><h1>Stocking Island</h1><p>Pristine Beaches, Hiking Trails & Fresh Conch Salad</p></header>
-    <nav>
-        <a href="index.html">Exuma Overview</a>
-        <a href="majorcay.html">Major Cay</a>
-        <a href="compasscay.html">Compass Cay</a>
-        <a href="stockingisland.html" class="active">Stocking Island</a>
-        <a href="sandbars.html">Sandbars</a>
-        <a href="stanielcay.html">Staniel Cay</a>
-        <a href="seapark.html">Sea Park</a>
-        <a href="grotto.html">Thunderball Grotto</a>
-    </nav>
-    <main>
-        <img src="stockingisland.jpg" alt="Stocking Island" style="width:100%;max-height:400px;object-fit:cover;border-radius:8px;margin-bottom:1rem;">
-        <h2>Stocking Island Highlights</h2>
-        <p>Located right off Elizabeth Harbour in George Town, Stocking Island features high sand dunes, stingray feeding, hiking paths, and the iconic Chat 'N' Chill beach bar.</p>
-    </main>
-    
-
-
-
-<!-- SMALL EXUMA SPORT COAST FOOTNOTE -->
-<section class="company-footnote">
-    <p>
-        <strong>Exuma Sport Coast Service</strong> · Exuma, Bahamas,
-        opposite the airport ·
-        <a href="mailto:exumaaccomodations@gmail.com">
-            exumaaccomodations@gmail.com
-        </a>
-    </p>
-    <p>© 2026 Exuma Sport Coast Service · All rights reserved.</p>
-</section>
-
-<footer><p>&copy; 2026 Exuma Travel Guide</p></footer>
+<section class="section" style="padding-top:15px"><div class="section-heading"><span class="kicker">What to enjoy</span><h2>Stocking Island Highlights</h2><p>Make time for the shoreline, the scenery and the island’s welcoming local atmosphere.</p></div>
+<div class="feature-grid"><article class="feature"><div class="feature-icon">🏖️</div><h3>Pristine Beaches</h3><p>Relax on stretches of sand, take in the sea breeze and enjoy the beautiful contrast of pale sand and clear blue water.</p></article><article class="feature"><div class="feature-icon">🥾</div><h3>Scenic Walks</h3><p>Explore the island on foot and enjoy natural viewpoints and the rugged landscape. Wear suitable shoes and bring water.</p></article><article class="feature"><div class="feature-icon">🌊</div><h3>Swimming & Water Views</h3><p>Enjoy the coastal scenery and, where conditions are safe, spend time swimming or wading in the clear Bahamian water.</p></article><article class="feature"><div class="feature-icon">🍽️</div><h3>Chat ’N’ Chill</h3><p>Visit the well-known beach bar and restaurant for a relaxed stop by the water. Check local opening times before travelling.</p></article><article class="feature"><div class="feature-icon">🐚</div><h3>Local Island Life</h3><p>Take your time, appreciate the natural surroundings and experience the unhurried rhythm of this much-loved Exuma destination.</p></article><article class="feature"><div class="feature-icon">🚤</div><h3>Boat Access</h3><p>Stocking Island is commonly reached by water from George Town. Arrange a suitable boat or local transfer and confirm return plans.</p></article></div>
+<div class="highlight"><h3>Travel thoughtfully</h3><p>Bring drinking water, sun protection and any essentials you may need. Check weather and sea conditions before travelling, respect wildlife and take your rubbish with you to help keep the island beautiful.</p></div></section>
+<section class="cta"><h2>Make Stocking Island Part of Your Exuma Stay</h2><p>Pair your island visit with comfortable accommodation and a well-planned boat adventure to make the most of your time in the Exumas.</p><div class="actions"><a class="btn btn-primary" href="accommodations.html">Explore Accommodations</a><a class="btn btn-light" href="boats.html">Boat Rental Information</a></div></section>
+</main>
+<section class="footnote"><p><strong>Exuma Sport Coast Service</strong> · Exuma, Bahamas, opposite the airport · <a href="mailto:exumaaccomodations@gmail.com">exumaaccomodations@gmail.com</a></p><p>© 2026 Exuma Sport Coast Service · All rights reserved.</p></section>
+<footer class="footer"><h3>Exuma Sport Coast Service</h3><p>Stay · Explore · Set Sail</p><p>Discover accommodations and memorable island experiences throughout Exuma, Bahamas.</p><p class="copyright">© 2026 Exuma Sport Coast Service</p></footer>
 </body>
 </html>
