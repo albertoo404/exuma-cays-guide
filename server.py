@@ -209,6 +209,43 @@ def reservation_details(number):
             conn.close()
 
 
+@app.route("/reservation-data/<number>", methods=["GET"])
+def reservation_data(number):
+    conn = None
+    try:
+        conn = get_connection()
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute(
+                "SELECT * FROM reservations WHERE reservation_number = %s",
+                (number,)
+            )
+            row = cur.fetchone()
+
+        if not row:
+            return jsonify({
+                "success": False,
+                "error": "Reservation not found."
+            }), 404
+
+        result = reservation_dict(row)
+        result["nights"] = (
+            date.fromisoformat(result["check_out"])
+            - date.fromisoformat(result["check_in"])
+        ).days
+
+        return jsonify(result)
+
+    except Exception:
+        app.logger.exception("Could not load reservation data")
+        return jsonify({
+            "success": False,
+            "error": "Could not load reservation details."
+        }), 500
+    finally:
+        if conn:
+            conn.close()
+
+
 @app.route("/update-customer/<number>", methods=["POST"])
 def update_customer(number):
     payload = request.get_json(silent=True)
