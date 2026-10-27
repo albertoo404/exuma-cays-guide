@@ -3,7 +3,7 @@ import os
 import re
 import secrets
 import string
-from datetime import date, datetime, timedelta
+from datetime import date, datetime
 from decimal import Decimal, InvalidOperation
 
 import psycopg2
@@ -13,10 +13,22 @@ from psycopg2.extras import RealDictCursor
 
 app = Flask(__name__)
 
+# --------------------------------------------------------------------------
+# Config — Apps Script URL resolves from either env var name
+# --------------------------------------------------------------------------
 DATABASE_URL = os.environ.get("DATABASE_URL", "")
-COMPANY_EMAIL = os.environ.get("COMPANY_EMAIL", "bookings@exumasportcoast.com")
-APPS_SCRIPT_URL = os.environ.get("GOOGLE_APPS_SCRIPT_URL", "")
+
+# Older working file used GOOGLE_APPS_SCRIPTURL (no underscore before URL).
+# Newer envs may have GOOGLE_APPS_SCRIPT_URL. Accept both.
+APPS_SCRIPT_URL = (
+    os.environ.get("GOOGLE_APPS_SCRIPTURL")
+    or os.environ.get("GOOGLE_APPS_SCRIPT_URL")
+    or ""
+)
 APPS_SCRIPT_TOKEN = os.environ.get("GOOGLE_APPS_SCRIPT_TOKEN", "")
+
+# Default matches the address the older working file hardcoded.
+COMPANY_EMAIL = os.environ.get("COMPANY_EMAIL", "exumaaccomodations@gmail.com")
 
 DB_CONNECT_TIMEOUT = int(os.environ.get("DB_CONNECT_TIMEOUT", "5"))
 
@@ -59,7 +71,6 @@ def init_db():
                     CREATE INDEX IF NOT EXISTS reservations_created_at_idx
                     ON reservations (created_at DESC)
                 """)
-                # New in this version: columns used by /update-customer.
                 cur.execute("""
                     ALTER TABLE reservations
                       ADD COLUMN IF NOT EXISTS client_name  TEXT,
@@ -105,19 +116,65 @@ def serialize_row(row):
     return out
 
 
-def google_apps_script_send(payload, timeout=10):
+def google_apps_script_send(payload, timeout=30, check_success=False):
+    """Forward a payload to the Google Apps Script webhook.
+
+    Matches the older working file's behavior:
+      - allow_redirects=True (Apps Script 302s to googleusercontent.com)
+      - timeout=30 (Gmail send can take 10-20s under load)
+      - parses the JSON response and optionally requires success=True
+    """
     if not APPS_SCRIPT_URL:
-        raise RuntimeError("GOOGLE_APPS_SCRIPT_URL is not set")
+        raise RuntimeError(
+            "GOOGLE_APPS_SCRIPTURL / GOOGLE_APPS_SCRIPT_URL is not configured."
+        )
+
     body = dict(payload)
-    if APPS_SCRIPT_TOKEN:
-        body.setdefault("token", APPS_SCRIPT_TOKEN)
-    response = requests.post(APPS_SCRIPT_URL, json=body, timeout=timeout)
-    response.raise_for_status()
-    return response
+    if APPS_SCRIPT_TOKEN and "token" not in body:
+        body["token"] = APPS_SCRIPT_TOKEN
+
+    response = requests.post(
+        APPS_SCRIPT_URL,
+        json=body,
+        headers={
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        timeout=timeout,
+        allow_redirects=True,
+    )
+
+    app.logger.info(
+        "GOOGLE APPS SCRIPT FINAL RESPONSE: %s %s",
+        response.status_code,
+        response.text[:1000],
+    )
+
+    if response.status_code != 200:
+        raise RuntimeError(
+            f"Google Apps Script returned HTTP {response.status_code}: "
+            f"{response.text[:500]}"
+        )
+
+    try:
+        result = response.json() if response.text else {}
+    except Exception:
+        raise RuntimeError(
+            "Google Apps Script did not return valid JSON: "
+            + response.text[:500]
+        )
+
+    if check_success and isinstance(result, dict) and not result.get("success"):
+        raise RuntimeError(
+            "Google Apps Script rejected the request: "
+            + str(result.get("error", "Unknown error"))
+        )
+
+    return result
 
 
 # --------------------------------------------------------------------------
-# Lazy DB init — never block Gunicorn boot
+# Lazy DB init
 # --------------------------------------------------------------------------
 _db_initialized = False
 
@@ -150,6 +207,8 @@ def health():
             "success": True,
             "database": "ok",
             "reservations_count": count,
+            "apps_script_configured": bool(APPS_SCRIPT_URL),
+            "company_email": COMPANY_EMAIL,
         })
 
     except Exception:
@@ -263,11 +322,10 @@ def reserve():
 
 
 # --------------------------------------------------------------------------
-# Reservation lookups & customer updates  ← NEW
+# Reservation lookups & customer updates
 # --------------------------------------------------------------------------
 @app.route("/reservation-data/<number>", methods=["GET"])
 def reservation_data(number):
-    """Return one reservation as JSON so reserve.html can render it from a link."""
     conn = None
     try:
         conn = get_connection()
@@ -290,7 +348,6 @@ def reservation_data(number):
 
 @app.route("/update-customer/<number>", methods=["POST", "OPTIONS"])
 def update_customer(number):
-    """Save name/phone/email for an existing reservation."""
     if request.method == "OPTIONS":
         return ("", 204)
 
@@ -341,9 +398,112 @@ def update_customer(number):
             conn.close()
 
 
+# --------------------------------------------------------------------------
+# Payment request — rich HTML body, real success/failure
+# --------------------------------------------------------------------------
+def build_payment_request_email(data):
+    """Build the plain + HTML bodies for the payment-request notification.
+    Mirrors the layout used by the older working file so the recipient
+    sees the same colourful template."""
+    customer_name = (data.get("client_name") or "Customer").strip()
+    customer_email = (data.get("client_email") or "").strip()
+    customer_phone = (data.get("client_phone") or "Not provided").strip()
+
+    reservation = data.get("reservation_number") or "—"
+    accommodation = data.get("accommodation") or "—"
+    region = data.get("region") or "—"
+    check_in = data.get("check_in") or "—"
+    check_out = data.get("check_out") or "—"
+    adults = data.get("adults", 0)
+    children = data.get("children", 0)
+
+    try:
+        total = float(data.get("price") or 0)
+    except (ValueError, TypeError):
+        total = 0.0
+
+    deposit = total * 0.50
+
+    def esc(value):
+        return (
+            str(value)
+            .replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+            .replace('"', "&quot;")
+            .replace("'", "&#039;")
+        )
+
+    subject = f"Payment Details Request - Reservation {reservation}"
+
+    body_html = f"""<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Payment Details Request</title>
+</head>
+<body style="margin:0;padding:25px 10px;background:#eef8fb;font-family:Arial,Helvetica,sans-serif;color:#173b43;">
+<div style="max-width:650px;margin:auto;background:#ffffff;border-radius:18px;overflow:hidden;">
+<div style="background:#006d77;padding:30px 20px;text-align:center;color:#ffffff;">
+<h1 style="margin:0;font-size:30px;">EXUMA SPORTS ACCOMMODATIONS</h1>
+<p style="margin:8px 0 0;font-size:15px;">Payment Details Request</p>
+</div>
+<div style="padding:30px 25px;">
+<h2 style="color:#006d77;margin-top:0;">New Payment Request</h2>
+<p>A customer has requested payment details for the following reservation.</p>
+<div style="background:#f1fbfc;border-left:5px solid #00a6a6;padding:18px;margin:20px 0;border-radius:8px;">
+<p><strong>Reservation:</strong> {esc(reservation)}</p>
+<p><strong>Customer:</strong> {esc(customer_name)}</p>
+<p><strong>Email:</strong> {esc(customer_email)}</p>
+<p><strong>Phone:</strong> {esc(customer_phone)}</p>
+<p><strong>Accommodation:</strong> {esc(accommodation)}</p>
+<p><strong>Region:</strong> {esc(region)}</p>
+<p><strong>Check-in:</strong> {esc(check_in)}</p>
+<p><strong>Check-out:</strong> {esc(check_out)}</p>
+<p><strong>Adults:</strong> {esc(adults)}</p>
+<p><strong>Children:</strong> {esc(children)}</p>
+</div>
+<div style="background:#fff8e7;border-radius:10px;padding:18px;margin-top:20px;">
+<p style="margin:5px 0;"><strong>Total accommodation price:</strong> ${total:,.2f}</p>
+<p style="margin:5px 0;"><strong>50% deposit:</strong> ${deposit:,.2f}</p>
+</div>
+<p style="margin-top:25px;color:#555;font-size:14px;">
+Please provide the appropriate payment instructions or payment link to the customer using their contact information above.
+</p>
+</div>
+<div style="background:#023047;color:white;padding:18px;text-align:center;font-size:13px;">
+Exuma Cays Guide · Exuma, Bahamas
+</div>
+</div>
+</body>
+</html>
+"""
+
+    plain_message = f"""Payment Details Request
+
+Reservation: {reservation}
+Customer: {customer_name}
+Email: {customer_email}
+Phone: {customer_phone}
+Accommodation: {accommodation}
+Region: {region}
+Check-in: {check_in}
+Check-out: {check_out}
+Adults: {adults}
+Children: {children}
+
+Total accommodation price: ${total:,.2f}
+50% deposit: ${deposit:,.2f}
+
+Please provide the customer with the appropriate payment instructions or payment link.
+"""
+
+    return subject, plain_message, body_html
+
+
 @app.route("/request-payment-details/<number>", methods=["POST", "OPTIONS"])
 def request_payment_details(number):
-    """Email the company that a customer wants payment instructions."""
     if request.method == "OPTIONS":
         return ("", 204)
 
@@ -360,30 +520,47 @@ def request_payment_details(number):
             return jsonify({"success": False, "error": "Reservation not found."}), 404
 
         data = serialize_row(row)
-        try:
-            google_apps_script_send({
-                "action": "payment_request",
-                "to": COMPANY_EMAIL,
-                "replyTo": data.get("client_email") or COMPANY_EMAIL,
-                "subject": f"Payment Request - {number}",
-                "message": (
-                    f"Reservation {number} has requested payment details.\n\n"
-                    f"Customer: {data.get('client_name') or '(not provided)'}\n"
-                    f"Email:    {data.get('client_email') or '(not provided)'}\n"
-                    f"Phone:    {data.get('client_phone') or '(not provided)'}\n"
-                    f"Region:   {data.get('region')}\n"
-                    f"Stay:     {data.get('check_in')} -> {data.get('check_out')}\n"
-                    f"Guests:   {data.get('adults')} adults, {data.get('children')} children\n"
-                    f"Total:    USD {data.get('price')}\n"
+        data["reservation_number"] = number
+
+        customer_name = (data.get("client_name") or "").strip()
+        customer_phone = (data.get("client_phone") or "").strip()
+        customer_email = (data.get("client_email") or "").strip()
+
+        if not customer_name or not customer_phone or not customer_email:
+            return jsonify({
+                "success": False,
+                "error": (
+                    "Please enter your name, phone number and email "
+                    "before requesting payment details."
                 ),
-            })
-        except Exception:
+            }), 400
+
+        subject, plain_message, body_html = build_payment_request_email(data)
+
+        # Payload matches the older working file exactly.
+        payload = {
+            "action": "payment_request",
+            "to": COMPANY_EMAIL,
+            "subject": subject,
+            "message": plain_message,
+            "htmlBody": body_html,
+        }
+
+        try:
+            google_apps_script_send(payload, timeout=30, check_success=True)
+        except Exception as exc:
             app.logger.exception("Payment request email failed")
+            return jsonify({
+                "success": False,
+                "error": f"Email delivery failed — {exc}",
+            }), 502
 
         return jsonify({
             "success": True,
-            "message": "Payment request sent. Our team will review your reservation and reply by email.",
+            "message": "Your payment-details request has been sent successfully.",
+            "reservation_number": number,
         }), 200
+
     except Exception:
         app.logger.exception("request-payment-details failed")
         return jsonify({"success": False, "error": "Server error."}), 500
@@ -393,7 +570,7 @@ def request_payment_details(number):
 
 
 # --------------------------------------------------------------------------
-# Boat enquiry
+# Boat enquiry — unchanged
 # --------------------------------------------------------------------------
 @app.route("/boat-enquiry", methods=["POST"])
 def boat_enquiry():
@@ -466,7 +643,7 @@ def boat_enquiry():
             "message": plain,
             "htmlBody": body_html,
             "enquiry": fields,
-        })
+        }, timeout=30, check_success=False)
         return jsonify({
             "success": True,
             "message": "Your boat rental enquiry has been sent. We will contact you soon.",
