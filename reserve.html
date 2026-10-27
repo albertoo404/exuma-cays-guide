@@ -81,158 +81,442 @@ h2{font-family:Georgia,"Times New Roman",serif;font-size:29px;line-height:1.2;fo
 </div>
 <script>
 "use strict";
-const API_BASE = "https://exuma-cays-guide-api-43wf.onrender.com";
+
+// ─── Backend host ─────────────────────────────────────────────────────────
+// Confirmed live via /health. Change only this line if you migrate again.
+const API_BASE = "https://exuma-cays-guide-1.onrender.com";
+
 document.addEventListener("DOMContentLoaded", function () {
   var params = new URLSearchParams(window.location.search);
-  var loading = document.getElementById("loading"), content = document.getElementById("reservation-content");
-  var errorBox = document.getElementById("error"), errorMsg = document.getElementById("error-message");
-  var nameInput = document.getElementById("reservation-client-name"), phoneInput = document.getElementById("reservation-client-phone");
-  var emailInput = document.getElementById("reservation-client-email"), saveBtn = document.getElementById("save-customer-details");
-  var saveMsg = document.getElementById("customer-save-message"), requestBtn = document.getElementById("request-payment-details");
-  var requestMsg = document.getElementById("payment-request-message"), currentNumber = "", creating = false;
-  var isBoat = pick("type").toLowerCase() === "boat" || pick("accommodation").toLowerCase() === "boat rental";
+  var loading = document.getElementById("loading");
+  var content = document.getElementById("reservation-content");
+  var errorBox = document.getElementById("error");
+  var errorMsg = document.getElementById("error-message");
+  var nameInput = document.getElementById("reservation-client-name");
+  var phoneInput = document.getElementById("reservation-client-phone");
+  var emailInput = document.getElementById("reservation-client-email");
+  var saveBtn = document.getElementById("save-customer-details");
+  var saveMsg = document.getElementById("customer-save-message");
+  var requestBtn = document.getElementById("request-payment-details");
+  var requestMsg = document.getElementById("payment-request-message");
+  var currentNumber = "";
+  var creating = false;
 
+  // URL helper (hoisted, used before declaration below — that's intentional).
   function pick() {
-    for (var i=0;i<arguments.length;i++) { var v=params.get(arguments[i]); if(v && v.trim()) return v.trim(); }
+    for (var i = 0; i < arguments.length; i++) {
+      var v = params.get(arguments[i]);
+      if (v && v.trim()) return v.trim();
+    }
     return "";
   }
-  var urlName=pick("name","client_name","fullname","full_name"), urlPhone=pick("phone","client_phone","telephone","mobile"), urlEmail=pick("email","client_email","e-mail");
-  if(urlName) nameInput.value=urlName; if(urlPhone) phoneInput.value=urlPhone; if(urlEmail) emailInput.value=urlEmail;
 
-  function setText(id,value) { var el=document.getElementById(id); if(el) el.textContent=(value===undefined||value===null||value==="")?"—":String(value); }
-  function showLoading(message) { loading.textContent=message||"Loading..."; loading.style.display="block"; errorBox.style.display="none"; content.style.display="none"; }
-  function showError(message,heading) { console.error("RESERVATION ERROR:",message); loading.style.display="none"; content.style.display="none"; errorBox.style.display="block"; var h=errorBox.querySelector("h2"); if(h&&heading) h.textContent=heading; errorMsg.textContent=message; }
+  var isBoat = pick("type").toLowerCase() === "boat" ||
+               pick("accommodation").toLowerCase() === "boat rental";
 
-  async function readResponse(response,context) {
-    var raw=await response.text(), body;
-    try { body=raw?JSON.parse(raw):{}; }
-    catch(e) {
-      console.error(context+": server returned non-JSON",{status:response.status,url:response.url,contentType:response.headers.get("content-type"),responsePreview:raw.slice(0,500)});
-      throw new Error("The server returned an unexpected page instead of JSON (HTTP "+response.status+").");
+  var urlName  = pick("name", "client_name", "fullname", "full_name");
+  var urlPhone = pick("phone", "client_phone", "telephone", "mobile");
+  var urlEmail = pick("email", "client_email", "e-mail");
+  if (urlName)  nameInput.value  = urlName;
+  if (urlPhone) phoneInput.value = urlPhone;
+  if (urlEmail) emailInput.value = urlEmail;
+
+  // ─── UI helpers ─────────────────────────────────────────────────────────
+  function setText(id, value) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = (value === undefined || value === null || value === "") ? "—" : String(value);
+  }
+  function showLoading(message) {
+    loading.textContent = message || "Loading...";
+    loading.style.display = "block";
+    errorBox.style.display = "none";
+    content.style.display = "none";
+  }
+  function showError(message, heading) {
+    console.error("RESERVATION ERROR:", message);
+    loading.style.display = "none";
+    content.style.display = "none";
+    errorBox.style.display = "block";
+    var h = errorBox.querySelector("h2");
+    if (h && heading) h.textContent = heading;
+    errorMsg.textContent = message;
+  }
+  async function readResponse(response, context) {
+    var raw = await response.text();
+    var body;
+    try {
+      body = raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      console.error(context + ": non-JSON response", {
+        status: response.status,
+        url: response.url,
+        contentType: response.headers.get("content-type"),
+        preview: raw.slice(0, 500)
+      });
+      throw new Error("The server returned an unexpected page instead of JSON (HTTP " + response.status + ").");
     }
-    if(!response.ok) throw new Error(body.error||body.message||context+" failed (HTTP "+response.status+").");
+    if (!response.ok) throw new Error(body.error || body.message || context + " failed (HTTP " + response.status + ").");
     return body;
   }
-  function fillFields(name,phone,email) { if(name&&!nameInput.value)nameInput.value=name; if(phone&&!phoneInput.value)phoneInput.value=phone; if(email&&!emailInput.value)emailInput.value=email; }
-  function displayReservation(data) {
-    console.log("RESERVATION DATA:",data); currentNumber=data.reservation_number||"";
-    setText("reservation-number",data.reservation_number); setText("region",data.region); setText("accommodation",data.accommodation);
-    setText("check-in",data.check_in); setText("check-out",data.check_out); setText("nights",data.nights); setText("adults",data.adults); setText("children",data.children);    var total=Number(data.price)||0; setText("total","USD "+total.toFixed(2)); setText("deposit","USD "+(total*.5).toFixed(2));
-    fillFields(data.client_name,data.client_phone,data.client_email); loading.style.display="none"; errorBox.style.display="none"; content.style.display="block";
+  function fillFields(name, phone, email) {
+    if (name  && !nameInput.value)  nameInput.value  = name;
+    if (phone && !phoneInput.value) phoneInput.value = phone;
+    if (email && !emailInput.value) emailInput.value = email;
   }
+  function computeNights(checkIn, checkOut) {
+    if (!checkIn || !checkOut) return null;
+    var n = Math.round((new Date(checkOut) - new Date(checkIn)) / 86400000);
+    return (Number.isFinite(n) && n > 0) ? n : null;
+  }
+
+  // ─── Display ────────────────────────────────────────────────────────────
+  function displayReservation(data) {
+    if (!data || !data.reservation_number) {
+      throw new Error("Reservation response did not include a reservation number.");
+    }
+    console.log("RESERVATION DATA:", data);
+    currentNumber = data.reservation_number;
+
+    var nights = (data.nights != null) ? data.nights : computeNights(data.check_in, data.check_out);
+
+    setText("reservation-number", data.reservation_number);
+    setText("region", data.region);
+    setText("accommodation", data.accommodation);
+    setText("check-in", data.check_in);
+    setText("check-out", data.check_out);
+    setText("nights", nights);
+    setText("adults", data.adults);
+    setText("children", data.children);
+
+    var total = Number(data.price) || 0;
+    setText("total", "USD " + total.toFixed(2));
+    setText("deposit", "USD " + (total * 0.5).toFixed(2));
+
+    fillFields(data.client_name, data.client_phone, data.client_email);
+
+    loading.style.display = "none";
+    errorBox.style.display = "none";
+    content.style.display = "block";
+  }
+
+  // ─── Loading an existing reservation (?reservation=EXS-…) ───────────────
   async function loadReservation(number) {
     showLoading("Loading reservation details...");
-    var r=await fetch(API_BASE+"/reservation-data/"+encodeURIComponent(number)+"?t="+Date.now(),{method:"GET",cache:"no-store",headers:{"Accept":"application/json"}});
-    displayReservation(await readResponse(r,"Loading reservation"));
+    var r = await fetch(
+      API_BASE + "/reservation-data/" + encodeURIComponent(number) + "?t=" + Date.now(),
+      { method: "GET", cache: "no-store", headers: { "Accept": "application/json" } }
+    );
+    var body = await readResponse(r, "Loading reservation");
+    // Backend /reservation-data returns a flat row; wrap it if needed.
+    displayReservation(body.reservation || body);
   }
-  async function createReservation() {
-    if(creating)return;
-    var region=pick("region"), accommodation=pick("accommodation"), checkIn=pick("checkin","check_in","check-in"), checkOut=pick("checkout","check_out","check-out");
-    var nightlyPrice=Number(params.get("price"))||0, adults=Number(params.get("adults"))||1, children=Number(params.get("children"))||0;
-    if(!region||!accommodation||!checkIn||!checkOut) { showError("We could not find booking information in this link. Please start your booking from the accommodation page using the Reserve Accommodation button.","Reservation Information Missing"); return; }
-    var start=new Date(checkIn+"T00:00:00"), end=new Date(checkOut+"T00:00:00"), nights=Math.round((end-start)/86400000);
-    if(!Number.isFinite(nights)||nights<=0) { showError("Check-out must be after check-in.","Invalid Dates"); return; }
-    var fd=new URLSearchParams();
-    fd.set("region",region); fd.set("accommodation",accommodation); fd.set("check_in",checkIn); fd.set("check_out",checkOut);
-    fd.set("adults",String(adults)); fd.set("children",String(children)); fd.set("price",(nightlyPrice*nights).toFixed(2));
-    if(urlName)fd.set("client_name",urlName); if(urlPhone)fd.set("client_phone",urlPhone); if(urlEmail)fd.set("client_email",urlEmail);
-    creating=true; showLoading("Creating your reservation...");
-    try {
-      var response=await fetch(API_BASE+"/reserve",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded","Accept":"application/json"},body:fd.toString()});
-      if(!response.ok)throw new Error("Reservation server returned HTTP "+response.status+".");
-      var match=response.url.match(/\/reservation\/([^/?#]+)/i);
-      if(!match)throw new Error("The server did not return a reservation number. Please contact our team before submitting again.");
-      var number=decodeURIComponent(match[1]);
-      var detailResponse=await fetch(API_BASE+"/reservation-data/"+encodeURIComponent(number)+"?t="+Date.now(),{method:"GET",cache:"no-store",headers:{"Accept":"application/json"}});
-      displayReservation(await readResponse(detailResponse,"Loading newly created reservation"));
-    } catch(err) { showError(err.message||"An unexpected error occurred.","Could Not Create Reservation"); }
-    finally { creating=false; }
-  }
-  function getCustomerDetails(){return{name:nameInput.value.trim(),phone:phoneInput.value.trim(),email:emailInput.value.trim()};}
-  function postForm(url,fd,context){return fetch(url,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded","Accept":"application/json"},body:fd.toString()}).then(function(r){return readResponse(r,context);}).then(function(body){if(body.success===false)throw new Error(body.error||body.message||context+" failed.");return body;});}
 
-  saveBtn.addEventListener("click",async function(){
-    if(!currentNumber){saveMsg.style.color="#b00020";saveMsg.textContent="Please wait for the reservation number to load.";return;}
-    var d=getCustomerDetails();
-    if(!d.name||!d.phone||!d.email||!emailInput.checkValidity()){saveMsg.style.color="#b00020";saveMsg.textContent="Please enter your name, phone number and a valid email address.";return;}
-    var fd=new URLSearchParams();fd.set("client_name",d.name);fd.set("client_phone",d.phone);fd.set("client_email",d.email);
-    saveBtn.disabled=true;saveBtn.textContent="Saving...";saveMsg.textContent="";
-    try{var body=await postForm(API_BASE+"/update-customer/"+encodeURIComponent(currentNumber),fd,"Saving customer details");saveMsg.style.color="#0a7d28";saveMsg.textContent=body.message||"Customer details saved successfully.";saveBtn.textContent="Details Saved";}
-    catch(err){saveMsg.style.color="#b00020";saveMsg.textContent="Unable to save customer details: "+err.message;saveBtn.disabled=false;saveBtn.textContent="Save Customer Details";}
+  // ─── Creating a new reservation ─────────────────────────────────────────
+  async function createReservation() {
+    if (creating) return;
+    var region = pick("region");
+    var accommodation = pick("accommodation");
+    var checkIn = pick("checkin", "check_in", "check-in");
+    var checkOut = pick("checkout", "check_out", "check-out");
+    var nightlyPrice = Number(params.get("price")) || 0;
+    var adults = Number(params.get("adults")) || 1;
+    var children = Number(params.get("children")) || 0;
+
+    if (!region || !accommodation || !checkIn || !checkOut) {
+      showError(
+        "We could not find booking information in this link. Please start your booking from the accommodation page using the Reserve Accommodation button.",
+        "Reservation Information Missing"
+      );
+      return;
+    }
+    var nights = computeNights(checkIn, checkOut);
+    if (!nights) {
+      showError("Check-out must be after check-in.", "Invalid Dates");
+      return;
+    }
+
+    var fd = new URLSearchParams();
+    fd.set("region", region);
+    fd.set("accommodation", accommodation);
+    fd.set("check_in", checkIn);
+    fd.set("check_out", checkOut);
+    fd.set("adults", String(adults));
+    fd.set("children", String(children));
+    fd.set("price", (nightlyPrice * nights).toFixed(2));
+    if (urlName)  fd.set("client_name",  urlName);
+    if (urlPhone) fd.set("client_phone", urlPhone);
+    if (urlEmail) fd.set("client_email", urlEmail);
+
+    creating = true;
+    showLoading("Creating your reservation...");
+    try {
+      var response = await fetch(API_BASE + "/reserve", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Accept": "application/json"
+        },
+        body: fd.toString()
+      });
+      var body = await readResponse(response, "Creating reservation");
+      var res = body.reservation || body;
+      if (!res.reservation_number) {
+        throw new Error("No reservation number returned by the server.");
+      }
+      displayReservation({
+        reservation_number: res.reservation_number,
+        region: res.region,
+        accommodation: res.accommodation,
+        check_in: res.check_in,
+        check_out: res.check_out,
+        nights: res.nights != null ? res.nights : nights,
+        adults: res.adults,
+        children: res.children,
+        price: res.price,
+        client_name: res.client_name,
+        client_phone: res.client_phone,
+        client_email: res.client_email
+      });
+    } catch (err) {
+      showError(err.message || "An unexpected error occurred.", "Could Not Create Reservation");
+    } finally {
+      creating = false;
+    }
+  }
+
+  // ─── Customer details + payment request ─────────────────────────────────
+  function getCustomerDetails() {
+    return {
+      name: nameInput.value.trim(),
+      phone: phoneInput.value.trim(),
+      email: emailInput.value.trim()
+    };
+  }
+  function postForm(url, fd, context) {
+    return fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Accept": "application/json"
+      },
+      body: fd.toString()
+    })
+      .then(function (r) { return readResponse(r, context); })
+      .then(function (body) {
+        if (body.success === false) {
+          throw new Error(body.error || body.message || context + " failed.");
+        }
+        return body;
+      });
+  }
+
+  saveBtn.addEventListener("click", async function () {
+    if (!currentNumber) {
+      saveMsg.style.color = "#b00020";
+      saveMsg.textContent = "Please wait for the reservation number to load.";
+      return;
+    }
+    var d = getCustomerDetails();
+    if (!d.name || !d.phone || !d.email || !emailInput.checkValidity()) {
+      saveMsg.style.color = "#b00020";
+      saveMsg.textContent = "Please enter your name, phone number and a valid email address.";
+      return;
+    }
+    var fd = new URLSearchParams();
+    fd.set("client_name", d.name);
+    fd.set("client_phone", d.phone);
+    fd.set("client_email", d.email);
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Saving...";
+    saveMsg.textContent = "";
+    try {
+      var body = await postForm(
+        API_BASE + "/update-customer/" + encodeURIComponent(currentNumber),
+        fd,
+        "Saving customer details"
+      );
+      saveMsg.style.color = "#0a7d28";
+      saveMsg.textContent = body.message || "Customer details saved successfully.";
+      saveBtn.textContent = "Details Saved";
+    } catch (err) {
+      saveMsg.style.color = "#b00020";
+      saveMsg.textContent = "Unable to save customer details: " + err.message;
+      saveBtn.disabled = false;
+      saveBtn.textContent = "Save Customer Details";
+    }
   });
 
-  function boatInfo(){
-    var unit=pick("duration_unit")||"hours",duration=Math.max(1,Number(pick("duration"))||1),adults=Math.max(1,Number(pick("adults"))||1),children=Math.max(0,Number(pick("children"))||0);
-    return{boat:pick("boat","boat_type")||"Boat rental (type to be confirmed)",region:pick("region")||"Exuma",
-      startDate:pick("start_date","date","checkin","check_in")||"Not specified",endDate:pick("end_date","checkout","check_out")||"Not specified",
-      duration:duration,unit:unit,adults:adults,children:children,guests:adults+children,pickup:pick("pickup_location","location")||pick("region")||"Exuma"};
+  // ─── Boat enquiry ───────────────────────────────────────────────────────
+  function boatInfo() {
+    var unit = pick("duration_unit") || "hours";
+    var duration = Math.max(1, Number(pick("duration")) || 1);
+    var adults = Math.max(1, Number(pick("adults")) || 1);
+    var children = Math.max(0, Number(pick("children")) || 0);
+    return {
+      boat: pick("boat", "boat_type") || "Boat rental (type to be confirmed)",
+      region: pick("region") || "Exuma",
+      startDate: pick("start_date", "date", "checkin", "check_in") || "Not specified",
+      endDate: pick("end_date", "checkout", "check_out") || "Not specified",
+      duration: duration,
+      unit: unit,
+      adults: adults,
+      children: children,
+      guests: adults + children,
+      pickup: pick("pickup_location", "location") || pick("region") || "Exuma"
+    };
   }
-  function boatMailto(d,b){
-    var subject="Boat Rental Enquiry - Exuma Sport Coast Service";
-    var message=["Hello Exuma Sport Coast Service,","","I would like to enquire about a boat rental.","Name: "+d.name,"Phone: "+d.phone,"Email: "+d.email,
-      "Boat: "+b.boat,"Region: "+b.region,"Preferred start date: "+b.startDate,"Preferred end date: "+b.endDate,
-      "Duration: "+b.duration+" "+b.unit,"Adults: "+b.adults,"Children: "+b.children,"Pickup location": "+b.pickup,"",
-      "Please confirm availability and provide a quotation."].join("\n");
-    return"mailto:exumaaccomodations@gmail.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(message);
+  function boatMailto(d, b) {
+    var subject = "Boat Rental Enquiry - Exuma Sport Coast Service";
+    var message = [
+      "Hello Exuma Sport Coast Service,",
+      "",
+      "I would like to enquire about a boat rental.",
+      "Name: " + d.name,
+      "Phone: " + d.phone,
+      "Email: " + d.email,
+      "Boat: " + b.boat,
+      "Region: " + b.region,
+      "Preferred start date: " + b.startDate,
+      "Preferred end date: " + b.endDate,
+      "Duration: " + b.duration + " " + b.unit,
+      "Adults: " + b.adults,
+      "Children: " + b.children,
+      "Pickup location: " + b.pickup,
+      "",
+      "Please confirm availability and provide a quotation."
+    ].join("\n");
+    return "mailto:exumaaccomodations@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(message);
   }
 
-  requestBtn.addEventListener("click",async function(){
-    var d=getCustomerDetails();
-    if(!d.name||!d.phone||!d.email||!emailInput.checkValidity()){
-      requestMsg.style.color="#b42332";requestMsg.textContent="Please enter your name, phone number and a valid email address before continuing.";return;
+  requestBtn.addEventListener("click", async function () {
+    var d = getCustomerDetails();
+    if (!d.name || !d.phone || !d.email || !emailInput.checkValidity()) {
+      requestMsg.style.color = "#b42332";
+      requestMsg.textContent = "Please enter your name, phone number and a valid email address before continuing.";
+      return;
     }
-    if(isBoat){
-      var b=boatInfo();requestBtn.disabled=true;requestBtn.textContent="Sending Enquiry...";
-      requestMsg.style.color="#023047";requestMsg.textContent="Sending your enquiry. Please wait...";
-      try{
-        var response=await fetch(API_BASE+"/boat-enquiry",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},
-          body:JSON.stringify({name:d.name,phone:d.phone,email:d.email,boat:b.boat,region:b.region,start_date:b.startDate,end_date:b.endDate,
-            duration:b.duration+" "+b.unit,guests:String(b.guests),pickup_location:b.pickup,
-            message:"Adults: "+b.adults+"; Children: "+b.children+"; Requested duration: "+b.duration+" "+b.unit+". Please confirm availability and provide a quotation."})});
-        var body=await readResponse(response,"Sending boat enquiry");
-        if(body.success===false)throw new Error(body.error||body.message||"The server could not send your enquiry.");
-        requestMsg.style.color="var(--success)";requestMsg.textContent=body.message||"Your boat rental enquiry has been sent. Our team will contact you soon.";
-        requestBtn.textContent="Enquiry Sent";return;
-      }catch(err){
-        console.error("BOAT ENQUIRY ERROR:",err);requestMsg.style.color="#b42332";
-        requestMsg.textContent="Online submission failed: "+(err.message||"Unknown error")+". You can send your enquiry by email instead.";
-        var link=document.createElement("a");link.className="fallback-link";link.href=boatMailto(d,b);link.textContent="Send your enquiry by email";
-        requestMsg.appendChild(document.createElement("br"));requestMsg.appendChild(link);
-        requestBtn.disabled=false;requestBtn.textContent="Try Boat Enquiry Again";return;
+
+    // Boat path
+    if (isBoat) {
+      var b = boatInfo();
+      requestBtn.disabled = true;
+      requestBtn.textContent = "Sending Enquiry...";
+      requestMsg.style.color = "#023047";
+      requestMsg.textContent = "Sending your enquiry. Please wait...";
+      try {
+        var response = await fetch(API_BASE + "/boat-enquiry", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify({
+            name: d.name,
+            phone: d.phone,
+            email: d.email,
+            boat: b.boat,
+            region: b.region,
+            start_date: b.startDate,
+            end_date: b.endDate,
+            duration: b.duration + " " + b.unit,
+            guests: String(b.guests),
+            pickup_location: b.pickup,
+            message: "Adults: " + b.adults + "; Children: " + b.children +
+                     "; Requested duration: " + b.duration + " " + b.unit +
+                     ". Please confirm availability and provide a quotation."
+          })
+        });
+        var body = await readResponse(response, "Sending boat enquiry");
+        if (body.success === false) throw new Error(body.error || body.message || "The server could not send your enquiry.");
+        requestMsg.style.color = "var(--success)";
+        requestMsg.textContent = body.message || "Your boat rental enquiry has been sent. Our team will contact you soon.";
+        requestBtn.textContent = "Enquiry Sent";
+        return;
+      } catch (err) {
+        console.error("BOAT ENQUIRY ERROR:", err);
+        requestMsg.style.color = "#b42332";
+        requestMsg.textContent = "Online submission failed: " + (err.message || "Unknown error") +
+                                 ". You can send your enquiry by email instead.";
+        var link = document.createElement("a");
+        link.className = "fallback-link";
+        link.href = boatMailto(d, b);
+        link.textContent = "Send your enquiry by email";
+        requestMsg.appendChild(document.createElement("br"));
+        requestMsg.appendChild(link);
+        requestBtn.disabled = false;
+        requestBtn.textContent = "Try Boat Enquiry Again";
+        return;
       }
     }
-    if(!currentNumber){requestMsg.style.color="#b00020";requestMsg.textContent="Please wait for the reservation number to load.";return;}
-    requestBtn.disabled=true;requestBtn.textContent="Saving Details...";requestMsg.textContent="";
-    var fd=new URLSearchParams();fd.set("client_name",d.name);fd.set("client_phone",d.phone);fd.set("client_email",d.email);
-    try{
-      await postForm(API_BASE+"/update-customer/"+encodeURIComponent(currentNumber),fd,"Saving customer details");
-      requestBtn.textContent="Sending Request...";
-      var r=await fetch(API_BASE+"/request-payment-details/"+encodeURIComponent(currentNumber),{method:"POST",headers:{"Accept":"application/json"}});
-      var body=await readResponse(r,"Sending payment request");
-      if(body.success===false)throw new Error(body.error||body.message||"Unable to send payment request.");
-      requestMsg.style.color="var(--success)";requestMsg.textContent=body.message||"Payment request sent successfully. The company will review your reservation and reply with payment details.";
-      requestBtn.textContent="Request Sent";
-    }catch(err){console.error("PAYMENT REQUEST ERROR:",err);requestMsg.style.color="#b00020";requestMsg.textContent="Unable to send the payment request: "+err.message;requestBtn.disabled=false;requestBtn.textContent="Send Payment Request";}
+
+    // Accommodation path
+    if (!currentNumber) {
+      requestMsg.style.color = "#b00020";
+      requestMsg.textContent = "Please wait for the reservation number to load.";
+      return;
+    }
+    requestBtn.disabled = true;
+    requestBtn.textContent = "Saving Details...";
+    requestMsg.textContent = "";
+    var fd = new URLSearchParams();
+    fd.set("client_name", d.name);
+    fd.set("client_phone", d.phone);
+    fd.set("client_email", d.email);
+    try {
+      await postForm(API_BASE + "/update-customer/" + encodeURIComponent(currentNumber), fd, "Saving customer details");
+      requestBtn.textContent = "Sending Request...";
+      var r = await fetch(
+        API_BASE + "/request-payment-details/" + encodeURIComponent(currentNumber),
+        { method: "POST", headers: { "Accept": "application/json" } }
+      );
+      var body2 = await readResponse(r, "Sending payment request");
+      if (body2.success === false) throw new Error(body2.error || body2.message || "Unable to send payment request.");
+      requestMsg.style.color = "var(--success)";
+      requestMsg.textContent = body2.message || "Payment request sent successfully. The company will review your reservation and reply with payment details.";
+      requestBtn.textContent = "Request Sent";
+    } catch (err) {
+      console.error("PAYMENT REQUEST ERROR:", err);
+      requestMsg.style.color = "#b00020";
+      requestMsg.textContent = "Unable to send the payment request: " + err.message;
+      requestBtn.disabled = false;
+      requestBtn.textContent = "Send Payment Request";
+    }
   });
 
-  if(isBoat){
-    var b=boatInfo(),regionName=b.region.replace(/-/g," ").replace(/\b\w/g,function(c){return c.toUpperCase();});
-    setText("reservation-number","BOAT ENQUIRY");setText("region",regionName);setText("accommodation","Boat Rental");
-    setText("adults",b.adults);setText("children",b.children);setText("boat-duration",b.duration+" "+b.unit);
-    document.getElementById("duration-row").style.display="grid";
-    document.getElementById("check-in").closest(".detail").style.display="none";
-    document.getElementById("check-out").closest(".detail").style.display="none";
-    document.getElementById("nights").closest(".detail").style.display="none";
-    document.querySelector(".total-box").style.display="none";
-    document.querySelector(".notice").textContent="This is an enquiry only and does not constitute a confirmed boat booking. Our team will review your preferred region, rental duration and group size, then follow up regarding availability and a quotation.";
-    document.getElementById("page-title").textContent="Your Boat Rental Enquiry";
-    document.getElementById("details-title").textContent="Boat Rental Details";
-    document.getElementById("next-step-title").textContent="Send Your Enquiry";
-    document.getElementById("request-description").textContent="Review your boat-rental preferences and contact details before submitting. Our team will assess your requested region, rental duration and group size, then follow up with availability and a quotation. Submission does not guarantee availability or confirm a booking.";
-    saveBtn.style.display="none";requestBtn.textContent="Send Boat Rental Enquiry";content.style.display="block";loading.style.display="none";return;
+  // ─── Boat branch: static UI, no reservation load ────────────────────────
+  if (isBoat) {
+    var bInfo = boatInfo();
+    var regionName = bInfo.region.replace(/-/g, " ").replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+    setText("reservation-number", "BOAT ENQUIRY");
+    setText("region", regionName);
+    setText("accommodation", "Boat Rental");
+    setText("adults", bInfo.adults);
+    setText("children", bInfo.children);
+    setText("boat-duration", bInfo.duration + " " + bInfo.unit);
+    document.getElementById("duration-row").style.display = "grid";
+    document.getElementById("check-in").closest(".detail").style.display = "none";
+    document.getElementById("check-out").closest(".detail").style.display = "none";
+    document.getElementById("nights").closest(".detail").style.display = "none";
+    document.querySelector(".total-box").style.display = "none";
+    document.querySelector(".notice").textContent =
+      "This is an enquiry only and does not constitute a confirmed boat booking. Our team will review your preferred region, rental duration and group size, then follow up regarding availability and a quotation.";
+    document.getElementById("page-title").textContent = "Your Boat Rental Enquiry";
+    document.getElementById("details-title").textContent = "Boat Rental Details";
+    document.getElementById("next-step-title").textContent = "Send Your Enquiry";
+    document.getElementById("request-description").textContent =
+      "Review your boat-rental preferences and contact details before submitting. Our team will assess your requested region, rental duration and group size, then follow up with availability and a quotation. Submission does not guarantee availability or confirm a booking.";
+    saveBtn.style.display = "none";
+    requestBtn.textContent = "Send Boat Rental Enquiry";
+    content.style.display = "block";
+    loading.style.display = "none";
+    return;
   }
-  var existing=(params.get("reservation")||params.get("ref")||params.get("reference")||"").trim();
-  if(existing){loadReservation(existing).catch(function(err){showError(err.message||"We could not load this reservation.","Reservation Not Found");});return;}
+
+  // ─── Entry point ────────────────────────────────────────────────────────
+  var existing = (params.get("reservation") || params.get("ref") || params.get("reference") || "").trim();
+  if (existing) {
+    loadReservation(existing).catch(function (err) {
+      showError(err.message || "We could not load this reservation.", "Reservation Not Found");
+    });
+    return;
+  }
   createReservation();
 });
 </script>
