@@ -81,7 +81,7 @@ h2{font-family:Georgia,"Times New Roman",serif;font-size:29px;line-height:1.2;fo
 </div>
 <script>
 "use strict";
-const API_BASE = "https://exuma-cays-guide-api-gnhl.onrender.com";
+const API_BASE = "https://exuma-cays-guide-api-43wf.onrender.com";
 document.addEventListener("DOMContentLoaded", function () {
   var params = new URLSearchParams(window.location.search);
   var loading = document.getElementById("loading"), content = document.getElementById("reservation-content");
@@ -117,8 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function displayReservation(data) {
     console.log("RESERVATION DATA:",data); currentNumber=data.reservation_number||"";
     setText("reservation-number",data.reservation_number); setText("region",data.region); setText("accommodation",data.accommodation);
-    setText("check-in",data.check_in); setText("check-out",data.check_out); setText("nights",data.nights); setText("adults",data.adults); setText("children",data.children);
-    var total=Number(data.price)||0; setText("total","USD "+total.toFixed(2)); setText("deposit","USD "+(total*.5).toFixed(2));
+    setText("check-in",data.check_in); setText("check-out",data.check_out); setText("nights",data.nights); setText("adults",data.adults); setText("children",data.children);    var total=Number(data.price)||0; setText("total","USD "+total.toFixed(2)); setText("deposit","USD "+(total*.5).toFixed(2));
     fillFields(data.client_name,data.client_phone,data.client_email); loading.style.display="none"; errorBox.style.display="none"; content.style.display="block";
   }
   async function loadReservation(number) {
@@ -172,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var subject="Boat Rental Enquiry - Exuma Sport Coast Service";
     var message=["Hello Exuma Sport Coast Service,","","I would like to enquire about a boat rental.","Name: "+d.name,"Phone: "+d.phone,"Email: "+d.email,
       "Boat: "+b.boat,"Region: "+b.region,"Preferred start date: "+b.startDate,"Preferred end date: "+b.endDate,
-      "Duration: "+b.duration+" "+b.unit,"Adults: "+b.adults,"Children: "+b.children,"Pickup location: "+b.pickup,"",
+      "Duration: "+b.duration+" "+b.unit,"Adults: "+b.adults,"Children: "+b.children,"Pickup location": "+b.pickup,"",
       "Please confirm availability and provide a quotation."].join("\n");
     return"mailto:exumaaccomodations@gmail.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(message);
   }
