@@ -27,7 +27,6 @@ DB_CONNECT_TIMEOUT = int(os.environ.get("DB_CONNECT_TIMEOUT", "5"))
 def get_connection():
     if not DATABASE_URL:
         raise RuntimeError("DATABASE_URL is not set")
-    # Fail fast instead of hanging Gunicorn's boot / a request worker.
     return psycopg2.connect(
         DATABASE_URL,
         connect_timeout=DB_CONNECT_TIMEOUT,
@@ -60,6 +59,13 @@ def init_db():
                     CREATE INDEX IF NOT EXISTS reservations_created_at_idx
                     ON reservations (created_at DESC)
                 """)
+                # New in this version: columns used by /update-customer.
+                cur.execute("""
+                    ALTER TABLE reservations
+                      ADD COLUMN IF NOT EXISTS client_name  TEXT,
+                      ADD COLUMN IF NOT EXISTS client_phone TEXT,
+                      ADD COLUMN IF NOT EXISTS client_email TEXT
+                """)
     finally:
         if conn:
             conn.close()
@@ -69,7 +75,6 @@ def init_db():
 # Small utilities
 # --------------------------------------------------------------------------
 def parse_date(value, label):
-    """Parse an ISO (YYYY-MM-DD) date, raising ValueError with a friendly message."""
     if value is None or str(value).strip() == "":
         raise ValueError(f"Please provide a valid {label} date.")
     raw = str(value).strip()
@@ -89,7 +94,6 @@ EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 
 def serialize_row(row):
-    """Make a psycopg2 RealDictRow JSON-serialisable (Decimal / date / datetime)."""
     out = {}
     for key, value in dict(row).items():
         if isinstance(value, Decimal):
@@ -128,7 +132,6 @@ def ensure_db_initialized():
         _db_initialized = True
     except Exception:
         app.logger.exception("Database initialization failed")
-        # Don't mark as initialized; /health will report it and it will retry.
 
 
 # --------------------------------------------------------------------------
@@ -217,7 +220,6 @@ def reserve():
         with conn:
             with conn.cursor(cursor_factory=RealDictCursor) as cur:
                 row = None
-                # Retry a few times in the extremely unlikely event of a number collision.
                 for _attempt in range(5):
                     reservation_number = generate_number()
                     cur.execute("""
@@ -261,11 +263,140 @@ def reserve():
 
 
 # --------------------------------------------------------------------------
+# Reservation lookups & customer updates  ← NEW
+# --------------------------------------------------------------------------
+@app.route("/reservation-data/<number>", methods=["GET"])
+def reservation_data(number):
+    """Return one reservation as JSON so reserve.html can render it from a link."""
+    conn = None
+    try:
+        conn = get_connection()
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute(
+                "SELECT * FROM reservations WHERE reservation_number = %s",
+                (number,),
+            )
+            row = cur.fetchone()
+        if not row:
+            return jsonify({"success": False, "error": "Reservation not found."}), 404
+        return jsonify(serialize_row(row)), 200
+    except Exception:
+        app.logger.exception("reservation-data failed")
+        return jsonify({"success": False, "error": "Server error."}), 500
+    finally:
+        if conn:
+            conn.close()
+
+
+@app.route("/update-customer/<number>", methods=["POST", "OPTIONS"])
+def update_customer(number):
+    """Save name/phone/email for an existing reservation."""
+    if request.method == "OPTIONS":
+        return ("", 204)
+
+    payload = request.get_json(silent=True)
+    if not isinstance(payload, dict):
+        payload = request.form.to_dict()
+
+    name = str(payload.get("client_name") or "").strip()[:120]
+    phone = str(payload.get("client_phone") or "").strip()[:60]
+    email = str(payload.get("client_email") or "").strip()[:254]
+
+    if not name or not phone:
+        return jsonify({
+            "success": False,
+            "error": "Please provide your name, phone number and a valid email address.",
+        }), 400
+    if not EMAIL_RE.match(email):
+        return jsonify({
+            "success": False,
+            "error": "Please provide a valid email address.",
+        }), 400
+
+    conn = None
+    try:
+        conn = get_connection()
+        with conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    "UPDATE reservations "
+                    "SET client_name = %s, client_phone = %s, client_email = %s "
+                    "WHERE reservation_number = %s",
+                    (name, phone, email, number),
+                )
+                if cur.rowcount == 0:
+                    return jsonify({
+                        "success": False,
+                        "error": "Reservation not found.",
+                    }), 404
+        return jsonify({
+            "success": True,
+            "message": "Customer details saved successfully.",
+        }), 200
+    except Exception:
+        app.logger.exception("update-customer failed")
+        return jsonify({"success": False, "error": "Server error."}), 500
+    finally:
+        if conn:
+            conn.close()
+
+
+@app.route("/request-payment-details/<number>", methods=["POST", "OPTIONS"])
+def request_payment_details(number):
+    """Email the company that a customer wants payment instructions."""
+    if request.method == "OPTIONS":
+        return ("", 204)
+
+    conn = None
+    try:
+        conn = get_connection()
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute(
+                "SELECT * FROM reservations WHERE reservation_number = %s",
+                (number,),
+            )
+            row = cur.fetchone()
+        if not row:
+            return jsonify({"success": False, "error": "Reservation not found."}), 404
+
+        data = serialize_row(row)
+        try:
+            google_apps_script_send({
+                "action": "payment_request",
+                "to": COMPANY_EMAIL,
+                "replyTo": data.get("client_email") or COMPANY_EMAIL,
+                "subject": f"Payment Request - {number}",
+                "message": (
+                    f"Reservation {number} has requested payment details.\n\n"
+                    f"Customer: {data.get('client_name') or '(not provided)'}\n"
+                    f"Email:    {data.get('client_email') or '(not provided)'}\n"
+                    f"Phone:    {data.get('client_phone') or '(not provided)'}\n"
+                    f"Region:   {data.get('region')}\n"
+                    f"Stay:     {data.get('check_in')} -> {data.get('check_out')}\n"
+                    f"Guests:   {data.get('adults')} adults, {data.get('children')} children\n"
+                    f"Total:    USD {data.get('price')}\n"
+                ),
+            })
+        except Exception:
+            app.logger.exception("Payment request email failed")
+
+        return jsonify({
+            "success": True,
+            "message": "Payment request sent. Our team will review your reservation and reply by email.",
+        }), 200
+    except Exception:
+        app.logger.exception("request-payment-details failed")
+        return jsonify({"success": False, "error": "Server error."}), 500
+    finally:
+        if conn:
+            conn.close()
+
+
+# --------------------------------------------------------------------------
 # Boat enquiry
 # --------------------------------------------------------------------------
 @app.route("/boat-enquiry", methods=["POST"])
 def boat_enquiry():
-    """Email a boat-rental enquiry; this does not create an accommodation reservation."""
     payload = request.get_json(silent=True)
     if not isinstance(payload, dict):
         payload = request.form.to_dict()
@@ -328,7 +459,6 @@ def boat_enquiry():
 
     try:
         google_apps_script_send({
-            # The existing Apps Script handler uses this action for email delivery.
             "action": "payment_request",
             "to": COMPANY_EMAIL,
             "replyTo": email,
@@ -355,7 +485,6 @@ def boat_enquiry():
 # --------------------------------------------------------------------------
 @app.after_request
 def add_cors_headers(response):
-    # Static frontend is hosted separately on Netlify. Restrict browser access to known origins.
     origin = request.headers.get("Origin", "")
     allowed_origins = {
         "https://exumasportaccomodation.netlify.app",
