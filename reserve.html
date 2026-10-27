@@ -102,7 +102,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var currentNumber = "";
   var creating = false;
 
-  // URL helper (hoisted, used before declaration below — that's intentional).
   function pick() {
     for (var i = 0; i < arguments.length; i++) {
       var v = params.get(arguments[i]);
@@ -207,7 +206,6 @@ document.addEventListener("DOMContentLoaded", function () {
       { method: "GET", cache: "no-store", headers: { "Accept": "application/json" } }
     );
     var body = await readResponse(r, "Loading reservation");
-    // Backend /reservation-data returns a flat row; wrap it if needed.
     displayReservation(body.reservation || body);
   }
 
@@ -242,7 +240,8 @@ document.addEventListener("DOMContentLoaded", function () {
     fd.set("check_out", checkOut);
     fd.set("adults", String(adults));
     fd.set("children", String(children));
-    fd.set("price", (nightlyPrice * nights).toFixed(2));
+    // Backend multiplies by nights — send the NIGHTLY rate here, not the total.
+    fd.set("price", nightlyPrice.toFixed(2));
     if (urlName)  fd.set("client_name",  urlName);
     if (urlPhone) fd.set("client_phone", urlPhone);
     if (urlEmail) fd.set("client_email", urlEmail);
@@ -396,7 +395,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // Boat path
     if (isBoat) {
       var b = boatInfo();
       requestBtn.disabled = true;
@@ -446,7 +444,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    // Accommodation path
     if (!currentNumber) {
       requestMsg.style.color = "#b00020";
       requestMsg.textContent = "Please wait for the reservation number to load.";
